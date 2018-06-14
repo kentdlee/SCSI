@@ -240,6 +240,8 @@ need to type *ctl-d* inside Wing IDE 101 to get out when you are done using the 
 
 You can get more help with arithmetic operators in `Python by going to this page <https://www.tutorialspoint.com/python/python_basic_operators.htm>`_.
 
+Here is the latest.
+
 Strings, Integers, Floats
 
 Calculate days, minutes, seconds since you were born.
