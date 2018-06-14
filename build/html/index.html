@@ -1,0 +1,370 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Welcome to Game Development with Python! &#8212; Computer Science and Game Development with Python 1.0 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="#">Computer Science and Game Development with Python 1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-game-development-with-python">
+<h1>Welcome to Game Development with Python!<a class="headerlink" href="#welcome-to-game-development-with-python" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<p>The goal of this camp is to open new worlds and possibilities to you in the area of computer programming. In this week we’ll motivate learning to program
+by exploring gaming. Today’s video games are complex masterpieces and are programmed by teams of programmers, artists, and writers. Yet, video game
+programming remains a very elite area with a huge amount of competition. So, my goal is not to teach you to be a video game programmer, but to teach
+you to be a programmer by learning about video games and how they are constructed. More importantly, the skills and knowledge you learn by studying Computer Science
+will open the door to a profession full of creativity, opportunities for life-long learning, and the skills needed to help many people.</p>
+<p>There are a few basic things you need to learn to become a computer programmer. In the early lessons this week we’ll study the Python programming language
+and learn some of the basics.
+Just as importantly there are
+also skills we need to learn to find problems in our code. We almost never write code correctly the first time. We have to debug our programs until
+they are correct. Don’t worry if your program doesn’t run the first time you run it. It probably won’t. Programs working the first time they are run is the exception, not
+the rule. Try the code you have written. When it doesn’t work, try to figure out why. If you have spent a few minutes with the code and you are not sure
+of the problem, then ask for help. There is no problem in asking questions.</p>
+<p>In Computer Science, we never write anything ourselves from scratch. Instead, we
+build on the shoulders of the giants that have come before us. Writing programs is a creative process and the design and coding of new creations (our programs) can
+be very rewarding, both emotionally and monetarily. But we all must acknowledge as programmers we don’t write things from scratch. Instead, we
+build new things by using code that others have written before in new and creative ways.
+Much of what we do as programmers relies on libraries of code that others have already written to make our job easier. So, an important part of
+computer programming is reading, trying out libraries of code, and figuring out how to use it in building something new.</p>
+<p>As programmers we use our creativity and ingenuity to take code from libraries and combine these libraries along with code
+we write, to solve problems that impact the lives of those around us in some manner, hopefully for the good of humanity. We’re very excited to have
+you begin this journey, so let’s get started!</p>
+</div>
+<div class="section" id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<div class="figboxright docutils container">
+<div class="figure" id="guido">
+<img alt="_images/guido.jpg" src="_images/guido.jpg" />
+</div>
+<p>We are going to learn to program using a very popular programming language called Python. The language is named Python after Monty Python. It was first
+created by Guido Van Rossum, a programmer who worked for Google for a while and now works for Dropbox. Python is a language that is used by many
+websites to access data on web servers. It is also a language that will let you quickly learn to program. You can write a one line program in Python.</p>
+<p>Python is a high-level language, meaning that we can do a lot with very few statements and instructions to the computer. For instance, we can build a list
+of values from a file with one line of code. But, to accomplish these high-level tasks, we need a program to help us. Python is an interpreted language
+and that means that a special program, called the Python interpreter, translates the high-level statements that we write into the low-level commands
+understood by a computer.</p>
+<p>The figure below has the interpreter represented in Pink/Red. The internals of the interpreter (i.e. the stuff inside the Pink box) is not important
+to us. What is important is the source program which is interpreted by the Python interpreter, which is a program that understands how to run your
+source program using the operating system and the computer hardware. So, to run a Python program we must run it with a Python interpreter.</p>
+</div>
+<div class="figboxcenter docutils container">
+<div class="figure" id="interpretfig">
+<img alt="_images/interpretation.png" src="_images/interpretation.png" />
+</div>
+</div>
+<div class="section" id="configuring-python">
+<h2>Configuring Python<a class="headerlink" href="#configuring-python" title="Permalink to this headline">¶</a></h2>
+<p>To run Python programs you must have a Python interpreter installed. There are two versions of Python, version 2 and version 3.
+We’ll be using Python version 3 for our programming.</p>
+<p>We’ll download a version of Python that has lots of modules which provide code for us to use. Anaconda is a large distribution of Python with lots
+of great modules available to use. We first bring up a web browser and go to <a class="reference external" href="http://anaconda.com">http://anaconda.com</a>. Then download version 3 of the anaconda distribution.
+Install the anaconda distribution on the computer. Usually it is just installed in your home directory. Then we can add the anaconda <em>bin</em> directory
+to your path. How to do this depends on your operating system. If you are using Windows, you edit the PATH environment variable using the Windows
+method of modifying the path. If you are using Mac OS X then you must edit the PATH environment variable by editing the <em>.bashrc</em> file in your home
+directory.</p>
+<p>After installing anaconda, several other packages must be installed. First install keras. To do this you execute this command from a command prompt
+on the system.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>conda install keras==2.1.2
+</pre></div>
+</div>
+<p>Then <em>pydot</em> and <em>graphviz</em> must be installed. For our purposes later it is probably best to have pydot version 1.2.4 installed and graphviz version 2.40.1.
+Both <em>pydot</em> and <em>graphviz</em> are available as add-ons to the anaconda distribution of Python.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>conda install pydot
+conda install graphviz
+</pre></div>
+</div>
+<p>Finally, we need to install the pygame module so we can use it while building some games. Pygame is not available as an add-on to the anaconda distribution
+but is available as part of Python so we use the <em>pip</em> command instead which is the Python install program (i.e. pip).</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>pip install pygame
+</pre></div>
+</div>
+<p>This concludes installing all the Python software we’ll need for this camp. Next we’ll configure a tool for writing software to play games.</p>
+</div>
+<div class="section" id="configuring-the-ide">
+<h2>Configuring the IDE<a class="headerlink" href="#configuring-the-ide" title="Permalink to this headline">¶</a></h2>
+<p>To write our Python programs we’ll use an Integrated Development Environment, or IDE, that runs the interpreter by providing it with your source program.
+Wing IDE 101 is our development environment.</p>
+<p>Start up the Wing IDE 101 program. The first time you run it you must accept the license (it is free to use) and then configure it to run our distribution
+of Python. To configure Wing IDE 101 choose Edit -&gt; Configure Python… and then pick the
+right Python interpreter. In our case we’ll choose <em>pythonw</em> because this Python 3 interpreter will capture the keystrokes on the keyboard correctly
+to interact with games developed with <em>pygame</em>.</p>
+<div class="figboxcenter docutils container">
+<div class="figure" id="configide">
+<a class="reference internal image-reference" href="_images/pythonconfig.png"><img alt="_images/pythonconfig.png" src="_images/pythonconfig.png" style="width: 549.0px; height: 563.0px;" /></a>
+</div>
+</div>
+<p>Press OK to accept <em>pythonw</em> as the interpreter. Wing 101 will ask if you want to restart the <em>shell</em> which is just another
+name for the Python interpreter. You can respond by clicking the <em>restart shell</em> button.</p>
+<p>This is a one-time only configuration. Now, let’s write our first program.</p>
+</div>
+<div class="section" id="lesson-one">
+<h2>Lesson One<a class="headerlink" href="#lesson-one" title="Permalink to this headline">¶</a></h2>
+<p>From this lesson we learn how to create a program in Wing IDE 101, save it, run it, and interact with it.</p>
+<p>The first program is almost always a hello world application. We’ll start that way to keep things very simple. First start Wing IDE 101 and click the
+new program button. Then type the code from the figure below into the “untitled” pane. Once you are done typing it you can run it by clicking the
+<em>bug</em> icon. This icon is used to run and debug your program.</p>
+<div class="figboxcenter docutils container">
+<div class="figure" id="helloworld">
+<a class="reference internal image-reference" href="_images/helloworld.png"><img alt="_images/helloworld.png" src="_images/helloworld.png" style="width: 839.0px; height: 565.0px;" /></a>
+</div>
+</div>
+<p>When you first run it you will be asked to save it. Save it to your Desktop folder and call it helloworld.py with no spaces and no capital letters.</p>
+<p>The program will wait for input from you. You have to type your name in the <em>Debug I/O</em> pane. Then it will finish printing its output.</p>
+<p>Next, let’s run it by stepping into it. Click the <em>step into</em> arrow on the right side. Then click the <em>step over</em> button to watch the Python interpreter
+execute each of the two statements.</p>
+</div>
+</div>
+<div class="section" id="introduction-to-types">
+<h1>Introduction to Types<a class="headerlink" href="#introduction-to-types" title="Permalink to this headline">¶</a></h1>
+<p>Python supports doing math involving two different types. There are <em>integers</em> and <em>floats</em> in Python. We’re familiar with integers. Floats are floating
+point numbers which are the computer’s version of Real numbers.</p>
+<p>We can assign a <em>variable</em> a <em>value</em>. So for instance,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">6</span>
+</pre></div>
+</div>
+<p>This assigns the variable <em>x</em> the value <em>6</em>. The <em>6</em> has a type which is an integer, or <em>int</em> in the Python language. The <em>x</em> is a variable which is a <em>reference</em> to the value. A <em>reference</em> is a
+pointer to a <em>value</em>. A <em>value</em> is also known as an <em>object</em>. So <em>6</em> is an integer object.</p>
+<div class="figboxcenter docutils container">
+<div class="figure" id="reference">
+<img alt="_images/reference.png" src="_images/reference.png" />
+</div>
+</div>
+<p>There are other types of values in Python. For instance, writing</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="mf">6.0</span>
+</pre></div>
+</div>
+<p>creates a variable reference <em>y</em> that points to a <em>float</em> object. Writing a decimal point in a number makes it a <em>float</em> instead of an <em>int</em>.</p>
+<p>There are other types of values as well in Python. Strings are another example. In the first program above we have a string literal value show
+up in when we wrote “Hello”. Strings are called the <em>str</em> type in Python. String literal values are written inside either double or single quotes.</p>
+<p>In the first program we used two <em>functions</em>, <em>input</em> and <em>print</em>. The <em>input</em> function gets input from the user and returns a <em>str</em> of that input.
+The <em>input</em> function is passed a prompt string to print when it is executed to so can prompt the user for input.</p>
+<p>The <em>print</em> function prints the values passed to it to the screen separated by spaces.</p>
+<p>We can convert from one type to another by writing the using the name of the type like a function in Python and passing in the value we want to
+convert to a new type of value. For instance, consider getting the age of a person from the user.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;What is your name? &quot;</span><span class="p">)</span>
+<span class="n">myAgeStr</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;What is your age? &quot;</span><span class="p">)</span>
+<span class="n">myAgeInt</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">myAgeStr</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;next year you will be &quot;</span><span class="p">,</span> <span class="n">myAgeInt</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Examine the code above closely. The <em>myAgeStr</em> is a string because that’s what <em>input</em> returns. The <em>myAgeInt</em> is an integer because we call the <em>int</em>
+type conversion function on the string.</p>
+<p>Normally we might simplify the code above to look something like this.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;What is your name? &quot;</span><span class="p">)</span>
+<span class="n">myAge</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;What is your age? &quot;</span><span class="p">))</span>
+<span class="n">nextYearsAge</span> <span class="o">=</span> <span class="n">myAge</span><span class="o">+</span><span class="mi">1</span>
+<span class="k">print</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;next year you will be &quot;</span><span class="p">,</span> <span class="n">nextYearsAge</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Notice that we added 1 to an integer in this code. Integers and floats support all the common arithmetic operations include +, -, *, and /. Integers
+also support // which represents integer division. So 6//4 would be 1. Integers also support the modulo (i.e. remainder) operator so 6%4 is 2. This
+is division like you learned in grade school. When you divide 6 by 4 you get 1 with a remainder of 2.</p>
+<p>Strings support a few arithmetic operators as well like +, which is used for string concatenation. The * operator can be used with an integer to get
+string repetition. Here are some sample operations with strings.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Kent</span><span class="s1">&#39;s Mac&gt; python3</span>
+<span class="n">Python</span> <span class="mf">3.6</span><span class="o">.</span><span class="mi">5</span> <span class="o">|</span><span class="n">Anaconda</span><span class="p">,</span> <span class="n">Inc</span><span class="o">.|</span> <span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="n">Apr</span> <span class="mi">26</span> <span class="mi">2018</span><span class="p">,</span> <span class="mi">08</span><span class="p">:</span><span class="mi">42</span><span class="p">:</span><span class="mi">37</span><span class="p">)</span>
+<span class="p">[</span><span class="n">GCC</span> <span class="mf">4.2</span><span class="o">.</span><span class="mi">1</span> <span class="n">Compatible</span> <span class="n">Clang</span> <span class="mf">4.0</span><span class="o">.</span><span class="mi">1</span> <span class="p">(</span><span class="n">tags</span><span class="o">/</span><span class="n">RELEASE_401</span><span class="o">/</span><span class="n">final</span><span class="p">)]</span> <span class="n">on</span> <span class="n">darwin</span>
+<span class="n">Type</span> <span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="s2">&quot;copyright&quot;</span><span class="p">,</span> <span class="s2">&quot;credits&quot;</span> <span class="ow">or</span> <span class="s2">&quot;license&quot;</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">6</span> <span class="o">+</span> <span class="mi">5</span>
+<span class="mi">11</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="s2">&quot;hi&quot;</span><span class="o">*</span><span class="mi">6</span>
+<span class="s1">&#39;hihihihihihi&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="s2">&quot;hi &quot;</span> <span class="o">+</span> <span class="s2">&quot;there&quot;</span>
+<span class="s1">&#39;hi there&#39;</span>
+<span class="o">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>In the code example above I wanted to try out something in Python. You can do this in two ways. You can open a terminal window and try it there.
+To do this go to the search icon at the top of the window, and type <em>terminal</em>. Then you can type <em>python3</em> to start the interpreter. Once you have
+tried out what you see here you can type <em>ctl-d</em> to get out of the interpreter or just close the window.</p>
+<p>The other way to try something out quickly is in Wing IDE 101. Click on the <em>Python Shell</em> pane and then you can try it right in that pane. You DON’T
+need to type <em>ctl-d</em> inside Wing IDE 101 to get out when you are done using the Python Shell in Wing.</p>
+<p>You can get more help with arithmetic operators in <a class="reference external" href="https://www.tutorialspoint.com/python/python_basic_operators.htm">Python by going to this page</a>.</p>
+<p>Strings, Integers, Floats</p>
+<p>Calculate days, minutes, seconds since you were born.
+Get input from the user. Convert to the correct type.</p>
+<div class="section" id="lesson-two">
+<h2>Lesson Two<a class="headerlink" href="#lesson-two" title="Permalink to this headline">¶</a></h2>
+<p>Calculate change in dollars, quarters, dimes, nickels, and pennies.</p>
+<p>Then use the datetime module to compute the days since you were born.</p>
+</div>
+</div>
+<div class="section" id="introduction-to-loops-and-collections">
+<h1>Introduction to Loops and Collections<a class="headerlink" href="#introduction-to-loops-and-collections" title="Permalink to this headline">¶</a></h1>
+<p>Tuples, Lists, Sets, Dictionaries</p>
+<p>Use the random module to put some values in each of these types of collections.
+Read words from a file. Add them to a list if they are not in a stop set.</p>
+<p>Use a dictionary mapping tuples to integers to represent a tic tac toe board.</p>
+<p>Write an evaluation function to find a win in the board.</p>
+<p>Have students write an eval function for connect four.</p>
+<p>Use datetime to keep track of how fast an item can be looked up.</p>
+<div class="section" id="lesson-three">
+<h2>Lesson Three<a class="headerlink" href="#lesson-three" title="Permalink to this headline">¶</a></h2>
+<p>Create a word jumble by mixing up letters of words.</p>
+<p>Use a dictionary to keep track of the words. Count the correct answers.  Keep a list of the incorrect answers. Keep track of time to see how fast they find the
+answer.</p>
+</div>
+</div>
+<div class="section" id="writing-and-calling-functions">
+<h1>Writing and Calling Functions<a class="headerlink" href="#writing-and-calling-functions" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="writing-classes-making-objects-calling-methods">
+<h1>Writing Classes, Making Objects, Calling Methods<a class="headerlink" href="#writing-classes-making-objects-calling-methods" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="code-re-use-with-inheritance">
+<h1>Code Re-use with Inheritance<a class="headerlink" href="#code-re-use-with-inheritance" title="Permalink to this headline">¶</a></h1>
+<p>End of session one.</p>
+</div>
+<div class="section" id="introduction-to-animation">
+<h1>Introduction to Animation<a class="headerlink" href="#introduction-to-animation" title="Permalink to this headline">¶</a></h1>
+<p>Frames and Double Buffering</p>
+<p>How does PyGame do it?</p>
+</div>
+<div class="section" id="translation-rotation-and-scaling">
+<h1>Translation, Rotation, and Scaling<a class="headerlink" href="#translation-rotation-and-scaling" title="Permalink to this headline">¶</a></h1>
+<p>Always relative to origin.</p>
+<p>How does PyGame do it?</p>
+</div>
+<div class="section" id="building-a-video-game">
+<h1>Building a Video Game<a class="headerlink" href="#building-a-video-game" title="Permalink to this headline">¶</a></h1>
+<p>Missile Command? Angry Birds?</p>
+<p>End of session two.</p>
+</div>
+<div class="section" id="composite-shapes">
+<h1>Composite Shapes<a class="headerlink" href="#composite-shapes" title="Permalink to this headline">¶</a></h1>
+<p>Animating.</p>
+</div>
+<div class="section" id="detecting-collisions">
+<h1>Detecting Collisions<a class="headerlink" href="#detecting-collisions" title="Permalink to this headline">¶</a></h1>
+<p>End of Session 3.</p>
+</div>
+<div class="section" id="games-of-perfect-information">
+<h1>Games of Perfect Information<a class="headerlink" href="#games-of-perfect-information" title="Permalink to this headline">¶</a></h1>
+<p>Tic Tac Toe</p>
+<p>Minimax</p>
+<p>Connect Four</p>
+</div>
+<div class="section" id="machine-learning-opponents">
+<h1>Machine Learning Opponents<a class="headerlink" href="#machine-learning-opponents" title="Permalink to this headline">¶</a></h1>
+<p>Building an AlphaZero opponent for Connect Four.</p>
+</div>
+<div class="section" id="python-quick-reference-links">
+<h1>Python Quick Reference Links<a class="headerlink" href="#python-quick-reference-links" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html">Python Types</a></li>
+<li><a class="reference external" href="https://www.tutorialspoint.com/python/python_basic_operators.htm">Arithmetic Operators</a></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Welcome to Game Development with Python!</a></li>
+<li><a class="reference internal" href="#getting-started">Getting Started</a><ul>
+<li><a class="reference internal" href="#configuring-python">Configuring Python</a></li>
+<li><a class="reference internal" href="#configuring-the-ide">Configuring the IDE</a></li>
+<li><a class="reference internal" href="#lesson-one">Lesson One</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#introduction-to-types">Introduction to Types</a><ul>
+<li><a class="reference internal" href="#lesson-two">Lesson Two</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#introduction-to-loops-and-collections">Introduction to Loops and Collections</a><ul>
+<li><a class="reference internal" href="#lesson-three">Lesson Three</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#writing-and-calling-functions">Writing and Calling Functions</a></li>
+<li><a class="reference internal" href="#writing-classes-making-objects-calling-methods">Writing Classes, Making Objects, Calling Methods</a></li>
+<li><a class="reference internal" href="#code-re-use-with-inheritance">Code Re-use with Inheritance</a></li>
+<li><a class="reference internal" href="#introduction-to-animation">Introduction to Animation</a></li>
+<li><a class="reference internal" href="#translation-rotation-and-scaling">Translation, Rotation, and Scaling</a></li>
+<li><a class="reference internal" href="#building-a-video-game">Building a Video Game</a></li>
+<li><a class="reference internal" href="#composite-shapes">Composite Shapes</a></li>
+<li><a class="reference internal" href="#detecting-collisions">Detecting Collisions</a></li>
+<li><a class="reference internal" href="#games-of-perfect-information">Games of Perfect Information</a></li>
+<li><a class="reference internal" href="#machine-learning-opponents">Machine Learning Opponents</a></li>
+<li><a class="reference internal" href="#python-quick-reference-links">Python Quick Reference Links</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="#">Computer Science and Game Development with Python 1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Kent D. Lee.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>
