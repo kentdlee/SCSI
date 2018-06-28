@@ -602,6 +602,12 @@ the following.
 
 The code above will print *you?* first and *Hello* last.
 
+Lesson Six
+-------------
+
+Here is the lesson.
+
+
 Sets
 -------
 
