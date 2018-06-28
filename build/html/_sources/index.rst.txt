@@ -602,10 +602,34 @@ the following.
 
 The code above will print *you?* first and *Hello* last.
 
-Lesson Six
--------------
+Importing Modules
+--------------------
 
-Here is the lesson.
+A module is code that someone else wrote and that we can use. We import a module by writing
+
+.. code-block:: python
+
+    import module_name
+
+where *module_name* is the module to be imported. Many, many modules are already written for Python. Included among them is the
+`random <https://docs.python.org/3/library/random.html>`_ module.
+
+If we import the *random* module we can use code in it to build a random permutation of a list of integers. Here is
+some code that can be used to build a random permutation of a list of integers.
+
+.. code-block:: python
+    :linenos:
+
+    import random
+
+    rng = range(10)
+    print(random.sample(rng,len(rng)))
+
+To call the *sample* function from the *range* module, we write *random.sample(arguments)* to call it. To know what
+is in the random module, you have to read the `random module documentation <https://docs.python.org/3/library/random.html>`_.
+
+Lesson Six
+------------
 
 
 Sets
@@ -698,6 +722,7 @@ Python Quick Reference Links
   * `String Operations <https://docs.python.org/3.6/library/stdtypes.html#text-sequence-type-str>`_
   * `Tuples and Sequences <https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences>`_
   * `Lists <https://docs.python.org/3/tutorial/datastructures.html>`_
+  * 'Random module <https://docs.python.org/3/library/random.html>'_
 
 
 

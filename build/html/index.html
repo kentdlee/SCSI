@@ -540,9 +540,30 @@ the following.</p>
 </td></tr></table></div>
 <p>The code above will print <em>you?</em> first and <em>Hello</em> last.</p>
 </div>
+<div class="section" id="importing-modules">
+<h2>Importing Modules<a class="headerlink" href="#importing-modules" title="Permalink to this headline">¶</a></h2>
+<p>A module is code that someone else wrote and that we can use. We import a module by writing</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">module_name</span>
+</pre></div>
+</div>
+<p>where <em>module_name</em> is the module to be imported. Many, many modules are already written for Python. Included among them is the
+<a class="reference external" href="https://docs.python.org/3/library/random.html">random</a> module.</p>
+<p>If we import the <em>random</em> module we can use code in it to build a random permutation of a list of integers. Here is
+some code that can be used to build a random permutation of a list of integers.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">rng</span><span class="p">)))</span>
+</pre></div>
+</td></tr></table></div>
+<p>To call the <em>sample</em> function from the <em>range</em> module, we write <em>random.sample(arguments)</em> to call it. To know what
+is in the random module, you have to read the <a class="reference external" href="https://docs.python.org/3/library/random.html">random module documentation</a>.</p>
+</div>
 <div class="section" id="lesson-six">
 <h2>Lesson Six<a class="headerlink" href="#lesson-six" title="Permalink to this headline">¶</a></h2>
-<p>Here is the lesson.</p>
 </div>
 <div class="section" id="sets">
 <h2>Sets<a class="headerlink" href="#sets" title="Permalink to this headline">¶</a></h2>
@@ -616,6 +637,7 @@ answer.</p>
 <li><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#text-sequence-type-str">String Operations</a></li>
 <li><a class="reference external" href="https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences">Tuples and Sequences</a></li>
 <li><a class="reference external" href="https://docs.python.org/3/tutorial/datastructures.html">Lists</a></li>
+<li>‘Random module &lt;<a class="reference external" href="https://docs.python.org/3/library/random.html">https://docs.python.org/3/library/random.html</a>&gt;’_</li>
 </ul>
 </div></blockquote>
 </div>
@@ -665,6 +687,7 @@ answer.</p>
 <li><a class="reference internal" href="#tuples">Tuples</a></li>
 <li><a class="reference internal" href="#lists">Lists</a></li>
 <li><a class="reference internal" href="#for-loops-for-lists">For Loops for Lists</a></li>
+<li><a class="reference internal" href="#importing-modules">Importing Modules</a></li>
 <li><a class="reference internal" href="#lesson-six">Lesson Six</a></li>
 <li><a class="reference internal" href="#sets">Sets</a></li>
 <li><a class="reference internal" href="#dictionaries">Dictionaries</a></li>
