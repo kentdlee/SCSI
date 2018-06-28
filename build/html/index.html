@@ -127,7 +127,8 @@ name for the Python interpreter. You can respond by clicking the <em>restart she
 <div class="section" id="lesson-one">
 <h2>Lesson One<a class="headerlink" href="#lesson-one" title="Permalink to this headline">¶</a></h2>
 <p>From this lesson we learn how to create a program in Wing IDE 101, save it, run it, and interact with it.</p>
-<p>The first program is almost always a hello world application. We’ll start that way to keep things very simple. First start Wing IDE 101 and click the
+<p>The first program is almost always a hello world application. We’ll start that way to keep things very simple, but with just a little extra.
+First start Wing IDE 101 and click the
 new program button. Then type the code from the figure below into the “untitled” pane. Once you are done typing it you can run it by clicking the
 <em>bug</em> icon. This icon is used to run and debug your program.</p>
 <div class="figboxcenter docutils container">
@@ -141,8 +142,8 @@ new program button. Then type the code from the figure below into the “untitle
 execute each of the two statements.</p>
 </div>
 </div>
-<div class="section" id="introduction-to-types">
-<h1>Introduction to Types<a class="headerlink" href="#introduction-to-types" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction-to-types-and-calling-functions">
+<h1>Introduction to Types and Calling Functions<a class="headerlink" href="#introduction-to-types-and-calling-functions" title="Permalink to this headline">¶</a></h1>
 <p>Python supports doing math involving two different types. There are <em>integers</em> and <em>floats</em> in Python. We’re familiar with integers. Floats are floating
 point numbers which are the computer’s version of Real numbers.</p>
 <p>We can assign a <em>variable</em> a <em>value</em>. So for instance,</p>
@@ -162,11 +163,27 @@ pointer to a <em>value</em>. A <em>value</em> is also known as an <em>object</em
 </div>
 <p>creates a variable reference <em>y</em> that points to a <em>float</em> object. Writing a decimal point in a number makes it a <em>float</em> instead of an <em>int</em>.</p>
 <p>There are other types of values as well in Python. Strings are another example. In the first program above we have a string literal value show
-up in when we wrote “Hello”. Strings are called the <em>str</em> type in Python. String literal values are written inside either double or single quotes.</p>
-<p>In the first program we used two <em>functions</em>, <em>input</em> and <em>print</em>. The <em>input</em> function gets input from the user and returns a <em>str</em> of that input.
-The <em>input</em> function is passed a prompt string to print when it is executed to so can prompt the user for input.</p>
-<p>The <em>print</em> function prints the values passed to it to the screen separated by spaces.</p>
-<p>We can convert from one type to another by writing the using the name of the type like a function in Python and passing in the value we want to
+up when we wrote “Hello”. Strings are called the <em>str</em> type in Python. String literal values are written inside either double or single quotes.</p>
+<p>The first program we wrote above calls two functions, the <em>input</em> function and the <em>print</em> function. A function is given a value or values and returns a value. The values
+given to the function are written inside the parens. If there is more than one, they are separated by commas. You <em>call</em> a function by writing its
+name. When a function is called you go to that function’s code (which you might not see) and execute its code. When the function is done executing
+it <em>returns</em>. A function always returns a value. Sometimes we care about the value the function returns. Other times we might not.</p>
+<p>The <em>input</em> function gets input from the user and returns a <em>str</em> of that input.
+The <em>input</em> function is passed a prompt string to print when it is executed. The prompt is printed to the screen and then the program stops and waits
+for <em>enter</em> to be pressed. Any input typed before <em>enter</em> is pressed is returned from the <em>input</em> function as the value of the input.
+In the program above the <em>input</em> function is given the string literal value “What is your name? ” and it returns the input entered by the user.</p>
+<p>The <em>print</em> function is given
+the two strings to print. The first string is the string literal “Hello”, the second string to print is the value entered by the user.
+The <em>print</em> function prints the values passed to it to the screen separated by spaces. Notice that more than one value can be passed to some functions,
+like <em>print</em>. When more than one value is passed to a function, we separate the values by commas. The <em>print</em> function
+returns a special value called <em>None</em> which we don’t care about so we don’t bother writing</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">val</span> <span class="o">=</span> <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>because <em>val</em> would just refer to the value <em>None</em> anyway and we don’t need that value in our program.</p>
+<div class="section" id="converting-between-types">
+<h2>Converting Between Types<a class="headerlink" href="#converting-between-types" title="Permalink to this headline">¶</a></h2>
+<p>We can convert from one type to another by writing the name of the type like a function in Python and passing in the value we want to
 convert to a new type of value. For instance, consider getting the age of a person from the user.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;What is your name? &quot;</span><span class="p">)</span>
 <span class="n">myAgeStr</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;What is your age? &quot;</span><span class="p">)</span>
@@ -183,8 +200,21 @@ type conversion function on the string.</p>
 <span class="k">print</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;next year you will be &quot;</span><span class="p">,</span> <span class="n">nextYearsAge</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Notice that we added 1 to an integer in this code. Integers and floats support all the common arithmetic operations include +, -, *, and /. Integers
-also support // which represents integer division. So 6//4 would be 1. Integers also support the modulo (i.e. remainder) operator so 6%4 is 2. This
+<p>The code above has an <em>assignment statement</em> that assigns the value computed from <em>myAge+1</em> to the variable <em>nextYearsAge</em>. Alternatively, you can
+increment the age. So you could write the code like this as well.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;What is your name? &quot;</span><span class="p">)</span>
+<span class="n">age</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;What is your age? &quot;</span><span class="p">))</span>
+<span class="n">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">+</span><span class="mi">1</span>
+<span class="k">print</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;next year you will be &quot;</span><span class="p">,</span> <span class="n">age</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This code demonstrates that you can re-use the same variable and increment it in the program. Re-using the same variable works well when you want to
+keep track of some accumulating value.</p>
+</div>
+<div class="section" id="arithmetic-operations">
+<h2>Arithmetic Operations<a class="headerlink" href="#arithmetic-operations" title="Permalink to this headline">¶</a></h2>
+<p>Notice that we added 1 to an integer in the code in the previous section. Integers and floats support all the common arithmetic operations include +, -, *, and /. Integers
+support // which represents integer division. So 6//4 would be 1. Integers also support the modulo (i.e. remainder) operator so 6%4 is 2. This
 is division like you learned in grade school. When you divide 6 by 4 you get 1 with a remainder of 2.</p>
 <p>Strings support a few arithmetic operators as well like +, which is used for string concatenation. The * operator can be used with an integer to get
 string repetition. Here are some sample operations with strings.</p>
@@ -207,27 +237,323 @@ tried out what you see here you can type <em>ctl-d</em> to get out of the interp
 <p>The other way to try something out quickly is in Wing IDE 101. Click on the <em>Python Shell</em> pane and then you can try it right in that pane. You DON’T
 need to type <em>ctl-d</em> inside Wing IDE 101 to get out when you are done using the Python Shell in Wing.</p>
 <p>You can get more help with arithmetic operators in <a class="reference external" href="https://www.tutorialspoint.com/python/python_basic_operators.htm">Python by going to this page</a>.</p>
-<p>Here is the latest.</p>
-<p>Strings, Integers, Floats</p>
-<p>Calculate days, minutes, seconds since you were born.
-Get input from the user. Convert to the correct type.</p>
+</div>
 <div class="section" id="lesson-two">
 <h2>Lesson Two<a class="headerlink" href="#lesson-two" title="Permalink to this headline">¶</a></h2>
-<p>Calculate change in dollars, quarters, dimes, nickels, and pennies.</p>
-<p>Then use the datetime module to compute the days since you were born.</p>
+<p>Write a program that calculates the number of years since the Declaration of Independence was signed in 1776. Interacting with the program should look
+exactly like this.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>What year is it? 2021
+It has been 245 years since the Declaration of Independence was signed.
+</pre></div>
 </div>
 </div>
-<div class="section" id="introduction-to-loops-and-collections">
-<h1>Introduction to Loops and Collections<a class="headerlink" href="#introduction-to-loops-and-collections" title="Permalink to this headline">¶</a></h1>
-<p>Tuples, Lists, Sets, Dictionaries</p>
+</div>
+<div class="section" id="string-operations">
+<h1>String Operations<a class="headerlink" href="#string-operations" title="Permalink to this headline">¶</a></h1>
+<p>Strings are another built-in type in Python. String objects have a number of <em>functions</em> that we can call on them. When a function is associated with
+an object the function is called a <em>method</em>. To call the method we write the reference to the object first, followed by a dot, followed by the method
+name. For instance, there is a method called <em>lower</em> that returns a new string with all the characters of the object lower cased.</p>
+<p>So if we execute this code…</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;Hello WORLD!&quot;</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>it prints the string “hello world!” to the screen. There are many other methods that work on strings as well.
+They are listed <a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#text-sequence-type-str">in the String documentation</a>.</p>
+<div class="section" id="lesson-three">
+<h2>Lesson Three<a class="headerlink" href="#lesson-three" title="Permalink to this headline">¶</a></h2>
+<p>Write a program that asks the user to type a sentence and then prints all the lower case characters as upper case and all the upper case characters
+as lower case. So interacting with it should look like this…</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Please type a sentence: Hello WORLD!
+Here is the new sentence: hELLO world!
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="if-statements">
+<h1>If Statements<a class="headerlink" href="#if-statements" title="Permalink to this headline">¶</a></h1>
+<p>There is another type in Python for true or false. Boolean values, called the <em>bool</em> type in Python, are <em>True</em> and <em>False</em>. Using Python we can compare
+two values and get a boolean value as a result. Then we can execute one block
+of code or another based on that result. The <em>then part</em> is executed if the boolean value is <em>True</em> in an <em>if</em> statement, and the <em>else part</em> is executed
+if the value is <em>False</em> in an if statement.</p>
+<p>For instance, consider this code.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dogName</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;What is your dog&#39;s name? &quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">dogName</span> <span class="o">==</span> <span class="s2">&quot;Fido&quot;</span><span class="p">:</span>
+  <span class="k">print</span><span class="p">(</span><span class="s2">&quot;That&#39;s not very original.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">dogName</span><span class="p">,</span> <span class="s2">&quot;is a cool name!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can also compare values for less than or greater than, less than or equal and greater than or equal.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">age</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Please enter your age: &quot;</span><span class="p">))</span>
+<span class="k">if</span> <span class="n">age</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;No your not!&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">age</span><span class="p">,</span><span class="s2">&quot;is a good age!&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">age</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Younger than the first year, really?&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">age</span> <span class="o">&lt;</span> <span class="mi">13</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Those are great years!&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">age</span> <span class="o">&lt;=</span> <span class="mi">19</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;You are a teenager! Oh boy!&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">age</span> <span class="o">&lt;</span> <span class="mi">26</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Your brain is still growing until you are 26. Did you know that?&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Congratulations!&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">age</span> <span class="o">&gt;=</span> <span class="mi">8</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;You are ready to start learning to program!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="lesson-four">
+<h2>Lesson Four<a class="headerlink" href="#lesson-four" title="Permalink to this headline">¶</a></h2>
+<p>Write a game that asks the user to think of a number between 1 and 100 (inclusive). Then check to see if the number is 50 or not and if it is, print that
+it guessed right. So running the program would look like this if the user thought of 50.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Pick a number between 1 and 100.
+Is your number 50? Yes
+I guessed correctly!
+</pre></div>
+</div>
+<p>And, if the number was not 50 then it should run like this.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Pick a number between 1 and 100.
+Is your number 50? No
+I guessed incorrectly!
+</pre></div>
+</div>
+<p>This seems like a silly exercise. But it will get you writing some code with an if statement. You can compare strings with == and !=
+for equals and not equals. However, strings are either lower case or upper case. If you have a string named <em>s</em> and you want to lower
+case it you can write <em>s.lower()</em> to lowercase the string.</p>
+</div>
+</div>
+<div class="section" id="introduction-to-while-loops">
+<h1>Introduction to While Loops<a class="headerlink" href="#introduction-to-while-loops" title="Permalink to this headline">¶</a></h1>
+<p>We can make the guessing game in the last lesson more interesting if we allow the program to repeatedly guess numbers to find the
+correct answer. A <em>while</em> loop is just the trick. A while loop has a <em>loop body</em> which is a sequence of statements that will be executed
+as long as the condition of the while loop evaluates to <em>True</em>. Here is an example of a while loop.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">while</span> <span class="n">count</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
+  <span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span> <span class="c1"># you can abbreviate this as count += 1</span>
+</pre></div>
+</div>
+<p>Run this code to see that it repeats the <em>print</em> and the <em>assignment statement</em> 10 times, printing 0 through 9 to the screen.</p>
+<div class="section" id="lesson-five">
+<h2>Lesson Five<a class="headerlink" href="#lesson-five" title="Permalink to this headline">¶</a></h2>
+<p>We can improve the guessing game by keeping track of two values a <em>low</em> and a <em>high</em> integer. Then each time through the loop we’ll
+guess the integer average of the <em>low</em> and <em>high</em> value. If we are wrong we should ask if the number is lower or higher. If it is lower then we can adjust the
+<em>high</em> value. If it is higher than the average, then we can adjust the <em>low</em> value. In this way we keep repeating the body of the loop until the value
+is found.</p>
+<p>We can start the program by setting up the loop as follows.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="n">found</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">Found</span><span class="p">:</span>
+  <span class="c1"># This is the body of the loop where we guess and then adjust low and high as</span>
+  <span class="c1"># appropriate.</span>
+</pre></div>
+</div>
+<p>You fill in the blanks in this code so interacting with the program works like this.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Pick a number between 1 and 100
+Is your number 50? no
+Is it higher or lower? higher
+Is your number 75? no
+Is it higher or lower? lower
+Is your number 62? yes
+I guessed correctly in 3 tries.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="container-types">
+<h1>Container Types<a class="headerlink" href="#container-types" title="Permalink to this headline">¶</a></h1>
+<p>There are several types built into Python for containing other values. These types are called container
+types or container classes. Tuples, lists, sets, and dictionaries are four of the common container types
+available in Python.</p>
+<p>We want to learn about these container types because we are going to write programs that often have more than one value
+that we must keep track of. When we do, we want to use one of these containers if possible. For each of the containers we need
+to know how to create a container object, how to put things in it, and how to get things back out of it. The <em>things</em> we put in containers are
+called <em>elements</em> because containers are written so that practically any kind of element may be added to a container.</p>
+<div class="section" id="tuples">
+<h2>Tuples<a class="headerlink" href="#tuples" title="Permalink to this headline">¶</a></h2>
+<p>There are four different kinds of collections that are important for us as
+computer programmers. We will first look at tuples. A <em>tuple</em> is a sequence
+of values that cannot be changed once the tuple is created. For instance (4,3) is a
+tuple of two integers. Here is some code that works with tuples.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mf">3.0</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;x =&quot;</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;y =&quot;</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;z =&quot;</span><span class="p">,</span><span class="n">z</span><span class="p">)</span>
+<span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="n">x</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;a =&quot;</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;b =&quot;</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;c =&quot;</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>Running this code produces the following output.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>x = (4, 3.0)
+y = 4
+z = 3.0
+a = 4
+b = 3.0
+c = (4, 3.0, (4, 3.0))
+</pre></div>
+</div>
+<p>The tuple (4,3) is assigned to <em>x</em> on the first line. The second line takes the zeroth element of the tuple and assigns it to <em>y</em>. Tuples are immutable
+sequences. Tuples being immutable means we can’t change the elements of the sequence once the tuple has been created. Elements of sequences,
+like tuples, are given index positions starting at 0. So <em>x[0]</em> is the first element of the tuple. Then <em>x[1]</em> is the second element of the tuple.</p>
+<p>Using Python you can assign variables to each element of a tuple by separating by commas. Line 7 of the code above assigns <em>a</em> and <em>b</em> to the individual
+elements of x. Finally, line 10 shows that a tuple may contain other tuples.</p>
+<p>You can read more about <a class="reference external" href="https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences">tuples by clicking here</a>.</p>
+</div>
+<div class="section" id="lists">
+<h2>Lists<a class="headerlink" href="#lists" title="Permalink to this headline">¶</a></h2>
+<p>Lists are similar to tuples, except that we use a slightly different syntax for creating a list and lists are <em>mutable</em> while tuples are <em>immutable</em>.
+This means that lists can be modified once they are created. Consider this code.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">lst</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;hi&quot;</span><span class="p">)</span>
+<span class="n">lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;there&quot;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">lst</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">lst</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">lst</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Bob&quot;</span>
+<span class="k">print</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;Hello World</span><span class="se">\t</span><span class="s2">How,</span><span class="se">\t</span><span class="s2">are</span><span class="se">\n</span><span class="s2">you?&quot;</span>
+<span class="k">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">sList</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">sList</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>Line 1 of the code above creates an empty list. Lines 2 and 3 add to elements to the list, mutating it so it is no longer empty. Line 4 prints
+the list. Take a look at the first line of output below to see what a list looks like when printed. Like tuples you can access individual elements of a
+list as shown on lines 5 and 6. Take note of the fact that the indices into a list start at 0 and go to 1 less than the length of the list.
+Line 9 shows how an element of a list may be mutated to hold a new value.</p>
+<p>Line 13 shows how a string can be split by calling the <em>split</em> method which
+returns a list of the white space separated values in the string. White space are any blanks, tabs, or newline characters found in the string. Take
+note of how the tab character (i.e. \t) and the newline character (i.e. \n) are encoded in the string and how they affect the output coming from the
+program.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[&#39;hi&#39;, &#39;there&#39;]
+there
+hi
+[&#39;hi&#39;, &#39;Bob&#39;]
+Hello World   How,  are
+you?
+[&#39;Hello&#39;, &#39;World&#39;, &#39;How,&#39;, &#39;are&#39;, &#39;you?&#39;]
+</pre></div>
+</div>
+<p>More information on using <a class="reference external" href="https://docs.python.org/3/tutorial/datastructures.html">lists can be found here</a>.</p>
+</div>
+<div class="section" id="for-loops-for-lists">
+<h2>For Loops for Lists<a class="headerlink" href="#for-loops-for-lists" title="Permalink to this headline">¶</a></h2>
+<p>Lists are collections of elements. We keep elements in a list when the elements are all alike in some way. We might have a list of integers, or a list
+of strings. We can even have lists of more complicated values like employees or students. For now, we’ll limit our discussion to lists of strings and integers.</p>
+<p>When we have a list of elements we may want to do something with each element of the list. This is where a <em>for loop</em> comes in handy. A <em>for loop</em>
+iterates (i.e. repeats) once for each element of a list. Here is a loop that prints the elements of a list.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;Hello World</span><span class="se">\t</span><span class="s2">How,</span><span class="se">\t</span><span class="s2">are</span><span class="se">\n</span><span class="s2">you?&quot;</span>
+<span class="k">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">sList</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">sList</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">sList</span><span class="p">:</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>This for loop prints each of the elements of the list.</p>
+<p>Each list, like tuples, has index values that can be used to get individual elements of the list. Consider this code.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;Hello World</span><span class="se">\t</span><span class="s2">How,</span><span class="se">\t</span><span class="s2">are</span><span class="se">\n</span><span class="s2">you?&quot;</span>
+<span class="k">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">sList</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">sList</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">sList</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</td></tr></table></div>
+<p>So <em>sList[0]</em> is the first element of the list. There is a <em>len</em> function that can be used to get the length of a list. There is also a <em>range</em>
+function that will generate a list of integers, which can be used as the indices into a list. So this code will work to print the elements of a
+list as well.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;Hello World</span><span class="se">\t</span><span class="s2">How,</span><span class="se">\t</span><span class="s2">are</span><span class="se">\n</span><span class="s2">you?&quot;</span>
+<span class="k">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">sList</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">sList</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sList</span><span class="p">)):</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">sList</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</pre></div>
+</td></tr></table></div>
+<p>The <em>range</em> function can be given three arguments. It can be called as <em>range(start,stop,increment)</em> and it generates a list of integers from <em>start</em>
+to <em>stop-1</em> that goes up by <em>increment</em> each time. So <em>range(0,10,2)</em> would generate the list of integers <em>[0,2,4,6,8]</em> but not <em>10</em> because <em>range</em>
+only goes to <em>stop-1</em> which would be <em>9</em> in this case.</p>
+<p>We can also generate ranges that go backwards. So, <em>range(9,-1,-1)</em> would generate the list <em>[9,8,7,6,5,4,3,2,1,0]</em>. This can be used to build a
+more flexible for loop for going through elements of a list. For instance, if we want to use a for loop to go backwards through a list we can write
+the following.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;Hello World</span><span class="se">\t</span><span class="s2">How,</span><span class="se">\t</span><span class="s2">are</span><span class="se">\n</span><span class="s2">you?&quot;</span>
+<span class="k">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">sList</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">sList</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sList</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">sList</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</pre></div>
+</td></tr></table></div>
+<p>The code above will print <em>you?</em> first and <em>Hello</em> last.</p>
+</div>
+<div class="section" id="sets">
+<h2>Sets<a class="headerlink" href="#sets" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="dictionaries">
+<h2>Dictionaries<a class="headerlink" href="#dictionaries" title="Permalink to this headline">¶</a></h2>
 <p>Use the random module to put some values in each of these types of collections.
 Read words from a file. Add them to a list if they are not in a stop set.</p>
 <p>Use a dictionary mapping tuples to integers to represent a tic tac toe board.</p>
 <p>Write an evaluation function to find a win in the board.</p>
 <p>Have students write an eval function for connect four.</p>
 <p>Use datetime to keep track of how fast an item can be looked up.</p>
-<div class="section" id="lesson-three">
-<h2>Lesson Three<a class="headerlink" href="#lesson-three" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="id1">
+<h2>Lesson Three<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>Create a word jumble by mixing up letters of words.</p>
 <p>Use a dictionary to keep track of the words. Count the correct answers.  Keep a list of the incorrect answers. Keep track of time to see how fast they find the
 answer.</p>
@@ -280,8 +606,12 @@ answer.</p>
 <h1>Python Quick Reference Links<a class="headerlink" href="#python-quick-reference-links" title="Permalink to this headline">¶</a></h1>
 <blockquote>
 <div><ul class="simple">
-<li><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html">Python Types and Operators</a></li>
+<li><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html">Types and Operators</a></li>
 <li><a class="reference external" href="https://www.tutorialspoint.com/python/python_basic_operators.htm">Arithmetic Operators</a></li>
+<li><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html">Built-in Types</a></li>
+<li><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#text-sequence-type-str">String Operations</a></li>
+<li><a class="reference external" href="https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences">Tuples and Sequences</a></li>
+<li><a class="reference external" href="https://docs.python.org/3/tutorial/datastructures.html">Lists</a></li>
 </ul>
 </div></blockquote>
 </div>
@@ -309,12 +639,31 @@ answer.</p>
 <li><a class="reference internal" href="#lesson-one">Lesson One</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#introduction-to-types">Introduction to Types</a><ul>
+<li><a class="reference internal" href="#introduction-to-types-and-calling-functions">Introduction to Types and Calling Functions</a><ul>
+<li><a class="reference internal" href="#converting-between-types">Converting Between Types</a></li>
+<li><a class="reference internal" href="#arithmetic-operations">Arithmetic Operations</a></li>
 <li><a class="reference internal" href="#lesson-two">Lesson Two</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#introduction-to-loops-and-collections">Introduction to Loops and Collections</a><ul>
+<li><a class="reference internal" href="#string-operations">String Operations</a><ul>
 <li><a class="reference internal" href="#lesson-three">Lesson Three</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#if-statements">If Statements</a><ul>
+<li><a class="reference internal" href="#lesson-four">Lesson Four</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#introduction-to-while-loops">Introduction to While Loops</a><ul>
+<li><a class="reference internal" href="#lesson-five">Lesson Five</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#container-types">Container Types</a><ul>
+<li><a class="reference internal" href="#tuples">Tuples</a></li>
+<li><a class="reference internal" href="#lists">Lists</a></li>
+<li><a class="reference internal" href="#for-loops-for-lists">For Loops for Lists</a></li>
+<li><a class="reference internal" href="#sets">Sets</a></li>
+<li><a class="reference internal" href="#dictionaries">Dictionaries</a></li>
+<li><a class="reference internal" href="#id1">Lesson Three</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#writing-and-calling-functions">Writing and Calling Functions</a></li>
