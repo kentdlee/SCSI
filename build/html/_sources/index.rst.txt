@@ -1397,15 +1397,799 @@ these methods.
 
 Once you have completed your solution, you can `check it here <_static/lesson12.py>`_.
 
+Turtle Graphics
+===============
+
+.. Second day of class. We build Minesweeper in this class.
+
+.. container:: figboxright
+
+  .. _turtletrack:
+
+  .. figure:: turtletrack.jpg
+      :scale: 75%
+
+We are going to write a minesweeper event-driven application. To write the minesweeper application you'll
+need to learn some things about Turtle Graphics. To use turtle graphics we create a turtle. The idea is a turtle
+runs around on the sand leaving a trail with its tail. In reality, sea turtles leave two tracks in the sand from their
+flippers. In the turtle graphics world the single trail can paint a picture. Actually, a turtle can do a lot more than leave a trail.
+
+To create a turtle you start a new Python program and then write the following.
+
+.. code-block:: python
+
+    import turtle
+    myTurtle = turtle.Turtle()
+
+Then, the identifier *myTurtle* represents or refers to a turtle.
+As we
+learned when calling methods, you can send commands to this turtle by writing the name of it followed by a dot (i.e. a period) followed by the command.
+For instance, to tell the turtle to go forward 50 steps you would write:
+
+.. code-block:: python
+
+    myTurtle.forward(50)
+
+There are other commands that you might want to send to a turtle. Try these commands out to see what they do.
+
+.. code-block:: python
+
+    myTurtle.left(90)
+    myTurtle.right(45)
+    myTurtle.goto(100,300)
+    myTurtle.ht()
+    myTurtle.penup()
+    myTurtle.pendown()
+    myTurtle.shape("turtle")
+    myTurtle.color("green")
+    myTurtle.write("Hello World")
+
+The complete `Turtle Graphics documentation <https://docs.python.org/3.6/library/turtle.html>`_ can be found here. T
+
+Lesson 13
+------------
+
+Draw a square with Turtle graphics. Use a *for loop* to do this. Then write a function called *drawSquare* that when called uses
+the turtle to draw a square at a particular location and with a particular size on the screen.
+
+Event-Driven Programming
+=========================
+
+In this part of the class we will create a Minesweeper application.
+Along the way you'll learn some things about event-driven and GUI programming.
+The word GUI stands for Graphical User Interface and refers to programs that run in a window.
+Minesweeper is one of those applications since it responds to mouse clicks.
+
+A GUI program responds to events that occur while the program is running. The main program for a
+GUI application is usually not written by the programmer. Instead the main program is provided and
+is called an event-dispatch loop. Here is some pseudo-code for an event-driven main program.
+
+.. code-block:: python
+
+    def main():
+      while True:
+        event = mainQueue.getEvent()
+
+        dispatch(event)
+
+    if __name__ == "__main__":
+      main()
+
+In this code the *mainQueue.getEvent()* blocks if no event is available. A blocking method is a method
+that waits, without using any CPU time, for an event to become available. When an event is available then the *getEvent* method
+returns and the *dispatch* function looks for a handler to handle the event.
+
+So, as programmers of event-driven programs, we *register* event handlers with the *dispatch* function so our event handler
+gets called when the event occurs that we want to handle. We'll see this in the next section when we learn a bit about turtle graphics.
+
+
+Minesweeper
+==============
+
+To start the Minesweeper application you can copy `this code <_static/minesweeper/minesweeper.py>`_ and these pictures to a folder on you computer.
+The code and the pictures must all be in the same folder on your computer.
+
+.. container:: figbox
+
+  .. _minepics:
+
+  .. figure:: _static/minesweeper/bomb36.gif
+  .. figure:: _static/minesweeper/tile36.gif
+  .. figure:: _static/minesweeper/flag36.gif
+
+You might take a couple of minutes to look over the Python code. The Tile class inherits from the Turtle class.
+This means a Tile is a Turtle with some extra things attached.
+
+The MineSweepApplication inherits from the Frame class. A MineSweepApplication is a Frame with some extra things attached.
+A Frame is a widget that is a container. It holds other widgets like Turtles or Tiles for instance.
+
+Lesson 14
+---------
+
+If you run the starter code you might notice a very small window appear on the screen. Our goal is to fill in that window with a canvas area
+where we can create turtles (i.e. Tiles), create a menu and get ready to write the code for starting a game.
+
+The code we write will all go in the buildWindow method of the MineSweepApplication. This is where we are going to write our event handlers
+and register them so we can process events in our program.
+
+Our goal in these lessons is going to be to understand what the code we are working through does. To begin, let's give our application a
+name and create an area where we can draw with turtles. To do this we write this code.
+
+.. code-block:: python
+    :linenos:
+
+    canvas = tkinter.Canvas(self,width=600,height=600)
+    canvas.pack(side=tkinter.LEFT)
+
+    theTurtle = turtle.RawTurtle(canvas)
+    theTurtle.ht()
+
+    self.master.title("Minesweeper")
+
+This code tells the master window (i.e. the root window) to change its title to Minesweeper and creates a canvas where turtles can draw.
+The *tkinter* module is a framework for writing our own GUI programs and is cross-platform. You can `read all about the tkinter framework here
+<https://docs.python.org/3.6/library/tkinter.html?highlight=tkinter>`_.
+
+To create a menu for our application we create a Menu widget called bar, add a File menu widget to
+the menu bar and then add a couple of menu commands to the file menu as follows.
+
+.. code-block:: python
+    :linenos:
+
+    bar = tkinter.Menu(self.master)
+    fileMenu = tkinter.Menu(bar,tearoff=0)
+    def newGame():
+        print("New Game Selected")
+
+    fileMenu.add_command(label="New Game",command=newGame)
+
+    fileMenu.add_command(label="Exit",command=self.master.quit)
+
+    bar.add_cascade(label="File",menu=fileMenu)
+
+    self.master.config(menu=bar)
+    newGame()
+
+Now you can tell the turtle called *theTurtle* to do some of the commands that you learned above
+to see that it will draw on the canvas that you have created.
+
+Finally, we create sidebar area to keep track of the number of bombs that are left. Our game will have 40 bombs in a 16x16 grid of tiles.
+
+.. code-block:: python
+    :linenos:
+
+    sideBar = tkinter.Frame(self,padx=5,pady=5)
+    sideBar.pack(side=tkinter.RIGHT, fill=tkinter.BOTH)
+
+    bombLabel = tkinter.Label(sideBar,text="Bombs = 40")
+    bombLabel.pack()
+
+    self.tileLabel = tkinter.Label(sideBar,text="Tiles = 256")
+    self.tileLabel.pack()
+
+When the program starts the newGame function is called. This function starts the
+game by creating the mines and tiles and then displaying them in a 16x16 grid. You write the following code in the newGame function definition.
+
+To keep track of a 16x16 grid in the program we construct a list of lists. Each
+list is a row of tiles in the minesweeper program. There are 16 of these rows.
+All 16 rows are put in another list called the matrix. The matrix is a variable in the MineSweepApplication.
+
+The screen is an object that we can use to change the coordinates of the canvas.
+We can also register shapes with it. When we register a shape we say that we want a turtle to take that shape somewhere in our program.
+
+We get the screen from the initial turtle we created. Then we can set the
+coordinates to be a 600x600 pixel canvas with (0,0) in the upper left corner. We can then clear the screen and set tracer to 0. The tracer command on the screen tells the screen not to update unless we tell it to update. This speeds up the program so that turtles appear to move very fast when we give them commands. Here is the code that does this. You can add this to the newGame function.
+
+.. code-block:: python
+    :linenos:
+
+    screen = theTurtle.getscreen()
+    screen.setworldcoordinates(0,600,600,0)
+    screen.clear()
+    screen.tracer(0)
+    self.screen = screen
+
+We now want to register some shapes. This is necessary because we will have turtles
+use these shapes later in our program. Some turtles will look like bombs, others flags, and still others will look like tiles. Turtle graphics requires you to register these shapes before a turtle can change its shape.
+
+.. code-block:: python
+    :linenos:
+
+    screen.register_shape("bomb36.gif")
+    screen.register_shape("tile36.gif")
+    screen.register_shape("flag36.gif")
+
+When new game is called there may be an old game that needs to be cleaned up.
+Since each tile is a Turtle, we can clean up the old game by moving the turtles off the screen.
+To do this we write a couple of for loops to go through all the rows of the matrix and for each row all the
+columns of the row. Here is what the code looks like:
+
+.. code-block:: python
+    :linenos:
+
+    for row in self.matrix:
+        for tile in row:
+            tile.goto(-1000,-1000)
+
+No game is interesting unless there is some randomness to the game.
+In Minesweeper we want the 40 bombs to appear at random locations within the game.
+We'll create 40 random numbers to go along with the 40 random bombs that we'll create.
+The random.randrange(256) function will generate a random number between 0 and 255.
+Because it might generate a same random number twice (or more) there is a little bit of code to
+make sure that random numbers in this range don't repeat (so we get 40 random numbers).
+
+.. code-block:: python
+    :linenos:
+
+    randomNumbers = set()
+
+    for i in range(40):
+        r = random.randrange(256)
+        while r in randomNumbers:
+            r = random.randrange(256)
+        randomNumbers.add(r)
+
+Next, we create 256 tiles by creating the 16x16 matrix. As we create tiles we'll
+count from 0 to 255. If we come to a number that is in our list of random numbers,
+we'll make a tile a bomb. Otherwise, a tile is just a tile. Here is code to do this:
+
+.. code-block:: python
+    :linenos:
+
+    self.matrix = []
+    self.tileNum = 256
+    count = 0
+
+    for rowIndex in range(16):
+        row = []
+
+        for colIndex in range(16):
+            bomb = (count in randomNumbers)
+
+            aTile = Tile(canvas,screen,rowIndex,colIndex,\
+                        self.matrix,bomb,self)
+            count = count + 1
+            row.append(aTile)
+
+        self.matrix.append(row)
+
+
+    self.screen.update()
+
+
+Lesson 15
+------------
+
+Up to this point, the application doesn't really do anything. The canvas appears, but no tiles or bombs.
+We need to complete the Tile class to get the program working. Right now the *__init__* method in the Tile
+class has one line in it: the call to *super().__init__(canvas)*. We should keep in mind that the Tile class
+inherits from the RawTurtle class (which is really just a Turtle itself). There is a lot of information
+passed to a Tile object when it is created. The canvas it will be diplayed on is passed. The screen object
+is useful and is passed in as well. The rowIndex is the row in the matrix (starting at 0) that the tile is in.
+The colIndex again goes from 0 to 15. The matrix is the entire matrix of Tiles. The bomb variable is
+True if this tile is a bomb and False otherwise. The gameApp variable points back at the game application object for use later.
+We store all this information in the object. The self variable points at the current object so if we
+write *self.somevariable* we are referring to *somevariable* in the object pointed to by *self* which is the current object.
+So to store gameApp in a *Tile* object, we write
+
+.. code-block:: python
+
+    self.gameApp = gameApp
+
+and we add this code to the *__init__* method in the Tile class. Write similar code to store all the other variables in a tile object.
+
+Remember that *self* is a turtle in the *Tile* class because a *Tile* is a *Turtle* since the *Tile* class inherits from *Turtle*.
+We want to tell the tile to pick up its pen and to take on the shape of a tile. To change the turtle's shape we write this:
+
+.. code-block:: python
+
+    self.shape("tile36.gif")
+
+Now we also want the tile to go to the correct location on the screen for its row and column.
+Since the upper left corner is (0,0) and the width and height are 600 pixels, where should a
+Tile with rowIndex and colIndex be located? Figure this out and then tell self to go there using a *goto* command. Add that code to the
+*__init__* method of the *Tile* class.
+
+In a GUI application we write event handlers. An event handler gets called when an event
+like a button press or mouse click happens in a program. We tell our program which event handler
+to call by registering the event handler. When we click the left mouse button, we want to run some
+code in our program. Here is how we register an event handler in our application.
+
+.. code-block:: python
+    :linenos:
+
+    def leftClickHandler(x,y):
+        self.whenLeftClicked()
+
+    self.onclick(leftClickHandler)
+
+For this code to work, you must add another method to the *Tile* class. The *whenLeftClicked*
+method should be defined in the Tile class with one parameter, *self*. You can have it print "In whenLeftClicked" for now.
+
+You must also register an event handler for the right-click button.
+This is done by registering the event handler as follows:
+
+.. code-block:: python
+
+    self.onclick(rightClickHandler,btn=3)
+
+Be sure to define rightClickHandler and whenRightClicked just as you did above for left clicks.
+
+That's it for lesson 15!
+
+Lesson 16
+------------
+
+Now it gets a bit more complicated. We'll start with the right-click handler called *whenRightClicked*.
+When we right-click on a tile we will change its shape to a flag. Look in the *__init__* method
+of the Tile class to see how the shape of the turtle was changed to a tile. Then, change the shape to a *flag36.gif*.
+Don't forget to update the screen after you have done this.
+
+When the left button is clicked we want to either end the game and display all the bombs, or clear all
+the adjacent tiles that are not next to bombs and possibly display a number. We'll start by checking
+to see if the turtle/tile is visible or not. This code gets added into the *whenLeftClicked* method.
+
+If the tile is visible, then we want to know whether it is a bomb or not. If it is a bomb we'll
+change it's shape to bomb and then display all the other bombs and end the game. Here is some
+code to get us started. Again, this goes in the *whenLeftClicked* method.
+
+.. code-block:: python
+    :linenos:
+
+    if self.isvisible():
+        if self.bomb:
+            self.shape("bomb36.gif")
+            self.screen.update()
+            tkinter.messagebox.showinfo(\
+                message="You blew up!! Game Over!!", \
+                title="Game Over!!!")
+            self.gameApp.gameOver()
+
+For this code to completely work you must define a new method in the *MineSweepApplication*
+class called *gameOver*. This method should go through each row in the matrix and for
+each tile in each row it should call a new method called *gameOver* on the *Tile*.
+After doing this, don't forget to update the screen with this statement:
+
+.. code-block:: python
+
+    self.screen.update()
+
+The tile's *gameOver* method should display itself as a bomb (if it is a bomb).
+You may also want to disable all mouse clicks. You can do this in the *Tile gameOver* method by writing this:
+
+.. code-block:: python
+
+    self.onclick(None)
+    self.onclick(None,btn=3)
+
+That's enough for lesson 16.
+
+Lesson 17
+---------
+
+Now we finish the application by clearing non-bomb tiles from the screen and their non-bomb neighbors.
+To do this we add an else statement to the *whenLeftClicked* method as outlined below.
+
+.. code-block:: python
+    :linenos:
+
+    if self.isvisible():
+        if self.bomb:
+            # stuff we wrote in lesson 16
+        else:
+            # stuff we write in lesson 17
+
+To complete this code we want to do the following. First we want to hide the tile and
+decrement the number of tiles in the game. We can do this by writing a line of code like this:
+
+.. code-block:: python
+
+    self.ht()
+    self.gameApp.decTileNum()
+
+But, for this to work we'll need to define a *decTileNum* method on our *MinesweepApplication* class as follows.
+
+.. code-block:: python
+    :linenos:
+
+    def decTileNum(self):
+        self.tileNum = self.tileNum - 1
+        self.tileLabel.config(text="Tiles = " + str(self.tileNum))
+        if self.tileNum == 40:
+            self.gameOver()
+            tkinter.messagebox.showinfo(\
+               message="You didn't blow up! Congratulations!!",\
+               title="You Won!!!!")
+
+Now we need to make all the neighbor tiles of this tile disappear if they are not bombs.
+To do this we want to make a list of the neighbors that are not bombs and count them as well.
+This is a little complicated but picture counting all the neighbors of a tile and adding them to a list. Here is code that does this.
+
+.. code-block:: python
+    :linenos:
+
+    neighbors = []
+    bombNeighbors = 0
+
+    for i in range(self.rowIndex-1,self.rowIndex+2,1):
+        for j in range(self.colIndex-1,self.colIndex+2,1):
+            if i >= 0 and i < len(self.matrix) \
+               and j >= 0 and j < len(self.matrix):
+                if i != self.rowIndex or j != self.colIndex:
+                    neighbor = self.matrix[i][j]
+
+                    if not neighbor.bomb:
+                        neighbors.append(neighbor)
+                    else:
+                        bombNeighbors = bombNeighbors+1
+
+Then, once we have the list of neighbors, if none of the neighbors are bombs,
+we can uncover the neighbors by going through the list of neighbors and calling whenLeftClicked on them.
+
+The last little bit is to display a number in place of a tile to indicate the
+number of bombs that are adjacent to the tile. This code will do that.
+
+.. code-block:: python
+    :linenos:
+
+    if bombNeighbors > 0:
+        if bombNeighbors == 1:
+            color = "blue"
+        elif bombNeighbors == 2:
+            color = "green"
+        elif bombNeighbors == 3:
+            color = "red"
+        elif bombNeighbors == 4:
+            color = "purple"
+        else:
+            color = "black"
+
+        self.color(color)
+
+        self.left(90)
+        self.forward(18)
+        self.write(str(bombNeighbors),align="center",\
+                   font=("Arial",18,"bold"))
+        self.right(90)
+        self.forward(18)
+
+That's it! You now have a complete Minesweeper application! Congratulations on learning some GUI programming in Python.
+
+Lesson 18
+------------
+
+Before you begin this lesson you should save a copy of your minesweeper application using some other name like lesson18.py. You may or may not have
+time to complete it.
+
+There are two nice additions you could make to this code. For the first addition, you could make the number of bombs configurable. To do this
+will require you
+to get input from the user. A nice way to do this is with an entry box and what is called a *StringVar* in Tkinter. Here is how to code an entry box
+in Tkinter.
+
+.. code-block:: python
+
+    # This is a label widget. Packing it puts it at the top of the sidebar.
+    bombCountLabel = tkinter.Label(sideBar,text="Bomb Count")
+    bombCountLabel.pack()
+
+    # This entry widget allows the user to pick a width for their Minesweeper.
+    # With the self.bombVar variable below you can write self.bombVar.get() to get
+    # the contents of the entry widget and self.bombVar.set(val) to set the value
+    # of the entry widget to val. The type of the value is a string so if you want
+    # an integer you must write int(self.bombVar.get())
+    bombEntry = tkinter.Entry(sideBar,textvariable=self.bombVar)
+    bombEntry.pack()
+
+You can read the comments above to see how the *StringVar* can be used to set the number of bombs of the Minesweeper application. Then you can use the
+value by calling *get* as the comment above says. For instance, if we wanted the number of bombs of the minesweeper application, we could write this.
+
+.. code-block:: python
+
+    bombCount = int(self.bombVar.get())
+
+The other nice addition is to keep track of elapsed time in seconds. This can be done by using the *after* method on the *Tkinter* root window and
+using the *datetime* module. By writing this code in your *MineSweepApplication* class
+
+.. code-block:: python
+
+    self.master.update(1000,ticktock)
+
+you can call the *ticktock* method after approximately one second. When new game is selected, you can record the *startTime* by using the
+*datetime* module's *now* function as follows.
+
+.. code-block:: python
+
+    import datetime
+
+    startTime = datetime.datetime.now()
+
+Then you can do the same to get the *currentTime* in your *ticktock* function.
+
+.. code-block:: python
+
+    currentTime = datetime.datetime.now()
+    elapsedTime = currentTime - startTime
+    # now elapsedTime.seconds is the number of seconds the game has been playing
+
+Once you have the current time, you can update a label to display the current number of elapsed seconds in your game.
+
+You could display a final score for your application which might be some measure of how many bombs we uncovered with the time factored into
+it as well.
+
+
 Introduction to Animation
 ===========================
 
-Frames and Double Buffering
+.. Third day of class
+
+Animation using computer graphics is much like animation in film. A series of still pictures, when displayed in succession at the right speed, looks
+like movement. In this part of the class we'll study animation as it applies to computer video games. We'll concentrate on 2D games, but the ideas
+we cover here can be extended the three dimensions as well.
+
+Our programs will be driven by an event loop like what we learned is needed for GUI programming. The main difference is that the loop in our case
+will execute once for each *frame* we are going to display to the user. A *frame* is one still picture which is part of an animation. So our animations
+will be all about drawing a frame and then drawing the next frame and so on and displaying these frames in rapid succession. Twenty-four frames per second
+is a common frame rate. It can be as high as thirty-two frames per second.
+
+We want our computer video games to get somewhere close to that twenty-four frames per second. This means that we can't draw super complex pictures
+with the hardware that we have access to, but you might be surprised by just how complex they can get. One concept that is very important in computer
+video games is that of *double buffering*. A *buffer* is an area in memory where things can be stored temporarily until they are needed. When we
+draw on the computer screen we are simply drawing a picture in the memory of the computer, in a *buffer*.
+
+*Double buffering* means that they have two buffers, one that is currently being displayed to the user on the computer screen, and another that is
+the target of any drawing operations. By managing the screen contents this way, the process of drawing is never seen by the user. Instead, we flip
+a switch and change between buffers so that the new screen contents are displayed while the other buffer becomes the one that we are now drawing in.
+
+We can't possibly write all the code to do a computer animation or video game. Instead, we need to rely on graphics packages that provide some of the
+code for us. In fact, these graphics packages often rely on other graphics packages to do things extremely quickly so that we can get near the frame
+rate we want. So, a Python graphics package probably uses numerical calculations that are actually implemented in C or C++ so they can run super fast.
+C and C++ programs will typically run much faster than a Python program, but writing a program is C or C++ is also a little harder, so there is a
+trade-off between writing code quickly and writing quick code. For our purposes, Python will work nicely, but for a professional video game developer
+it would not.
+
+As a first example of animation, let's consider a bouncing ball example from Turtle Graphics. Using the Turtle Graphics module in Python it is easy
+to animate because the double buffers are built into the framework. All we have to do is call a *tracer* method with *tracer(0)* to get double buffering
+to work in turtle graphics. Then, to switch buffers we call *screen.update()* which flips the switch between the two buffers. We do this over
+and over again by setting a timer and we have an animation. In this case we'll animate bouncing balls.
+
+Look over the following code carefully so you see how the animation is done. You can also `download the code from here <_static/BouncingBalls.py>`_.
+
+.. code-block:: python
+    :linenos:
+
+    from turtle import *
+    import tkinter
+    import random
+
+    screenMaxX = 300
+    screenMaxY = 300
+    screenMinX = -300
+    screenMinY = -300
+
+    # This is a example of a class that uses inheritance.
+    # The Ball class inherits from the RawTurtle class.
+    # This is indicated to Python by writing
+    # class Ball(RawTurtle):
+    # That says, class Ball inherits from RawTurtle, which
+    # means that a Ball is also a RawTurtle, but it is a
+    # little more than just a RawTurtle. The Ball class also
+    # maintains a dx and dy value that is the amount
+    # to move as it is animated.
+    class Ball(RawTurtle):
+        # The __init__ is the CONSTRUCTOR. Its purpose is to
+        # initialize the object by storing data in the object. Anytime
+        # self.variable = value is written a value is being stored in
+        # the object referred to by self. self always points to the
+        # current object.
+        def __init__(self,cv,dx,dy):
+            # Because the Ball class inherits from the RawTurtle class
+            # the Ball class constructor must call the RawTurtle class
+            # constructor to initialize the RawTurtle part of the object.
+            # The RawTurtle class is called the BASE class. The Ball class
+            # is called the DERIVED class. The call to initialize the
+            # base class part of the object is always the first thing
+            # you do in the derived class's constructor.
+            #RawTurtle.__init__(self,cv)
+            super().__init__(cv)
+
+            # Then the rest of the object can be initialized.
+            self.penup()
+            self.shape("soccerball.gif")
+            self.dx = dx
+            self.dy = dy
+
+        # The move method is a mutator method. It changes the data
+        # of the object by adding something to the Ball's x and y
+        # position.
+        def move(self):
+            newx = self.xcor() + self.dx
+            newy = self.ycor() + self.dy
+
+            # The if statements below make the ball
+            # bounce off the walls.
+            if newx < screenMinX:
+                newx = 2 * screenMinX - newx
+                self.dx = -self.dx
+            if newy < screenMinY:
+                newy = 2 * screenMinY - newy
+                self.dy = - self.dy
+            if newx > screenMaxX:
+                newx = 2 * screenMaxX - newx
+                self.dx = - self.dx
+            if newy > screenMaxY:
+                newy = 2 * screenMaxY - newy
+                self.dy = -self.dy
+
+            # Then we call a method on the RawTurtle
+            # to move to the new x and y position.
+            self.goto(newx,newy)
+
+
+
+    class BouncingBallsApplication(tkinter.Frame):
+        def __init__(self, master=None):
+            super().__init__(master)
+            self.pack(side = tkinter.RIGHT,fill=tkinter.BOTH)
+            self.matrix = []
+            self.buildWindow()
+
+        def decTileNum(self):
+            self.tileNum = self.tileNum - 1
+            self.tileLabel.config(text="Tiles = " + str(self.tileNum))
+            if self.tileNum == 40:
+                self.gameOver()
+                tkinter.messagebox.showinfo(message= \
+                "You didn't blow up! Congratulations!!",title="You Won!!!!")
+
+        def gameOver(self):
+            self.running = False
+            for row in self.matrix:
+                for tile in row:
+                    tile.gameOver()
+            self.screen.update()
+
+        def buildWindow(self):
+
+            # Once the classes and functions have been defined we'll put our
+            # main function at the bottom of the file. Main isn't necessarily
+            # written last. It's simply put at the bottom of the file. Main
+            # is not a method. It is a plain function because it is not
+            # defined inside any class.
+
+            # Start by creating a RawTurtle object for the window.
+            root = self.master
+            root.title("Bouncing Balls!")
+            cv = ScrolledCanvas(root,600,600,600,600)
+            cv.pack(side = tkinter.LEFT)
+            t = RawTurtle(cv)
+
+            screen = t.getscreen()
+            screen.setworldcoordinates(screenMinX,screenMinY,screenMaxX,screenMaxY)
+            t.ht()
+            # The next line tells Turtle Graphics to not display anything in the
+            # second buffer while it is being drawn unless explicitly told to do
+            # so by calling screen.update().
+            screen.tracer(0)
+            # You must register a shape before a turtle can use the shape.
+            screen.register_shape("soccerball.gif")
+
+            # The ballList is a list of all the ball objects. This
+            # list is needed so the balls can be animated by the
+            # program.
+            ballList = []
+
+            # Here is the animation handler. It is called at
+            # every timer event.
+            def animate():
+                # Tell all the balls to move
+                for ball in ballList:
+                    ball.move()
+
+                # This flips the switch to display
+                # the other buffer.
+                screen.update()
+                # Set the timer to go off again
+                screen.ontimer(animate)
+
+            # This code creates 10 balls heading
+            # in random directions
+            for k in range(10):
+                dx = random.random() * 6 + 1
+                dy = random.random() * 6 + 1
+                # Here is how a ball object is created. We
+                # write ball = Ball(5,4)
+                # to create an instance of the Ball class
+                # and point the ball reference at that object.
+                # That way we can refer to the object by writing
+                # ball.
+                ball = Ball(cv,dx,dy)
+                # Each new ball is added to the Ball list so
+                # it can be accessed by the animation handler.
+                ballList.append(ball)
+
+            # This is the code for the quit Button handling. This
+            # function will be passed to the quitButton so it can
+            # be called by the quitButton when it wasPressed.
+            def quitHandler():
+                # close the window and quit
+                print("Good Bye")
+                root.destroy()
+                root.quit()
+
+            # Here is where the quitButton is created. To create
+            # an object we write
+            # objectReference = Class(<Parameters to Constructor>)
+            quitButton = tkinter.Button(self, text = "Quit", command=quitHandler)
+            quitButton.pack()
+
+            # This is another example of a method call. We've been doing
+            # this all semester. It is an ontimer method call to the
+            # TurtleScreen object referred to by screen.
+            screen.ontimer(animate)
+
+    def main():
+        # This creates the root window.
+        root = tkinter.Tk()
+        # And here we make an instance of the BouncingBallsApplication
+        # inside the root window.
+        bouncingBallsApp = BouncingBallsApplication(root)
+
+        # This is the call to the infinite event processing loop. It will terminate
+        # when the application window is closed.
+        bouncingBallsApp.mainloop()
+        print("Program Execution Completed.")
+
+    if __name__ == "__main__":
+        main()
+
+
+Lesson 19
+----------------
+
+Add a button to the bouncing balls application to add another soccer ball to the application. Each time the
+button is pressed another soccer ball should be added to the window. See what happens as you add soccer balls
+to the animation.
+
+
+Adding Gravity
+---------------
+
+Adding gravity to a bouncing ball application is fun and not too hard to do. Gravity has the effect of adding a
+little bit to the dy value of a Ball as it descends or ascends. In this way the ball accelerates on the way down but decelerates on the way up. If you want the
+ball to bounce forever, you can keep this up. But if you would like your ball to come to a stand still over time, then every time it bounces off a wall or the
+floor you can *dampen* its vector (i.e. its dx and dy values) a bit because bouncing transfers some energy from the ball in the form of heat.
+
+Lesson 20
+----------
+
+Add gravity to your ball application by changing the move function of the Ball class to reflect the affects of gravity. Play with the gravitational and
+heat transfer dampening values until you have a realistic looking simulation of bouncing balls.
+
+
+Detecting Collisions
+----------------------
+
+Detecting a collision in the bouncing ball application is relatively easy. You can detect if two balls collide
+by computing their distance from each other and if that distance is less than the sum of the diameters of both
+objects then they have collided. The distance formula can be used to compute the distance between two balls.
+
+Lesson 21
+-----------
+
+Write a function that you call from the animate function that checks to see if a ball in the ballList is close to any other
+ball and if it is, then it removes both balls from the ballList. You should do this after a button is pressed to begin the collision
+detection.
+
+To accomplish this, write a detectCollision method in the Ball class that is given the ballList as an argument. Then remove both *self*
+and the other element from the *ballList* if a ball has collided with the current object.
+
+Introducting PyGame
+=========================
 
 How does PyGame do it?
 
 Translation, Rotation, and Scaling
-====================================
+-----------------------------------
 Always relative to origin.
 
 How does PyGame do it?
@@ -1427,6 +2211,9 @@ End of Session 3.
 
 Games of Perfect Information
 ============================
+
+.. Fourth day of class.
+
 Tic Tac Toe
 
 Minimax
@@ -1435,6 +2222,14 @@ Connect Four
 
 Machine Learning Opponents
 ============================
+
+Alpha Zero Go is an algorithm that solves the Go game. Solving a game means building an opponent that can beat the world's best players. There is an `excellent article
+written on this that is available here <https://medium.com/applied-data-science/how-to-build-your-own-alphazero-ai-using-python-and-keras-7f664945c188>`_.
+What is even more astonishing is that the Alpha Zero Go algorithm has now beaten virtually all of the previous computer opponents of Go and Chess.
+What is even more astonishing than that is that the algorithm learned to do these things without any human expert interaction. It simply learned to do these
+things by itself.
+
+
 Building an AlphaZero opponent for Connect Four.
 
 Python Quick Reference Links
@@ -1451,7 +2246,14 @@ Python Quick Reference Links
   * `Random module <https://docs.python.org/3/library/random.html>`_
   * `Itertools module <https://docs.python.org/3.6/library/itertools.html>`_
   * `Operator Overloading in Python <https://docs.python.org/3.6/library/operator.html>`_
-
+  * `Turtle Graphics <https://docs.python.org/3.6/library/turtle.html>`_
+  * `Tkinter <https://docs.python.org/3.6/library/tkinter.html?highlight=tkinter>`_
+  * `Andy Harris' PyGame Development Examples <https://cs.iupui.edu/~aharris/pygame/>`_
+  * `Jeff Bradberry's Introduction to Monte Carlo Tree Search <http://jeffbradberry.com/posts/2015/09/intro-to-monte-carlo-tree-search/>`_
+  * `David Foster's Article on How to build your own AlphaZero AI with Python and Keras <https://medium.com/applied-data-science/how-to-build-your-own-alphazero-ai-using-python-and-keras-7f664945c188>`_
+  * `Surag Nair's Github repository on a Generalized AlphaZero Framework <https://github.com/suragnair/alpha-zero-general>`_
+  * `Surag Nair's Tutorial on AlphaZero <http://web.stanford.edu/~surag/posts/alphazero.html>`_
+  * `Kent Lee's fork of AlphaZero with GUI front-ends <https://github.com/kentdlee/alpha-zero-general>`_
 
 
 Indices and tables

@@ -1515,15 +1515,967 @@ these methods.</p>
 <p>Once you have completed your solution, you can <a class="reference external" href="_static/lesson12.py">check it here</a>.</p>
 </div>
 </div>
+<div class="section" id="turtle-graphics">
+<h1>Turtle Graphics<a class="headerlink" href="#turtle-graphics" title="Permalink to this headline">¶</a></h1>
+<div class="figboxright docutils container">
+<div class="figure" id="turtletrack">
+<a class="reference internal image-reference" href="_images/turtletrack.jpg"><img alt="_images/turtletrack.jpg" src="_images/turtletrack.jpg" style="width: 252.75px; height: 449.25px;" /></a>
+</div>
+</div>
+<p>We are going to write a minesweeper event-driven application. To write the minesweeper application you’ll
+need to learn some things about Turtle Graphics. To use turtle graphics we create a turtle. The idea is a turtle
+runs around on the sand leaving a trail with its tail. In reality, sea turtles leave two tracks in the sand from their
+flippers. In the turtle graphics world the single trail can paint a picture. Actually, a turtle can do a lot more than leave a trail.</p>
+<p>To create a turtle you start a new Python program and then write the following.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">turtle</span>
+<span class="n">myTurtle</span> <span class="o">=</span> <span class="n">turtle</span><span class="o">.</span><span class="n">Turtle</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Then, the identifier <em>myTurtle</em> represents or refers to a turtle.
+As we
+learned when calling methods, you can send commands to this turtle by writing the name of it followed by a dot (i.e. a period) followed by the command.
+For instance, to tell the turtle to go forward 50 steps you would write:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">myTurtle</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>There are other commands that you might want to send to a turtle. Try these commands out to see what they do.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">myTurtle</span><span class="o">.</span><span class="n">left</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">myTurtle</span><span class="o">.</span><span class="n">right</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">myTurtle</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">myTurtle</span><span class="o">.</span><span class="n">ht</span><span class="p">()</span>
+<span class="n">myTurtle</span><span class="o">.</span><span class="n">penup</span><span class="p">()</span>
+<span class="n">myTurtle</span><span class="o">.</span><span class="n">pendown</span><span class="p">()</span>
+<span class="n">myTurtle</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="s2">&quot;turtle&quot;</span><span class="p">)</span>
+<span class="n">myTurtle</span><span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="s2">&quot;green&quot;</span><span class="p">)</span>
+<span class="n">myTurtle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Hello World&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The complete <a class="reference external" href="https://docs.python.org/3.6/library/turtle.html">Turtle Graphics documentation</a> can be found here. T</p>
+<div class="section" id="lesson-13">
+<h2>Lesson 13<a class="headerlink" href="#lesson-13" title="Permalink to this headline">¶</a></h2>
+<p>Draw a square with Turtle graphics. Use a <em>for loop</em> to do this. Then write a function called <em>drawSquare</em> that when called uses
+the turtle to draw a square at a particular location and with a particular size on the screen.</p>
+</div>
+</div>
+<div class="section" id="event-driven-programming">
+<h1>Event-Driven Programming<a class="headerlink" href="#event-driven-programming" title="Permalink to this headline">¶</a></h1>
+<p>In this part of the class we will create a Minesweeper application.
+Along the way you’ll learn some things about event-driven and GUI programming.
+The word GUI stands for Graphical User Interface and refers to programs that run in a window.
+Minesweeper is one of those applications since it responds to mouse clicks.</p>
+<p>A GUI program responds to events that occur while the program is running. The main program for a
+GUI application is usually not written by the programmer. Instead the main program is provided and
+is called an event-dispatch loop. Here is some pseudo-code for an event-driven main program.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+  <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">event</span> <span class="o">=</span> <span class="n">mainQueue</span><span class="o">.</span><span class="n">getEvent</span><span class="p">()</span>
+
+    <span class="n">dispatch</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+  <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In this code the <em>mainQueue.getEvent()</em> blocks if no event is available. A blocking method is a method
+that waits, without using any CPU time, for an event to become available. When an event is available then the <em>getEvent</em> method
+returns and the <em>dispatch</em> function looks for a handler to handle the event.</p>
+<p>So, as programmers of event-driven programs, we <em>register</em> event handlers with the <em>dispatch</em> function so our event handler
+gets called when the event occurs that we want to handle. We’ll see this in the next section when we learn a bit about turtle graphics.</p>
+</div>
+<div class="section" id="minesweeper">
+<h1>Minesweeper<a class="headerlink" href="#minesweeper" title="Permalink to this headline">¶</a></h1>
+<p>To start the Minesweeper application you can copy <a class="reference external" href="_static/minesweeper/minesweeper.py">this code</a> and these pictures to a folder on you computer.
+The code and the pictures must all be in the same folder on your computer.</p>
+<div class="figbox docutils container">
+<div class="figure" id="minepics">
+<img alt="_images/bomb36.gif" src="_images/bomb36.gif" />
+</div>
+<div class="figure">
+<img alt="_images/tile36.gif" src="_images/tile36.gif" />
+</div>
+<div class="figure">
+<img alt="_images/flag36.gif" src="_images/flag36.gif" />
+</div>
+</div>
+<p>You might take a couple of minutes to look over the Python code. The Tile class inherits from the Turtle class.
+This means a Tile is a Turtle with some extra things attached.</p>
+<p>The MineSweepApplication inherits from the Frame class. A MineSweepApplication is a Frame with some extra things attached.
+A Frame is a widget that is a container. It holds other widgets like Turtles or Tiles for instance.</p>
+<div class="section" id="lesson-14">
+<h2>Lesson 14<a class="headerlink" href="#lesson-14" title="Permalink to this headline">¶</a></h2>
+<p>If you run the starter code you might notice a very small window appear on the screen. Our goal is to fill in that window with a canvas area
+where we can create turtles (i.e. Tiles), create a menu and get ready to write the code for starting a game.</p>
+<p>The code we write will all go in the buildWindow method of the MineSweepApplication. This is where we are going to write our event handlers
+and register them so we can process events in our program.</p>
+<p>Our goal in these lessons is going to be to understand what the code we are working through does. To begin, let’s give our application a
+name and create an area where we can draw with turtles. To do this we write this code.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">canvas</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Canvas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+<span class="n">canvas</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tkinter</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+
+<span class="n">theTurtle</span> <span class="o">=</span> <span class="n">turtle</span><span class="o">.</span><span class="n">RawTurtle</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span>
+<span class="n">theTurtle</span><span class="o">.</span><span class="n">ht</span><span class="p">()</span>
+
+<span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Minesweeper&quot;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>This code tells the master window (i.e. the root window) to change its title to Minesweeper and creates a canvas where turtles can draw.
+The <em>tkinter</em> module is a framework for writing our own GUI programs and is cross-platform. You can <a class="reference external" href="https://docs.python.org/3.6/library/tkinter.html?highlight=tkinter">read all about the tkinter framework here</a>.</p>
+<p>To create a menu for our application we create a Menu widget called bar, add a File menu widget to
+the menu bar and then add a couple of menu commands to the file menu as follows.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">bar</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Menu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="p">)</span>
+<span class="n">fileMenu</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Menu</span><span class="p">(</span><span class="n">bar</span><span class="p">,</span><span class="n">tearoff</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">newGame</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;New Game Selected&quot;</span><span class="p">)</span>
+
+<span class="n">fileMenu</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;New Game&quot;</span><span class="p">,</span><span class="n">command</span><span class="o">=</span><span class="n">newGame</span><span class="p">)</span>
+
+<span class="n">fileMenu</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Exit&quot;</span><span class="p">,</span><span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">quit</span><span class="p">)</span>
+
+<span class="n">bar</span><span class="o">.</span><span class="n">add_cascade</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;File&quot;</span><span class="p">,</span><span class="n">menu</span><span class="o">=</span><span class="n">fileMenu</span><span class="p">)</span>
+
+<span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">menu</span><span class="o">=</span><span class="n">bar</span><span class="p">)</span>
+<span class="n">newGame</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+<p>Now you can tell the turtle called <em>theTurtle</em> to do some of the commands that you learned above
+to see that it will draw on the canvas that you have created.</p>
+<p>Finally, we create sidebar area to keep track of the number of bombs that are left. Our game will have 40 bombs in a 16x16 grid of tiles.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">sideBar</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">sideBar</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tkinter</span><span class="o">.</span><span class="n">RIGHT</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">tkinter</span><span class="o">.</span><span class="n">BOTH</span><span class="p">)</span>
+
+<span class="n">bombLabel</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">sideBar</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Bombs = 40&quot;</span><span class="p">)</span>
+<span class="n">bombLabel</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+
+<span class="bp">self</span><span class="o">.</span><span class="n">tileLabel</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">sideBar</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Tiles = 256&quot;</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">tileLabel</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+<p>When the program starts the newGame function is called. This function starts the
+game by creating the mines and tiles and then displaying them in a 16x16 grid. You write the following code in the newGame function definition.</p>
+<p>To keep track of a 16x16 grid in the program we construct a list of lists. Each
+list is a row of tiles in the minesweeper program. There are 16 of these rows.
+All 16 rows are put in another list called the matrix. The matrix is a variable in the MineSweepApplication.</p>
+<p>The screen is an object that we can use to change the coordinates of the canvas.
+We can also register shapes with it. When we register a shape we say that we want a turtle to take that shape somewhere in our program.</p>
+<p>We get the screen from the initial turtle we created. Then we can set the
+coordinates to be a 600x600 pixel canvas with (0,0) in the upper left corner. We can then clear the screen and set tracer to 0. The tracer command on the screen tells the screen not to update unless we tell it to update. This speeds up the program so that turtles appear to move very fast when we give them commands. Here is the code that does this. You can add this to the newGame function.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">screen</span> <span class="o">=</span> <span class="n">theTurtle</span><span class="o">.</span><span class="n">getscreen</span><span class="p">()</span>
+<span class="n">screen</span><span class="o">.</span><span class="n">setworldcoordinates</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">600</span><span class="p">,</span><span class="mi">600</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">screen</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="n">screen</span><span class="o">.</span><span class="n">tracer</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">screen</span> <span class="o">=</span> <span class="n">screen</span>
+</pre></div>
+</td></tr></table></div>
+<p>We now want to register some shapes. This is necessary because we will have turtles
+use these shapes later in our program. Some turtles will look like bombs, others flags, and still others will look like tiles. Turtle graphics requires you to register these shapes before a turtle can change its shape.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">screen</span><span class="o">.</span><span class="n">register_shape</span><span class="p">(</span><span class="s2">&quot;bomb36.gif&quot;</span><span class="p">)</span>
+<span class="n">screen</span><span class="o">.</span><span class="n">register_shape</span><span class="p">(</span><span class="s2">&quot;tile36.gif&quot;</span><span class="p">)</span>
+<span class="n">screen</span><span class="o">.</span><span class="n">register_shape</span><span class="p">(</span><span class="s2">&quot;flag36.gif&quot;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>When new game is called there may be an old game that needs to be cleaned up.
+Since each tile is a Turtle, we can clean up the old game by moving the turtles off the screen.
+To do this we write a couple of for loops to go through all the rows of the matrix and for each row all the
+columns of the row. Here is what the code looks like:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">tile</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+        <span class="n">tile</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="o">-</span><span class="mi">1000</span><span class="p">,</span><span class="o">-</span><span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>No game is interesting unless there is some randomness to the game.
+In Minesweeper we want the 40 bombs to appear at random locations within the game.
+We’ll create 40 random numbers to go along with the 40 random bombs that we’ll create.
+The random.randrange(256) function will generate a random number between 0 and 255.
+Because it might generate a same random number twice (or more) there is a little bit of code to
+make sure that random numbers in this range don’t repeat (so we get 40 random numbers).</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">randomNumbers</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">):</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">randomNumbers</span><span class="p">:</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
+    <span class="n">randomNumbers</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>Next, we create 256 tiles by creating the 16x16 matrix. As we create tiles we’ll
+count from 0 to 255. If we come to a number that is in our list of random numbers,
+we’ll make a tile a bomb. Otherwise, a tile is just a tile. Here is code to do this:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">tileNum</span> <span class="o">=</span> <span class="mi">256</span>
+<span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">rowIndex</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">colIndex</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
+        <span class="n">bomb</span> <span class="o">=</span> <span class="p">(</span><span class="n">count</span> <span class="ow">in</span> <span class="n">randomNumbers</span><span class="p">)</span>
+
+        <span class="n">aTile</span> <span class="o">=</span> <span class="n">Tile</span><span class="p">(</span><span class="n">canvas</span><span class="p">,</span><span class="n">screen</span><span class="p">,</span><span class="n">rowIndex</span><span class="p">,</span><span class="n">colIndex</span><span class="p">,</span>\
+                    <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="p">,</span><span class="n">bomb</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">aTile</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+
+<span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="lesson-15">
+<h2>Lesson 15<a class="headerlink" href="#lesson-15" title="Permalink to this headline">¶</a></h2>
+<p>Up to this point, the application doesn’t really do anything. The canvas appears, but no tiles or bombs.
+We need to complete the Tile class to get the program working. Right now the <em>__init__</em> method in the Tile
+class has one line in it: the call to <em>super().__init__(canvas)</em>. We should keep in mind that the Tile class
+inherits from the RawTurtle class (which is really just a Turtle itself). There is a lot of information
+passed to a Tile object when it is created. The canvas it will be diplayed on is passed. The screen object
+is useful and is passed in as well. The rowIndex is the row in the matrix (starting at 0) that the tile is in.
+The colIndex again goes from 0 to 15. The matrix is the entire matrix of Tiles. The bomb variable is
+True if this tile is a bomb and False otherwise. The gameApp variable points back at the game application object for use later.
+We store all this information in the object. The self variable points at the current object so if we
+write <em>self.somevariable</em> we are referring to <em>somevariable</em> in the object pointed to by <em>self</em> which is the current object.
+So to store gameApp in a <em>Tile</em> object, we write</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">gameApp</span> <span class="o">=</span> <span class="n">gameApp</span>
+</pre></div>
+</div>
+<p>and we add this code to the <em>__init__</em> method in the Tile class. Write similar code to store all the other variables in a tile object.</p>
+<p>Remember that <em>self</em> is a turtle in the <em>Tile</em> class because a <em>Tile</em> is a <em>Turtle</em> since the <em>Tile</em> class inherits from <em>Turtle</em>.
+We want to tell the tile to pick up its pen and to take on the shape of a tile. To change the turtle’s shape we write this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="s2">&quot;tile36.gif&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we also want the tile to go to the correct location on the screen for its row and column.
+Since the upper left corner is (0,0) and the width and height are 600 pixels, where should a
+Tile with rowIndex and colIndex be located? Figure this out and then tell self to go there using a <em>goto</em> command. Add that code to the
+<em>__init__</em> method of the <em>Tile</em> class.</p>
+<p>In a GUI application we write event handlers. An event handler gets called when an event
+like a button press or mouse click happens in a program. We tell our program which event handler
+to call by registering the event handler. When we click the left mouse button, we want to run some
+code in our program. Here is how we register an event handler in our application.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">leftClickHandler</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">whenLeftClicked</span><span class="p">()</span>
+
+<span class="bp">self</span><span class="o">.</span><span class="n">onclick</span><span class="p">(</span><span class="n">leftClickHandler</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>For this code to work, you must add another method to the <em>Tile</em> class. The <em>whenLeftClicked</em>
+method should be defined in the Tile class with one parameter, <em>self</em>. You can have it print “In whenLeftClicked” for now.</p>
+<p>You must also register an event handler for the right-click button.
+This is done by registering the event handler as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">onclick</span><span class="p">(</span><span class="n">rightClickHandler</span><span class="p">,</span><span class="n">btn</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Be sure to define rightClickHandler and whenRightClicked just as you did above for left clicks.</p>
+<p>That’s it for lesson 15!</p>
+</div>
+<div class="section" id="lesson-16">
+<h2>Lesson 16<a class="headerlink" href="#lesson-16" title="Permalink to this headline">¶</a></h2>
+<p>Now it gets a bit more complicated. We’ll start with the right-click handler called <em>whenRightClicked</em>.
+When we right-click on a tile we will change its shape to a flag. Look in the <em>__init__</em> method
+of the Tile class to see how the shape of the turtle was changed to a tile. Then, change the shape to a <em>flag36.gif</em>.
+Don’t forget to update the screen after you have done this.</p>
+<p>When the left button is clicked we want to either end the game and display all the bombs, or clear all
+the adjacent tiles that are not next to bombs and possibly display a number. We’ll start by checking
+to see if the turtle/tile is visible or not. This code gets added into the <em>whenLeftClicked</em> method.</p>
+<p>If the tile is visible, then we want to know whether it is a bomb or not. If it is a bomb we’ll
+change it’s shape to bomb and then display all the other bombs and end the game. Here is some
+code to get us started. Again, this goes in the <em>whenLeftClicked</em> method.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isvisible</span><span class="p">():</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bomb</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="s2">&quot;bomb36.gif&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+        <span class="n">tkinter</span><span class="o">.</span><span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span>\
+            <span class="n">message</span><span class="o">=</span><span class="s2">&quot;You blew up!! Game Over!!&quot;</span><span class="p">,</span> \
+            <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Game Over!!!&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gameApp</span><span class="o">.</span><span class="n">gameOver</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+<p>For this code to completely work you must define a new method in the <em>MineSweepApplication</em>
+class called <em>gameOver</em>. This method should go through each row in the matrix and for
+each tile in each row it should call a new method called <em>gameOver</em> on the <em>Tile</em>.
+After doing this, don’t forget to update the screen with this statement:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The tile’s <em>gameOver</em> method should display itself as a bomb (if it is a bomb).
+You may also want to disable all mouse clicks. You can do this in the <em>Tile gameOver</em> method by writing this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">onclick</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">onclick</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span><span class="n">btn</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>That’s enough for lesson 16.</p>
+</div>
+<div class="section" id="lesson-17">
+<h2>Lesson 17<a class="headerlink" href="#lesson-17" title="Permalink to this headline">¶</a></h2>
+<p>Now we finish the application by clearing non-bomb tiles from the screen and their non-bomb neighbors.
+To do this we add an else statement to the <em>whenLeftClicked</em> method as outlined below.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isvisible</span><span class="p">():</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bomb</span><span class="p">:</span>
+        <span class="c1"># stuff we wrote in lesson 16</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># stuff we write in lesson 17</span>
+</pre></div>
+</td></tr></table></div>
+<p>To complete this code we want to do the following. First we want to hide the tile and
+decrement the number of tiles in the game. We can do this by writing a line of code like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">ht</span><span class="p">()</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">gameApp</span><span class="o">.</span><span class="n">decTileNum</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>But, for this to work we’ll need to define a <em>decTileNum</em> method on our <em>MinesweepApplication</em> class as follows.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">decTileNum</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">tileNum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tileNum</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">tileLabel</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Tiles = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tileNum</span><span class="p">))</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tileNum</span> <span class="o">==</span> <span class="mi">40</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gameOver</span><span class="p">()</span>
+        <span class="n">tkinter</span><span class="o">.</span><span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span>\
+           <span class="n">message</span><span class="o">=</span><span class="s2">&quot;You didn&#39;t blow up! Congratulations!!&quot;</span><span class="p">,</span>\
+           <span class="n">title</span><span class="o">=</span><span class="s2">&quot;You Won!!!!&quot;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>Now we need to make all the neighbor tiles of this tile disappear if they are not bombs.
+To do this we want to make a list of the neighbors that are not bombs and count them as well.
+This is a little complicated but picture counting all the neighbors of a tile and adding them to a list. Here is code that does this.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">neighbors</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">bombNeighbors</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowIndex</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">rowIndex</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colIndex</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">colIndex</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="p">)</span> \
+           <span class="ow">and</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rowIndex</span> <span class="ow">or</span> <span class="n">j</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colIndex</span><span class="p">:</span>
+                <span class="n">neighbor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">neighbor</span><span class="o">.</span><span class="n">bomb</span><span class="p">:</span>
+                    <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">bombNeighbors</span> <span class="o">=</span> <span class="n">bombNeighbors</span><span class="o">+</span><span class="mi">1</span>
+</pre></div>
+</td></tr></table></div>
+<p>Then, once we have the list of neighbors, if none of the neighbors are bombs,
+we can uncover the neighbors by going through the list of neighbors and calling whenLeftClicked on them.</p>
+<p>The last little bit is to display a number in place of a tile to indicate the
+number of bombs that are adjacent to the tile. This code will do that.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">bombNeighbors</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">bombNeighbors</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;blue&quot;</span>
+    <span class="k">elif</span> <span class="n">bombNeighbors</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;green&quot;</span>
+    <span class="k">elif</span> <span class="n">bombNeighbors</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span>
+    <span class="k">elif</span> <span class="n">bombNeighbors</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;purple&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;black&quot;</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="mi">18</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">bombNeighbors</span><span class="p">),</span><span class="n">align</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>\
+               <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Arial&quot;</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="s2">&quot;bold&quot;</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="mi">18</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>That’s it! You now have a complete Minesweeper application! Congratulations on learning some GUI programming in Python.</p>
+</div>
+<div class="section" id="lesson-18">
+<h2>Lesson 18<a class="headerlink" href="#lesson-18" title="Permalink to this headline">¶</a></h2>
+<p>Before you begin this lesson you should save a copy of your minesweeper application using some other name like lesson18.py. You may or may not have
+time to complete it.</p>
+<p>There are two nice additions you could make to this code. For the first addition, you could make the number of bombs configurable. To do this
+will require you
+to get input from the user. A nice way to do this is with an entry box and what is called a <em>StringVar</em> in Tkinter. Here is how to code an entry box
+in Tkinter.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># This is a label widget. Packing it puts it at the top of the sidebar.</span>
+<span class="n">bombCountLabel</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">sideBar</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Bomb Count&quot;</span><span class="p">)</span>
+<span class="n">bombCountLabel</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+
+<span class="c1"># This entry widget allows the user to pick a width for their Minesweeper.</span>
+<span class="c1"># With the self.bombVar variable below you can write self.bombVar.get() to get</span>
+<span class="c1"># the contents of the entry widget and self.bombVar.set(val) to set the value</span>
+<span class="c1"># of the entry widget to val. The type of the value is a string so if you want</span>
+<span class="c1"># an integer you must write int(self.bombVar.get())</span>
+<span class="n">bombEntry</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">sideBar</span><span class="p">,</span><span class="n">textvariable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bombVar</span><span class="p">)</span>
+<span class="n">bombEntry</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>You can read the comments above to see how the <em>StringVar</em> can be used to set the number of bombs of the Minesweeper application. Then you can use the
+value by calling <em>get</em> as the comment above says. For instance, if we wanted the number of bombs of the minesweeper application, we could write this.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bombCount</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bombVar</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>The other nice addition is to keep track of elapsed time in seconds. This can be done by using the <em>after</em> method on the <em>Tkinter</em> root window and
+using the <em>datetime</em> module. By writing this code in your <em>MineSweepApplication</em> class</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="n">ticktock</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>you can call the <em>ticktock</em> method after approximately one second. When new game is selected, you can record the <em>startTime</em> by using the
+<em>datetime</em> module’s <em>now</em> function as follows.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+
+<span class="n">startTime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Then you can do the same to get the <em>currentTime</em> in your <em>ticktock</em> function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">currentTime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="n">elapsedTime</span> <span class="o">=</span> <span class="n">currentTime</span> <span class="o">-</span> <span class="n">startTime</span>
+<span class="c1"># now elapsedTime.seconds is the number of seconds the game has been playing</span>
+</pre></div>
+</div>
+<p>Once you have the current time, you can update a label to display the current number of elapsed seconds in your game.</p>
+<p>You could display a final score for your application which might be some measure of how many bombs we uncovered with the time factored into
+it as well.</p>
+</div>
+</div>
 <div class="section" id="introduction-to-animation">
 <h1>Introduction to Animation<a class="headerlink" href="#introduction-to-animation" title="Permalink to this headline">¶</a></h1>
-<p>Frames and Double Buffering</p>
-<p>How does PyGame do it?</p>
+<p>Animation using computer graphics is much like animation in film. A series of still pictures, when displayed in succession at the right speed, looks
+like movement. In this part of the class we’ll study animation as it applies to computer video games. We’ll concentrate on 2D games, but the ideas
+we cover here can be extended the three dimensions as well.</p>
+<p>Our programs will be driven by an event loop like what we learned is needed for GUI programming. The main difference is that the loop in our case
+will execute once for each <em>frame</em> we are going to display to the user. A <em>frame</em> is one still picture which is part of an animation. So our animations
+will be all about drawing a frame and then drawing the next frame and so on and displaying these frames in rapid succession. Twenty-four frames per second
+is a common frame rate. It can be as high as thirty-two frames per second.</p>
+<p>We want our computer video games to get somewhere close to that twenty-four frames per second. This means that we can’t draw super complex pictures
+with the hardware that we have access to, but you might be surprised by just how complex they can get. One concept that is very important in computer
+video games is that of <em>double buffering</em>. A <em>buffer</em> is an area in memory where things can be stored temporarily until they are needed. When we
+draw on the computer screen we are simply drawing a picture in the memory of the computer, in a <em>buffer</em>.</p>
+<p><em>Double buffering</em> means that they have two buffers, one that is currently being displayed to the user on the computer screen, and another that is
+the target of any drawing operations. By managing the screen contents this way, the process of drawing is never seen by the user. Instead, we flip
+a switch and change between buffers so that the new screen contents are displayed while the other buffer becomes the one that we are now drawing in.</p>
+<p>We can’t possibly write all the code to do a computer animation or video game. Instead, we need to rely on graphics packages that provide some of the
+code for us. In fact, these graphics packages often rely on other graphics packages to do things extremely quickly so that we can get near the frame
+rate we want. So, a Python graphics package probably uses numerical calculations that are actually implemented in C or C++ so they can run super fast.
+C and C++ programs will typically run much faster than a Python program, but writing a program is C or C++ is also a little harder, so there is a
+trade-off between writing code quickly and writing quick code. For our purposes, Python will work nicely, but for a professional video game developer
+it would not.</p>
+<p>As a first example of animation, let’s consider a bouncing ball example from Turtle Graphics. Using the Turtle Graphics module in Python it is easy
+to animate because the double buffers are built into the framework. All we have to do is call a <em>tracer</em> method with <em>tracer(0)</em> to get double buffering
+to work in turtle graphics. Then, to switch buffers we call <em>screen.update()</em> which flips the switch between the two buffers. We do this over
+and over again by setting a timer and we have an animation. In this case we’ll animate bouncing balls.</p>
+<p>Look over the following code carefully so you see how the animation is done. You can also <a class="reference external" href="_static/BouncingBalls.py">download the code from here</a>.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">turtle</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">tkinter</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="n">screenMaxX</span> <span class="o">=</span> <span class="mi">300</span>
+<span class="n">screenMaxY</span> <span class="o">=</span> <span class="mi">300</span>
+<span class="n">screenMinX</span> <span class="o">=</span> <span class="o">-</span><span class="mi">300</span>
+<span class="n">screenMinY</span> <span class="o">=</span> <span class="o">-</span><span class="mi">300</span>
+
+<span class="c1"># This is a example of a class that uses inheritance.</span>
+<span class="c1"># The Ball class inherits from the RawTurtle class.</span>
+<span class="c1"># This is indicated to Python by writing</span>
+<span class="c1"># class Ball(RawTurtle):</span>
+<span class="c1"># That says, class Ball inherits from RawTurtle, which</span>
+<span class="c1"># means that a Ball is also a RawTurtle, but it is a</span>
+<span class="c1"># little more than just a RawTurtle. The Ball class also</span>
+<span class="c1"># maintains a dx and dy value that is the amount</span>
+<span class="c1"># to move as it is animated.</span>
+<span class="k">class</span> <span class="nc">Ball</span><span class="p">(</span><span class="n">RawTurtle</span><span class="p">):</span>
+    <span class="c1"># The __init__ is the CONSTRUCTOR. Its purpose is to</span>
+    <span class="c1"># initialize the object by storing data in the object. Anytime</span>
+    <span class="c1"># self.variable = value is written a value is being stored in</span>
+    <span class="c1"># the object referred to by self. self always points to the</span>
+    <span class="c1"># current object.</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">cv</span><span class="p">,</span><span class="n">dx</span><span class="p">,</span><span class="n">dy</span><span class="p">):</span>
+        <span class="c1"># Because the Ball class inherits from the RawTurtle class</span>
+        <span class="c1"># the Ball class constructor must call the RawTurtle class</span>
+        <span class="c1"># constructor to initialize the RawTurtle part of the object.</span>
+        <span class="c1"># The RawTurtle class is called the BASE class. The Ball class</span>
+        <span class="c1"># is called the DERIVED class. The call to initialize the</span>
+        <span class="c1"># base class part of the object is always the first thing</span>
+        <span class="c1"># you do in the derived class&#39;s constructor.</span>
+        <span class="c1">#RawTurtle.__init__(self,cv)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">cv</span><span class="p">)</span>
+
+        <span class="c1"># Then the rest of the object can be initialized.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">penup</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="s2">&quot;soccerball.gif&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="n">dx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dy</span> <span class="o">=</span> <span class="n">dy</span>
+
+    <span class="c1"># The move method is a mutator method. It changes the data</span>
+    <span class="c1"># of the object by adding something to the Ball&#39;s x and y</span>
+    <span class="c1"># position.</span>
+    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">newx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xcor</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dx</span>
+        <span class="n">newy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ycor</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dy</span>
+
+        <span class="c1"># The if statements below make the ball</span>
+        <span class="c1"># bounce off the walls.</span>
+        <span class="k">if</span> <span class="n">newx</span> <span class="o">&lt;</span> <span class="n">screenMinX</span><span class="p">:</span>
+            <span class="n">newx</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">screenMinX</span> <span class="o">-</span> <span class="n">newx</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">dx</span>
+        <span class="k">if</span> <span class="n">newy</span> <span class="o">&lt;</span> <span class="n">screenMinY</span><span class="p">:</span>
+            <span class="n">newy</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">screenMinY</span> <span class="o">-</span> <span class="n">newy</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dy</span> <span class="o">=</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">dy</span>
+        <span class="k">if</span> <span class="n">newx</span> <span class="o">&gt;</span> <span class="n">screenMaxX</span><span class="p">:</span>
+            <span class="n">newx</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">screenMaxX</span> <span class="o">-</span> <span class="n">newx</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">dx</span>
+        <span class="k">if</span> <span class="n">newy</span> <span class="o">&gt;</span> <span class="n">screenMaxY</span><span class="p">:</span>
+            <span class="n">newy</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">screenMaxY</span> <span class="o">-</span> <span class="n">newy</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dy</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">dy</span>
+
+        <span class="c1"># Then we call a method on the RawTurtle</span>
+        <span class="c1"># to move to the new x and y position.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">newx</span><span class="p">,</span><span class="n">newy</span><span class="p">)</span>
+
+
+
+<span class="k">class</span> <span class="nc">BouncingBallsApplication</span><span class="p">(</span><span class="n">tkinter</span><span class="o">.</span><span class="n">Frame</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">master</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">RIGHT</span><span class="p">,</span><span class="n">fill</span><span class="o">=</span><span class="n">tkinter</span><span class="o">.</span><span class="n">BOTH</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buildWindow</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">decTileNum</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tileNum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tileNum</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tileLabel</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Tiles = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tileNum</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tileNum</span> <span class="o">==</span> <span class="mi">40</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gameOver</span><span class="p">()</span>
+            <span class="n">tkinter</span><span class="o">.</span><span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span><span class="n">message</span><span class="o">=</span> \
+            <span class="s2">&quot;You didn&#39;t blow up! Congratulations!!&quot;</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;You Won!!!!&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">gameOver</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">tile</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+                <span class="n">tile</span><span class="o">.</span><span class="n">gameOver</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">buildWindow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="c1"># Once the classes and functions have been defined we&#39;ll put our</span>
+        <span class="c1"># main function at the bottom of the file. Main isn&#39;t necessarily</span>
+        <span class="c1"># written last. It&#39;s simply put at the bottom of the file. Main</span>
+        <span class="c1"># is not a method. It is a plain function because it is not</span>
+        <span class="c1"># defined inside any class.</span>
+
+        <span class="c1"># Start by creating a RawTurtle object for the window.</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">master</span>
+        <span class="n">root</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Bouncing Balls!&quot;</span><span class="p">)</span>
+        <span class="n">cv</span> <span class="o">=</span> <span class="n">ScrolledCanvas</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="mi">600</span><span class="p">,</span><span class="mi">600</span><span class="p">,</span><span class="mi">600</span><span class="p">,</span><span class="mi">600</span><span class="p">)</span>
+        <span class="n">cv</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">RawTurtle</span><span class="p">(</span><span class="n">cv</span><span class="p">)</span>
+
+        <span class="n">screen</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">getscreen</span><span class="p">()</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">setworldcoordinates</span><span class="p">(</span><span class="n">screenMinX</span><span class="p">,</span><span class="n">screenMinY</span><span class="p">,</span><span class="n">screenMaxX</span><span class="p">,</span><span class="n">screenMaxY</span><span class="p">)</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">ht</span><span class="p">()</span>
+        <span class="c1"># The next line tells Turtle Graphics to not display anything in the</span>
+        <span class="c1"># second buffer while it is being drawn unless explicitly told to do</span>
+        <span class="c1"># so by calling screen.update().</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">tracer</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="c1"># You must register a shape before a turtle can use the shape.</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">register_shape</span><span class="p">(</span><span class="s2">&quot;soccerball.gif&quot;</span><span class="p">)</span>
+
+        <span class="c1"># The ballList is a list of all the ball objects. This</span>
+        <span class="c1"># list is needed so the balls can be animated by the</span>
+        <span class="c1"># program.</span>
+        <span class="n">ballList</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Here is the animation handler. It is called at</span>
+        <span class="c1"># every timer event.</span>
+        <span class="k">def</span> <span class="nf">animate</span><span class="p">():</span>
+            <span class="c1"># Tell all the balls to move</span>
+            <span class="k">for</span> <span class="n">ball</span> <span class="ow">in</span> <span class="n">ballList</span><span class="p">:</span>
+                <span class="n">ball</span><span class="o">.</span><span class="n">move</span><span class="p">()</span>
+
+            <span class="c1"># This flips the switch to display</span>
+            <span class="c1"># the other buffer.</span>
+            <span class="n">screen</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+            <span class="c1"># Set the timer to go off again</span>
+            <span class="n">screen</span><span class="o">.</span><span class="n">ontimer</span><span class="p">(</span><span class="n">animate</span><span class="p">)</span>
+
+        <span class="c1"># This code creates 10 balls heading</span>
+        <span class="c1"># in random directions</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+            <span class="n">dx</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">dy</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="c1"># Here is how a ball object is created. We</span>
+            <span class="c1"># write ball = Ball(5,4)</span>
+            <span class="c1"># to create an instance of the Ball class</span>
+            <span class="c1"># and point the ball reference at that object.</span>
+            <span class="c1"># That way we can refer to the object by writing</span>
+            <span class="c1"># ball.</span>
+            <span class="n">ball</span> <span class="o">=</span> <span class="n">Ball</span><span class="p">(</span><span class="n">cv</span><span class="p">,</span><span class="n">dx</span><span class="p">,</span><span class="n">dy</span><span class="p">)</span>
+            <span class="c1"># Each new ball is added to the Ball list so</span>
+            <span class="c1"># it can be accessed by the animation handler.</span>
+            <span class="n">ballList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ball</span><span class="p">)</span>
+
+        <span class="c1"># This is the code for the quit Button handling. This</span>
+        <span class="c1"># function will be passed to the quitButton so it can</span>
+        <span class="c1"># be called by the quitButton when it wasPressed.</span>
+        <span class="k">def</span> <span class="nf">quitHandler</span><span class="p">():</span>
+            <span class="c1"># close the window and quit</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Good Bye&quot;</span><span class="p">)</span>
+            <span class="n">root</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+            <span class="n">root</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+
+        <span class="c1"># Here is where the quitButton is created. To create</span>
+        <span class="c1"># an object we write</span>
+        <span class="c1"># objectReference = Class(&lt;Parameters to Constructor&gt;)</span>
+        <span class="n">quitButton</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Quit&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">quitHandler</span><span class="p">)</span>
+        <span class="n">quitButton</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+
+        <span class="c1"># This is another example of a method call. We&#39;ve been doing</span>
+        <span class="c1"># this all semester. It is an ontimer method call to the</span>
+        <span class="c1"># TurtleScreen object referred to by screen.</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">ontimer</span><span class="p">(</span><span class="n">animate</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># This creates the root window.</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
+    <span class="c1"># And here we make an instance of the BouncingBallsApplication</span>
+    <span class="c1"># inside the root window.</span>
+    <span class="n">bouncingBallsApp</span> <span class="o">=</span> <span class="n">BouncingBallsApplication</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+
+    <span class="c1"># This is the call to the infinite event processing loop. It will terminate</span>
+    <span class="c1"># when the application window is closed.</span>
+    <span class="n">bouncingBallsApp</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Program Execution Completed.&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+<div class="section" id="lesson-19">
+<h2>Lesson 19<a class="headerlink" href="#lesson-19" title="Permalink to this headline">¶</a></h2>
+<p>Add a button to the bouncing balls application to add another soccer ball to the application. Each time the
+button is pressed another soccer ball should be added to the window. See what happens as you add soccer balls
+to the animation.</p>
 </div>
+<div class="section" id="adding-gravity">
+<h2>Adding Gravity<a class="headerlink" href="#adding-gravity" title="Permalink to this headline">¶</a></h2>
+<p>Adding gravity to a bouncing ball application is fun and not too hard to do. Gravity has the effect of adding a
+little bit to the dy value of a Ball as it descends or ascends. In this way the ball accelerates on the way down but decelerates on the way up. If you want the
+ball to bounce forever, you can keep this up. But if you would like your ball to come to a stand still over time, then every time it bounces off a wall or the
+floor you can <em>dampen</em> its vector (i.e. its dx and dy values) a bit because bouncing transfers some energy from the ball in the form of heat.</p>
+</div>
+<div class="section" id="lesson-20">
+<h2>Lesson 20<a class="headerlink" href="#lesson-20" title="Permalink to this headline">¶</a></h2>
+<p>Add gravity to your ball application by changing the move function of the Ball class to reflect the affects of gravity. Play with the gravitational and
+heat transfer dampening values until you have a realistic looking simulation of bouncing balls.</p>
+</div>
+<div class="section" id="detecting-collisions">
+<h2>Detecting Collisions<a class="headerlink" href="#detecting-collisions" title="Permalink to this headline">¶</a></h2>
+<p>Detecting a collision in the bouncing ball application is relatively easy. You can detect if two balls collide
+by computing their distance from each other and if that distance is less than the sum of the diameters of both
+objects then they have collided. The distance formula can be used to compute the distance between two balls.</p>
+</div>
+<div class="section" id="lesson-21">
+<h2>Lesson 21<a class="headerlink" href="#lesson-21" title="Permalink to this headline">¶</a></h2>
+<p>Write a function that you call from the animate function that checks to see if a ball in the ballList is close to any other
+ball and if it is, then it removes both balls from the ballList. You should do this after a button is pressed to begin the collision
+detection.</p>
+<p>To accomplish this, write a detectCollision method in the Ball class that is given the ballList as an argument. Then remove both <em>self</em>
+and the other element from the <em>ballList</em> if a ball has collided with the current object.</p>
+</div>
+</div>
+<div class="section" id="introducting-pygame">
+<h1>Introducting PyGame<a class="headerlink" href="#introducting-pygame" title="Permalink to this headline">¶</a></h1>
+<p>How does PyGame do it?</p>
 <div class="section" id="translation-rotation-and-scaling">
-<h1>Translation, Rotation, and Scaling<a class="headerlink" href="#translation-rotation-and-scaling" title="Permalink to this headline">¶</a></h1>
+<h2>Translation, Rotation, and Scaling<a class="headerlink" href="#translation-rotation-and-scaling" title="Permalink to this headline">¶</a></h2>
 <p>Always relative to origin.</p>
 <p>How does PyGame do it?</p>
+</div>
 </div>
 <div class="section" id="building-a-video-game">
 <h1>Building a Video Game<a class="headerlink" href="#building-a-video-game" title="Permalink to this headline">¶</a></h1>
@@ -1534,8 +2486,8 @@ these methods.</p>
 <h1>Composite Shapes<a class="headerlink" href="#composite-shapes" title="Permalink to this headline">¶</a></h1>
 <p>Animating.</p>
 </div>
-<div class="section" id="detecting-collisions">
-<h1>Detecting Collisions<a class="headerlink" href="#detecting-collisions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id11">
+<h1>Detecting Collisions<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h1>
 <p>End of Session 3.</p>
 </div>
 <div class="section" id="games-of-perfect-information">
@@ -1546,6 +2498,11 @@ these methods.</p>
 </div>
 <div class="section" id="machine-learning-opponents">
 <h1>Machine Learning Opponents<a class="headerlink" href="#machine-learning-opponents" title="Permalink to this headline">¶</a></h1>
+<p>Alpha Zero Go is an algorithm that solves the Go game. Solving a game means building an opponent that can beat the world’s best players. There is an <a class="reference external" href="https://medium.com/applied-data-science/how-to-build-your-own-alphazero-ai-using-python-and-keras-7f664945c188">excellent article
+written on this that is available here</a>.
+What is even more astonishing is that the Alpha Zero Go algorithm has now beaten virtually all of the previous computer opponents of Go and Chess.
+What is even more astonishing than that is that the algorithm learned to do these things without any human expert interaction. It simply learned to do these
+things by itself.</p>
 <p>Building an AlphaZero opponent for Connect Four.</p>
 </div>
 <div class="section" id="python-quick-reference-links">
@@ -1563,6 +2520,14 @@ these methods.</p>
 <li><a class="reference external" href="https://docs.python.org/3/library/random.html">Random module</a></li>
 <li><a class="reference external" href="https://docs.python.org/3.6/library/itertools.html">Itertools module</a></li>
 <li><a class="reference external" href="https://docs.python.org/3.6/library/operator.html">Operator Overloading in Python</a></li>
+<li><a class="reference external" href="https://docs.python.org/3.6/library/turtle.html">Turtle Graphics</a></li>
+<li><a class="reference external" href="https://docs.python.org/3.6/library/tkinter.html?highlight=tkinter">Tkinter</a></li>
+<li><a class="reference external" href="https://cs.iupui.edu/~aharris/pygame/">Andy Harris’ PyGame Development Examples</a></li>
+<li><a class="reference external" href="http://jeffbradberry.com/posts/2015/09/intro-to-monte-carlo-tree-search/">Jeff Bradberry’s Introduction to Monte Carlo Tree Search</a></li>
+<li><a class="reference external" href="https://medium.com/applied-data-science/how-to-build-your-own-alphazero-ai-using-python-and-keras-7f664945c188">David Foster’s Article on How to build your own AlphaZero AI with Python and Keras</a></li>
+<li><a class="reference external" href="https://github.com/suragnair/alpha-zero-general">Surag Nair’s Github repository on a Generalized AlphaZero Framework</a></li>
+<li><a class="reference external" href="http://web.stanford.edu/~surag/posts/alphazero.html">Surag Nair’s Tutorial on AlphaZero</a></li>
+<li><a class="reference external" href="https://github.com/kentdlee/alpha-zero-general">Kent Lee’s fork of AlphaZero with GUI front-ends</a></li>
 </ul>
 </div></blockquote>
 </div>
@@ -1644,11 +2609,34 @@ these methods.</p>
 <li><a class="reference internal" href="#lesson-12">Lesson 12</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#introduction-to-animation">Introduction to Animation</a></li>
+<li><a class="reference internal" href="#turtle-graphics">Turtle Graphics</a><ul>
+<li><a class="reference internal" href="#lesson-13">Lesson 13</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#event-driven-programming">Event-Driven Programming</a></li>
+<li><a class="reference internal" href="#minesweeper">Minesweeper</a><ul>
+<li><a class="reference internal" href="#lesson-14">Lesson 14</a></li>
+<li><a class="reference internal" href="#lesson-15">Lesson 15</a></li>
+<li><a class="reference internal" href="#lesson-16">Lesson 16</a></li>
+<li><a class="reference internal" href="#lesson-17">Lesson 17</a></li>
+<li><a class="reference internal" href="#lesson-18">Lesson 18</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#introduction-to-animation">Introduction to Animation</a><ul>
+<li><a class="reference internal" href="#lesson-19">Lesson 19</a></li>
+<li><a class="reference internal" href="#adding-gravity">Adding Gravity</a></li>
+<li><a class="reference internal" href="#lesson-20">Lesson 20</a></li>
+<li><a class="reference internal" href="#detecting-collisions">Detecting Collisions</a></li>
+<li><a class="reference internal" href="#lesson-21">Lesson 21</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#introducting-pygame">Introducting PyGame</a><ul>
 <li><a class="reference internal" href="#translation-rotation-and-scaling">Translation, Rotation, and Scaling</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#building-a-video-game">Building a Video Game</a></li>
 <li><a class="reference internal" href="#composite-shapes">Composite Shapes</a></li>
-<li><a class="reference internal" href="#detecting-collisions">Detecting Collisions</a></li>
+<li><a class="reference internal" href="#id11">Detecting Collisions</a></li>
 <li><a class="reference internal" href="#games-of-perfect-information">Games of Perfect Information</a></li>
 <li><a class="reference internal" href="#machine-learning-opponents">Machine Learning Opponents</a></li>
 <li><a class="reference internal" href="#python-quick-reference-links">Python Quick Reference Links</a></li>
