@@ -1557,8 +1557,8 @@ For instance, to tell the turtle to go forward 50 steps you would write:</p>
 the turtle to draw a square at a particular location and with a particular size on the screen.</p>
 </div>
 </div>
-<div class="section" id="event-driven-programming">
-<h1>Event-Driven Programming<a class="headerlink" href="#event-driven-programming" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="event-driven-programming-and-minesweeper">
+<h1>Event-Driven Programming and Minesweeper<a class="headerlink" href="#event-driven-programming-and-minesweeper" title="Permalink to this headline">¶</a></h1>
 <p>In this part of the class we will create a Minesweeper application.
 Along the way you’ll learn some things about event-driven and GUI programming.
 The word GUI stands for Graphical User Interface and refers to programs that run in a window.
@@ -1581,9 +1581,6 @@ that waits, without using any CPU time, for an event to become available. When a
 returns and the <em>dispatch</em> function looks for a handler to handle the event.</p>
 <p>So, as programmers of event-driven programs, we <em>register</em> event handlers with the <em>dispatch</em> function so our event handler
 gets called when the event occurs that we want to handle. We’ll see this in the next section when we learn a bit about turtle graphics.</p>
-</div>
-<div class="section" id="minesweeper">
-<h1>Minesweeper<a class="headerlink" href="#minesweeper" title="Permalink to this headline">¶</a></h1>
 <p>To start the Minesweeper application you can copy <a class="reference external" href="_static/minesweeper/minesweeper.py">this code</a> and these pictures to a folder on you computer.
 The code and the pictures must all be in the same folder on your computer.</p>
 <div class="figbox docutils container">
@@ -2038,6 +2035,21 @@ using the <em>datetime</em> module. By writing this code in your <em>MineSweepAp
 <p>You could display a final score for your application which might be some measure of how many bombs we uncovered with the time factored into
 it as well.</p>
 </div>
+<div class="section" id="have-more-time">
+<h2>Have More Time?<a class="headerlink" href="#have-more-time" title="Permalink to this headline">¶</a></h2>
+<p>The game of concentration is played by placing, face down, 52 cards. Then you turn over two cards and check to see if they are two red jacks for instance.
+If they are not matching in this way, then you turn them both back over and select two other cards (perhaps one of the same) to see if you have a match.
+When you get a match, the matching cards are removed and play continues with the remaining cards until all cards are removed.</p>
+<p>Build a concentration application with playing cards. Deal out 52 cards face down. Then when a user
+clicks on a card and then another card, if they are a match, remove them from the game. Keep track of time in this application and let the user’s score
+reflect the amount of time it took to complete the game. You should have a <em>New Game</em> button as part of this. As an extra challenge you could
+keep track of a list of best scores and display that list when a button is clicked.</p>
+<p>You can <a class="reference external" href="_static/cards.zip">download a set of playing cards here</a>. If you need to resize your cards to get them to the right size for you application
+you can use the PIL, which stands for Python Imaging Library, to resize them. You can write a Python program to do this. You may find this
+<a class="reference external" href="http://pillow.readthedocs.io/en/3.0.x/reference/Image.html?highlight=resize#image-processing">documentation useful</a> on how to use the Image class
+of the PIL. If you need to resize your cards to get them to the correct size then you can run a Python program once to resize all of them for you.
+You’ll also have to study the names of the cards a bit to see how they are named and how that will apply to your concentration game.</p>
+</div>
 </div>
 <div class="section" id="introduction-to-animation">
 <h1>Introduction to Animation<a class="headerlink" href="#introduction-to-animation" title="Permalink to this headline">¶</a></h1>
@@ -2065,7 +2077,11 @@ it would not.</p>
 to animate because the double buffers are built into the framework. All we have to do is call a <em>tracer</em> method with <em>tracer(0)</em> to get double buffering
 to work in turtle graphics. Then, to switch buffers we call <em>screen.update()</em> which flips the switch between the two buffers. We do this over
 and over again by setting a timer and we have an animation. In this case we’ll animate bouncing balls.</p>
-<p>Look over the following code carefully so you see how the animation is done. You can also <a class="reference external" href="_static/BouncingBalls.py">download the code from here</a>.</p>
+<p>Look over the following code carefully so you see how the animation is done. You can also <a class="reference external" href="_static/BouncingBalls.py">download the code from here</a>. You will
+also need the image of a soccerball which you can copy from here. You need both these programs in the same directory on you computer to run this code.</p>
+<div class="figure">
+<img alt="_images/soccerball.gif" src="_images/soccerball.gif" />
+</div>
 <div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
   2
   3
@@ -2884,6 +2900,423 @@ each frame. Remember that <img class="math" src="_images/math/1237b94d51572f7415
 </div>
 <div class="section" id="backgrounds-and-render-ordering">
 <h2>Backgrounds and Render Ordering<a class="headerlink" href="#backgrounds-and-render-ordering" title="Permalink to this headline">¶</a></h2>
+<p>A background can be added to a PyGame very easily. Once you have a background, there are other challenges like moving a Sprite around in front of the
+background. It takes a bit more time to draw a background image because it fills the whole screen. So, there are often built into frameworks ways of dealing
+with that by only redrawing a part of the background. Take a look at this code, which is part of an Angry Birds video game.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># This is a pygame application and sample classes for</span>
+<span class="c1"># the organization of a pygame application.</span>
+
+<span class="kn">import</span> <span class="nn">pygame</span>
+
+<span class="k">class</span> <span class="nc">RedBird</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">Sprite</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;images/smallredbird.png&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_rect</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">originalImage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dy</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vecx</span> <span class="o">=</span> <span class="mi">20</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vecy</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rotateAlpha</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">getX</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">x</span>
+
+    <span class="k">def</span> <span class="nf">getY</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">y</span>
+
+    <span class="k">def</span> <span class="nf">moveLeft</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vecx</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">moveDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vecy</span> <span class="o">-=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">launch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vecx</span><span class="o">/</span><span class="mi">5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vecy</span><span class="o">/</span><span class="mi">5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rotateAlpha</span> <span class="o">=</span> <span class="mi">2</span>
+
+    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rotateAlpha</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">angle</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">angle</span> <span class="o">+=</span> <span class="n">angle</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">angle</span> <span class="o">%</span> <span class="mi">360</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">originalImage</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">angle</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_rect</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">center</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">SlingShotFG</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">Sprite</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;images/slingshotfg.png&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_rect</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+
+<span class="k">class</span> <span class="nc">SlingShotBG</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">Sprite</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;images/slingshotbg.png&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_rect</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+
+<span class="k">class</span> <span class="nc">RubberBand</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">screen</span><span class="p">,</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">y2</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">polygon</span><span class="p">(</span> \
+              <span class="n">screen</span><span class="p">,(</span><span class="mi">49</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">10</span><span class="p">),[(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">),(</span><span class="n">x2</span><span class="p">,</span><span class="n">y2</span><span class="p">),(</span><span class="mi">190</span><span class="p">,</span><span class="mi">477</span><span class="p">),(</span><span class="mi">192</span><span class="p">,</span> <span class="mi">462</span><span class="p">)])</span>
+
+
+    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">screen</span><span class="p">):</span>
+        <span class="c1">#self.count+=1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">App</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">screen</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">1100</span><span class="p">,</span> <span class="mi">727</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rubberBand</span> <span class="o">=</span> <span class="n">RubberBand</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">on_init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># The following lines are needed for any pygame.</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">(</span> \
+          <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">HWSURFACE</span> <span class="o">|</span> <span class="n">pygame</span><span class="o">.</span><span class="n">DOUBLEBUF</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bombExploding</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">Sound</span><span class="p">(</span> \
+          <span class="s2">&quot;Bomb_Exploding-Sound_Explorer-68256487.wav&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="c1"># This loads the background image into the screen and sets the title bar</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bgImg</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;images/angrybirdsbg3.png&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bgImg</span><span class="p">,(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s2">&quot;Angry Birds&quot;</span><span class="p">)</span>
+
+        <span class="c1"># self.sprites is a RenderUpdates group. A group is a group of sprites. Groups</span>
+        <span class="c1"># provide the ability to draw sprites on the screen and other management of</span>
+        <span class="c1"># sprites.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprites</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">RenderUpdates</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">behind</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">RenderUpdates</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">infront</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">RenderUpdates</span><span class="p">()</span>
+
+        <span class="c1"># The bird is one of the sprites. The self.birds list is the list of available</span>
+        <span class="c1"># birds for flying. The birds are all added to the self.sprites group.</span>
+        <span class="n">bird</span> <span class="o">=</span> <span class="n">RedBird</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">520</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">birds</span> <span class="o">=</span> <span class="p">[</span><span class="n">bird</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprites</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bird</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">slingshotfg</span> <span class="o">=</span> <span class="n">SlingShotFG</span><span class="p">(</span><span class="mi">190</span><span class="p">,</span><span class="mi">450</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slingshotbg</span> <span class="o">=</span> <span class="n">SlingShotBG</span><span class="p">(</span><span class="mi">190</span><span class="p">,</span><span class="mi">450</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">behind</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slingshotbg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">infront</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slingshotfg</span><span class="p">)</span>
+
+        <span class="c1"># This will be the current bird which we will get from the self.birds list.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bird</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">return</span> <span class="bp">True</span>
+
+
+    <span class="k">def</span> <span class="nf">on_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">loadBird</span><span class="p">():</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bird</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">bird</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">birds</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">bird</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">140</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">bird</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">450</span>
+
+        <span class="k">def</span> <span class="nf">launchBird</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bombExploding</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bird</span><span class="o">.</span><span class="n">launch</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">KEYDOWN</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_LEFT</span> <span class="ow">or</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;a&#39;</span><span class="p">:</span>
+                <span class="n">loadBird</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">bird</span><span class="o">.</span><span class="n">moveLeft</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_DOWN</span> <span class="ow">or</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span>
+                <span class="n">loadBird</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">bird</span><span class="o">.</span><span class="n">moveDown</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_SPACE</span><span class="p">:</span>
+                <span class="n">launchBird</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">on_loop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bird</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bird</span><span class="o">.</span><span class="n">move</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">on_render</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># These next lines clear each sprite from the screen by redrawing</span>
+        <span class="c1"># the background behind that sprite.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">infront</span><span class="o">.</span><span class="n">clear</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">bgImg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprites</span><span class="o">.</span><span class="n">clear</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">bgImg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">behind</span><span class="o">.</span><span class="n">clear</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">bgImg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rubberBand</span><span class="o">.</span><span class="n">clear</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="p">)</span>
+
+        <span class="c1"># These next lines call blit to draw each sprite on the screen in</span>
+        <span class="c1"># each group of sprites.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">behind</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprites</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">infront</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="p">)</span>
+
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bird</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rubberBand</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bird</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span> \
+              <span class="bp">self</span><span class="o">.</span><span class="n">bird</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span><span class="o">+</span><span class="mi">20</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bird</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">bird</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span><span class="o">+</span><span class="mi">40</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rubberBand</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+
+        <span class="c1"># Since double buffering is used, the flip method</span>
+        <span class="c1"># switches the displayed buffer and the drawing buffer.</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">on_cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">on_execute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_init</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_running</span> <span class="o">=</span> <span class="bp">False</span>
+
+        <span class="k">while</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="p">):</span>
+            <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">on_event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">on_loop</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">on_render</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">on_cleanup</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span> <span class="p">:</span>
+    <span class="n">theApp</span> <span class="o">=</span> <span class="n">App</span><span class="p">()</span>
+    <span class="n">theApp</span><span class="o">.</span><span class="n">on_execute</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+<p>If you take a look at lines 107-109 you’ll see three Sprite groups being created. These groups are rendered in the orders
+their names seem to indicate on lines 165-167. The <em>behind</em> are rendered first, followed by the <em>sprites</em> group (not a very descriptive name),
+followed by the <em>infront</em> group.</p>
+<p>Just above the render code is the code to clear out the last position of the sprites on lines 158-161. If you take a close look at this code, it is
+done in the opposite order that they are rendered. This is because the <em>RenderUpdates</em> groups to which these sprites belong (see lines 107-109) is a
+group that keeps track of what was behind it. When they are cleared they simply redraw what was behind them before they were drawn. So, clearing
+in the opposite order they were drawn guarantees that the initial background will be the last thing redrawn when a sprite is cleared.</p>
+<p>In this application, the sling shot is drawn in two pieces, the background part of it is drawn first followed by any bird passing through the slingshot,
+followed by the foreground part of the sling shot. In this way it appears that the bird goes through the slingshot. This is how you can simulate a little
+3D perspective in a 2D game.</p>
+</div>
+<div class="section" id="lesson-24">
+<h2>Lesson 24<a class="headerlink" href="#lesson-24" title="Permalink to this headline">¶</a></h2>
+<p>Go back to your bouncing ball app and make two planes of bouncing balls that don’t collide with each other. The front plane balls can collide and the back
+plane balls can collide, but they cannot collide between these groups. To make it a little more interesting, make the back plane balls 1/2 the size of the
+front plane balls to make it clear which are which.</p>
+</div>
+<div class="section" id="pygame-sounds">
+<h2>PyGame Sounds<a class="headerlink" href="#pygame-sounds" title="Permalink to this headline">¶</a></h2>
+<p>Another nice feature of PyGame that you probably already noticed is the ability to incorporate sound into an application. Line 95 of the code above loads
+a sound into the application.</p>
 </div>
 </div>
 <div class="section" id="building-a-video-game">
@@ -3022,13 +3455,13 @@ things by itself.</p>
 <li><a class="reference internal" href="#lesson-13">Lesson 13</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#event-driven-programming">Event-Driven Programming</a></li>
-<li><a class="reference internal" href="#minesweeper">Minesweeper</a><ul>
+<li><a class="reference internal" href="#event-driven-programming-and-minesweeper">Event-Driven Programming and Minesweeper</a><ul>
 <li><a class="reference internal" href="#lesson-14">Lesson 14</a></li>
 <li><a class="reference internal" href="#lesson-15">Lesson 15</a></li>
 <li><a class="reference internal" href="#lesson-16">Lesson 16</a></li>
 <li><a class="reference internal" href="#lesson-17">Lesson 17</a></li>
 <li><a class="reference internal" href="#lesson-18">Lesson 18</a></li>
+<li><a class="reference internal" href="#have-more-time">Have More Time?</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#introduction-to-animation">Introduction to Animation</a><ul>
@@ -3044,6 +3477,8 @@ things by itself.</p>
 <li><a class="reference internal" href="#translation-rotation-and-scaling">Translation, Rotation, and Scaling</a></li>
 <li><a class="reference internal" href="#lesson-23">Lesson 23</a></li>
 <li><a class="reference internal" href="#backgrounds-and-render-ordering">Backgrounds and Render Ordering</a></li>
+<li><a class="reference internal" href="#lesson-24">Lesson 24</a></li>
+<li><a class="reference internal" href="#pygame-sounds">PyGame Sounds</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#building-a-video-game">Building a Video Game</a></li>

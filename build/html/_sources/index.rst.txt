@@ -1452,8 +1452,8 @@ Lesson 13
 Draw a square with Turtle graphics. Use a *for loop* to do this. Then write a function called *drawSquare* that when called uses
 the turtle to draw a square at a particular location and with a particular size on the screen.
 
-Event-Driven Programming
-=========================
+Event-Driven Programming and Minesweeper
+==========================================
 
 .. Second Day of class
 
@@ -1484,9 +1484,6 @@ returns and the *dispatch* function looks for a handler to handle the event.
 So, as programmers of event-driven programs, we *register* event handlers with the *dispatch* function so our event handler
 gets called when the event occurs that we want to handle. We'll see this in the next section when we learn a bit about turtle graphics.
 
-
-Minesweeper
-==============
 
 To start the Minesweeper application you can copy `this code <_static/minesweeper/minesweeper.py>`_ and these pictures to a folder on you computer.
 The code and the pictures must all be in the same folder on your computer.
@@ -1918,6 +1915,23 @@ Once you have the current time, you can update a label to display the current nu
 You could display a final score for your application which might be some measure of how many bombs we uncovered with the time factored into
 it as well.
 
+Have More Time?
+----------------
+
+The game of concentration is played by placing, face down, 52 cards. Then you turn over two cards and check to see if they are two red jacks for instance.
+If they are not matching in this way, then you turn them both back over and select two other cards (perhaps one of the same) to see if you have a match.
+When you get a match, the matching cards are removed and play continues with the remaining cards until all cards are removed.
+
+Build a concentration application with playing cards. Deal out 52 cards face down. Then when a user
+clicks on a card and then another card, if they are a match, remove them from the game. Keep track of time in this application and let the user's score
+reflect the amount of time it took to complete the game. You should have a *New Game* button as part of this. As an extra challenge you could
+keep track of a list of best scores and display that list when a button is clicked.
+
+You can `download a set of playing cards here <_static/cards.zip>`_. If you need to resize your cards to get them to the right size for you application
+you can use the PIL, which stands for Python Imaging Library, to resize them. You can write a Python program to do this. You may find this
+`documentation useful <http://pillow.readthedocs.io/en/3.0.x/reference/Image.html?highlight=resize#image-processing>`_ on how to use the Image class
+of the PIL. If you need to resize your cards to get them to the correct size then you can run a Python program once to resize all of them for you.
+You'll also have to study the names of the cards a bit to see how they are named and how that will apply to your concentration game.
 
 Introduction to Animation
 ===========================
@@ -1954,7 +1968,10 @@ to animate because the double buffers are built into the framework. All we have 
 to work in turtle graphics. Then, to switch buffers we call *screen.update()* which flips the switch between the two buffers. We do this over
 and over again by setting a timer and we have an animation. In this case we'll animate bouncing balls.
 
-Look over the following code carefully so you see how the animation is done. You can also `download the code from here <_static/BouncingBalls.py>`_.
+Look over the following code carefully so you see how the animation is done. You can also `download the code from here <_static/BouncingBalls.py>`_. You will
+also need the image of a soccerball which you can copy from here. You need both these programs in the same directory on you computer to run this code.
+
+.. figure:: _static/soccerball.gif
 
 .. code-block:: python
     :linenos:
@@ -2510,6 +2527,236 @@ each frame. Remember that :math:`theta` must be in degrees in your program.
 
 Backgrounds and Render Ordering
 ----------------------------------
+
+A background can be added to a PyGame very easily. Once you have a background, there are other challenges like moving a Sprite around in front of the
+background. It takes a bit more time to draw a background image because it fills the whole screen. So, there are often built into frameworks ways of dealing
+with that by only redrawing a part of the background. Take a look at this code, which is part of an Angry Birds video game.
+
+.. code-block:: python
+    :linenos:
+
+    # This is a pygame application and sample classes for
+    # the organization of a pygame application.
+
+    import pygame
+
+    class RedBird(pygame.sprite.Sprite):
+        def __init__(self,x,y):
+            super().__init__()
+            self.image = pygame.image.load("images/smallredbird.png")
+            self.rect = self.image.get_rect()
+            self.originalImage = self.image
+            self.rect.x = x
+            self.rect.y = y
+            self.dx = 0
+            self.dy = 0
+            self.vecx = 20
+            self.vecy = 0
+            self.angle = 0
+            self.rotateAlpha = 0
+
+        def getX(self):
+            return self.rect.x
+
+        def getY(self):
+            return self.rect.y
+
+        def moveLeft(self):
+            self.rect.x = self.rect.x - 1
+            self.vecx += 1
+
+        def moveDown(self):
+            self.rect.y = self.rect.y + 1
+            self.vecy -= 1
+
+        def launch(self):
+            self.dx = self.vecx/5
+            self.dy = self.vecy/5
+            self.rotateAlpha = 2
+
+        def move(self):
+            self.rect.x += self.dx
+            self.rect.y += self.dy
+            self.rotate(self.rotateAlpha)
+
+        def rotate(self,angle):
+            self.angle += angle
+            self.angle = self.angle % 360
+            self.image = pygame.transform.rotate(self.originalImage, self.angle)
+            self.rect = self.image.get_rect(center=self.rect.center)
+
+    class SlingShotFG(pygame.sprite.Sprite):
+        def __init__(self,x,y):
+            super().__init__()
+            self.image = pygame.image.load("images/slingshotfg.png")
+            self.rect = self.image.get_rect()
+            self.rect.x = x
+            self.rect.y = y
+
+    class SlingShotBG(pygame.sprite.Sprite):
+        def __init__(self,x,y):
+            super().__init__()
+            self.image = pygame.image.load("images/slingshotbg.png")
+            self.rect = self.image.get_rect()
+            self.rect.x = x
+            self.rect.y = y
+
+    class RubberBand:
+        def __init__(self):
+            self.rect = None
+            self.count = 0
+
+        def draw(self,screen,x1,y1,x2,y2):
+            if self.count < 5:
+                self.rect = pygame.draw.polygon( \
+                  screen,(49,24,10),[(x1,y1),(x2,y2),(190,477),(192, 462)])
+
+
+        def clear(self,screen):
+            #self.count+=1
+            if self.rect != None:
+                pygame.display.update(self.rect)
+
+    class App:
+        def __init__(self):
+            self.running = True
+            self.screen = None
+            self.size = self.width, self.height = 1100, 727
+            self.rubberBand = RubberBand()
+
+        def on_init(self):
+            # The following lines are needed for any pygame.
+            pygame.init()
+            self.screen = pygame.display.set_mode( \
+              self.size, pygame.HWSURFACE | pygame.DOUBLEBUF)
+            self.bombExploding = pygame.mixer.Sound( \
+              "Bomb_Exploding-Sound_Explorer-68256487.wav")
+            self.running = True
+
+            # This loads the background image into the screen and sets the title bar
+            self.bgImg = pygame.image.load("images/angrybirdsbg3.png")
+            self.screen.blit(self.bgImg,(0,0))
+            pygame.display.set_caption("Angry Birds")
+
+            # self.sprites is a RenderUpdates group. A group is a group of sprites. Groups
+            # provide the ability to draw sprites on the screen and other management of
+            # sprites.
+            self.sprites = pygame.sprite.RenderUpdates()
+            self.behind = pygame.sprite.RenderUpdates()
+            self.infront = pygame.sprite.RenderUpdates()
+
+            # The bird is one of the sprites. The self.birds list is the list of available
+            # birds for flying. The birds are all added to the self.sprites group.
+            bird = RedBird(50,520)
+            self.birds = [bird]
+            self.sprites.add(bird)
+
+            self.slingshotfg = SlingShotFG(190,450)
+            self.slingshotbg = SlingShotBG(190,450)
+
+            self.behind.add(self.slingshotbg)
+            self.infront.add(self.slingshotfg)
+
+            # This will be the current bird which we will get from the self.birds list.
+            self.bird = None
+            return True
+
+
+        def on_event(self, event):
+            def loadBird():
+                if self.bird == None:
+                    self.bird = self.birds.pop(0)
+                    self.bird.rect.x = 140
+                    self.bird.rect.y = 450
+
+            def launchBird():
+                self.bombExploding.play()
+                self.bird.launch()
+
+            if event.type == pygame.QUIT:
+                self.running = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT or event.key == 'a':
+                    loadBird()
+                    self.bird.moveLeft()
+                elif event.key == pygame.K_DOWN or event.key == 'z':
+                    loadBird()
+                    self.bird.moveDown()
+                elif event.key == pygame.K_SPACE:
+                    launchBird()
+
+        def on_loop(self):
+            if self.bird != None:
+                self.bird.move()
+
+        def on_render(self):
+            # These next lines clear each sprite from the screen by redrawing
+            # the background behind that sprite.
+            self.infront.clear(self.screen,self.bgImg)
+            self.sprites.clear(self.screen,self.bgImg)
+            self.behind.clear(self.screen,self.bgImg)
+            self.rubberBand.clear(self.screen)
+
+            # These next lines call blit to draw each sprite on the screen in
+            # each group of sprites.
+            self.behind.draw(self.screen)
+            self.sprites.draw(self.screen)
+            self.infront.draw(self.screen)
+
+
+            if self.bird != None:
+                self.rubberBand.draw(self.screen, self.bird.getX()+5, \
+                  self.bird.getY()+20, self.bird.getX()+5,self.bird.getY()+40)
+            else:
+                self.rubberBand.draw(self.screen, 170, 500, 180, 500)
+
+            # Since double buffering is used, the flip method
+            # switches the displayed buffer and the drawing buffer.
+            pygame.display.flip()
+
+        def on_cleanup(self):
+            pygame.quit()
+
+        def on_execute(self):
+            if not self.on_init():
+                self._running = False
+
+            while( self.running ):
+                for event in pygame.event.get():
+                    self.on_event(event)
+                self.on_loop()
+                self.on_render()
+            self.on_cleanup()
+
+    if __name__ == "__main__" :
+        theApp = App()
+        theApp.on_execute()
+
+If you take a look at lines 107-109 you'll see three Sprite groups being created. These groups are rendered in the orders
+their names seem to indicate on lines 165-167. The *behind* are rendered first, followed by the *sprites* group (not a very descriptive name),
+followed by the *infront* group.
+
+Just above the render code is the code to clear out the last position of the sprites on lines 158-161. If you take a close look at this code, it is
+done in the opposite order that they are rendered. This is because the *RenderUpdates* groups to which these sprites belong (see lines 107-109) is a
+group that keeps track of what was behind it. When they are cleared they simply redraw what was behind them before they were drawn. So, clearing
+in the opposite order they were drawn guarantees that the initial background will be the last thing redrawn when a sprite is cleared.
+
+In this application, the sling shot is drawn in two pieces, the background part of it is drawn first followed by any bird passing through the slingshot,
+followed by the foreground part of the sling shot. In this way it appears that the bird goes through the slingshot. This is how you can simulate a little
+3D perspective in a 2D game.
+
+Lesson 24
+----------
+
+Go back to your bouncing ball app and make two planes of bouncing balls that don't collide with each other. The front plane balls can collide and the back
+plane balls can collide, but they cannot collide between these groups. To make it a little more interesting, make the back plane balls 1/2 the size of the
+front plane balls to make it clear which are which.
+
+PyGame Sounds
+--------------
+
+Another nice feature of PyGame that you probably already noticed is the ability to incorporate sound into an application. Line 95 of the code above loads
+a sound into the application.
 
 
 
