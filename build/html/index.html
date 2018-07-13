@@ -2450,7 +2450,7 @@ floor you can <em>dampen</em> its vector (i.e. its dx and dy values) a bit becau
 </div>
 <div class="section" id="lesson-20">
 <h2>Lesson 20<a class="headerlink" href="#lesson-20" title="Permalink to this headline">¶</a></h2>
-<p>Add gravity to your ball application by changing the move function of the Ball class to reflect the affects of gravity. Play with the gravitational and
+<p>Add gravity to your ball application by changing the move function of the Ball class to reflect the effects of gravity. Play with the gravitational and
 heat transfer dampening values until you have a realistic looking simulation of bouncing balls.</p>
 </div>
 <div class="section" id="detecting-collisions">
@@ -2466,15 +2466,424 @@ ball and if it is, then it removes both balls from the ballList. You should do t
 detection.</p>
 <p>To accomplish this, write a detectCollision method in the Ball class that is given the ballList as an argument. Then remove both <em>self</em>
 and the other element from the <em>ballList</em> if a ball has collided with the current object.</p>
+<p>There is one gotcha in this project. If you are iterating over a list, then you cannot alter this list while iterating over it. So, you’ll
+first need to build up a list or set of the items to remove from the list. Then you can remove all the items.</p>
 </div>
 </div>
-<div class="section" id="introducting-pygame">
-<h1>Introducting PyGame<a class="headerlink" href="#introducting-pygame" title="Permalink to this headline">¶</a></h1>
-<p>How does PyGame do it?</p>
+<div class="section" id="introducing-pygame">
+<h1>Introducing PyGame<a class="headerlink" href="#introducing-pygame" title="Permalink to this headline">¶</a></h1>
+<p>Turtle graphics works nicely for many games written in Python, but there are some limitations. Turtle graphics is not quite as fast as another framework called PyGame.
+In addition, there is no way to play sounds using turtle graphics. Turtle graphics is only for drawing. And turtle graphics does not support the rotation of objects
+within the game which is necessary for some game applications.</p>
+<p>Learning to program using PyGame is not that hard. Many of the same concepts that we learned with turtle graphics apply to PyGame.
+There are still frames that are
+needed for animation. There is still double buffering. There are just some extra things we can do as well.</p>
+<p>Consider the bouncing ball code for pygame as shown here. Look this over carefully to understand all the parts of it.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># This is a pygame application and sample classes for</span>
+<span class="c1"># the organization of a pygame application.</span>
+
+<span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="c1"># Notice here that Ball inherits from Sprite so it gets</span>
+<span class="c1"># all the code associated with Sprites which is quite</span>
+<span class="c1"># a bit.</span>
+<span class="k">class</span> <span class="nc">Ball</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">Sprite</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">dx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">dy</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;soccerball.gif&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_rect</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">originalImage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="n">dx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dy</span> <span class="o">=</span> <span class="n">dy</span>
+
+    <span class="k">def</span> <span class="nf">getX</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">x</span>
+
+    <span class="k">def</span> <span class="nf">getY</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">y</span>
+
+    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dx</span> <span class="o">&gt;</span> <span class="mi">600</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">dx</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dy</span> <span class="o">&gt;</span> <span class="mi">600</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dy</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">dy</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dy</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dy</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">dy</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dx</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">dx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dy</span>
+
+<span class="k">class</span> <span class="nc">App</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">screen</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">600</span>
+
+
+    <span class="k">def</span> <span class="nf">on_init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># The following lines are needed for any pygame.</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">HWSURFACE</span> <span class="o">|</span> <span class="n">pygame</span><span class="o">.</span><span class="n">DOUBLEBUF</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="c1"># A surface is a solid colored box. In this case it is green.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bgImg</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">((</span><span class="mi">600</span><span class="p">,</span><span class="mi">600</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bgImg</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+        <span class="c1"># blit displays it on the screen (actually in the buffer).</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bgImg</span><span class="p">,(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+
+        <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s2">&quot;Bouncing Balls&quot;</span><span class="p">)</span>
+
+        <span class="c1"># self.sprites is a RenderUpdates group. A group is a group of sprites. Groups</span>
+        <span class="c1"># provide the ability to draw sprites on the screen and other management of</span>
+        <span class="c1"># sprites.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprites</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">RenderUpdates</span><span class="p">()</span>
+
+        <span class="c1"># The ball is one of the sprites. The self.balls list is the list of balls</span>
+        <span class="c1"># bouncing on the screen.</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+            <span class="n">ball</span> <span class="o">=</span> <span class="n">Ball</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">590</span><span class="p">),</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">590</span><span class="p">),</span> \
+               <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sprites</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ball</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">True</span>
+
+
+    <span class="k">def</span> <span class="nf">on_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="c1"># This is an event processing function that is called with an event when it occurs.</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">KEYDOWN</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_SPACE</span><span class="p">:</span>
+                <span class="n">ball</span> <span class="o">=</span> <span class="n">Ball</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">590</span><span class="p">),</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">590</span><span class="p">),</span> \
+                   <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sprites</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ball</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">on_loop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># The on_loop is called below in the on_execute. This handles the changes</span>
+        <span class="c1"># to the model of this program. It does not do any drawing.</span>
+        <span class="k">for</span> <span class="n">ball</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sprites</span><span class="p">:</span>
+            <span class="n">ball</span><span class="o">.</span><span class="n">move</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">on_render</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># The on_render is responsible for rendering or drawing the</span>
+        <span class="c1"># frame.</span>
+        <span class="c1"># These next lines clear each sprite from the screen by redrawing</span>
+        <span class="c1"># the background behind that sprite.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprites</span><span class="o">.</span><span class="n">clear</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">bgImg</span><span class="p">)</span>
+
+        <span class="c1"># These next lines call blit to draw each sprite on the screen</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprites</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="p">)</span>
+
+        <span class="c1"># Since double buffering is used, the flip method</span>
+        <span class="c1"># switches the displayed buffer and the drawing buffer.</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">on_cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">on_execute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_init</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_running</span> <span class="o">=</span> <span class="bp">False</span>
+
+        <span class="k">while</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="p">):</span>
+            <span class="c1"># The following get method call is a non-blocking</span>
+            <span class="c1"># call that gets an event if one is ready. Otherwise</span>
+            <span class="c1"># it drops through the for loop.</span>
+            <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">on_event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">on_loop</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">on_render</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">on_cleanup</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span> <span class="p">:</span>
+    <span class="n">theApp</span> <span class="o">=</span> <span class="n">App</span><span class="p">()</span>
+    <span class="n">theApp</span><span class="o">.</span><span class="n">on_execute</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+<div class="section" id="lesson-22">
+<h2>Lesson 22<a class="headerlink" href="#lesson-22" title="Permalink to this headline">¶</a></h2>
+<p>Detect if two balls collide in the application and have them cancel each other out (i.e. make them
+disappear from the screen). You can do this by <a class="reference external" href="https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.groupcollideany">examining the *pygame.sprite.spritecollideany* method</a>
+and coding your program to detect collisions. You must code the distance formula into your callback to detect collisions.</p>
+<p>You will have to research a few things to get this to work. One gotcha is the before sprites are rendered the first time, their locations are all
+0,0. So you need to wait until they have been rendered at least once before you start detecting collisions.  You could do this with a boolean variable
+in the <em>App</em> class. After you switch the boolean value to true, then you can
+start checking for collisions.</p>
+</div>
 <div class="section" id="translation-rotation-and-scaling">
 <h2>Translation, Rotation, and Scaling<a class="headerlink" href="#translation-rotation-and-scaling" title="Permalink to this headline">¶</a></h2>
-<p>Always relative to origin.</p>
-<p>How does PyGame do it?</p>
+<p>At this point we should learn some things about computer graphics hardware. It turns out that 3D computer graphics is all about rendering surfaces that are
+essentially little triangle. We aren’t doing 3D graphics in this course because that adds a whole other dimension and additional complexity to our
+programs. However, many of the 3D topics also apply to 2D graphics. So, you can learn a lot by considering 2D graphics engines. The PyGame environment
+includes great support for drawing 2D graphics, but how does it do it so fast?</p>
+<p>The answer comes from the way calculations are performed in a graphics engine. First, all these points that make up the corners of surfaces are represented
+as vectors. Each point on the edge of a surface is represented like this.</p>
+<div class="math">
+<p><img src="_images/math/3827269603b75761e3fbd3ad7b42a23b716ba2cf.png" alt="\begin{align}
+   v &amp;= \begin{bmatrix}
+          x \\
+          y \\
+          1
+        \end{bmatrix}
+ \end{align}"/></p>
+</div><p>Once the <em>x</em> and <em>y</em> coordinates are in this form, we can apply tranformations to this vector to move the point around in space. For instance,
+if we want to move a point to another location, this is called translation and it is accomplished by doing matrix multiplication by this vector.
+Here is the matrix for translation.</p>
+<div class="math">
+<p><img src="_images/math/79297b2ed3b70aab3b0f8e9d8bcff4ac2ee19982.png" alt="\begin{align}
+   v_{new} &amp;= \begin{bmatrix}
+    1 &amp; 0 &amp; t_x \\
+    0 &amp; 1 &amp; t_y \\
+    0 &amp; 0 &amp; 1
+\end{bmatrix}
+\begin{bmatrix}
+    x      \\
+    y  \\
+    1
+\end{bmatrix} =
+\begin{bmatrix}
+    x + t_x      \\
+    y + t_y  \\
+    1
+\end{bmatrix}
+ \end{align}"/></p>
+</div><p>By considering this matrix multiplication and the result you can see why we want the additional 1 in the x,y vector. Scaling a point means moving
+it further from the origin relative to its current position. So, for instance if we have a point a 2,3 and scale it by 2 then it would end up at 4,6. This
+is done with a scaling matrix.</p>
+<div class="math">
+<p><img src="_images/math/598da3322c927e91a496103f225297052a1e59f9.png" alt="\begin{align}
+   v_{new} &amp;= \begin{bmatrix}
+    s_x &amp; 0 &amp; 0 \\
+    0 &amp; s_y &amp; 0 \\
+    0 &amp; 0 &amp; 1
+\end{bmatrix}
+\begin{bmatrix}
+    x      \\
+    y  \\
+    1
+\end{bmatrix} =
+\begin{bmatrix}
+    x * s_x      \\
+    y * s_y  \\
+    1
+\end{bmatrix}
+ \end{align}"/></p>
+</div><p>And, if we want to rotate a point, we rotate it about the origin. Rotation of a point will move it some angle, <img class="math" src="_images/math/3be04d4207434584251f6921820c24ac9fa8c6f1.png" alt="\theta"/>. To rotate by this
+angle we can also multiply by a matrix.</p>
+<div class="math">
+<p><img src="_images/math/4bc51f66a5200cabca737909106610073d38af4e.png" alt="\begin{align}
+   v_{new} &amp;= \begin{bmatrix}
+    cos~\theta &amp; -sin~\theta &amp; 0 \\
+    sin~\theta &amp; cos~\theta &amp; 0 \\
+    0 &amp; 0 &amp; 1
+\end{bmatrix}
+\begin{bmatrix}
+    x      \\
+    y  \\
+    1
+\end{bmatrix} =
+\begin{bmatrix}
+    x * cos~\theta - y * sin~\theta      \\
+    x * sin~\theta + y * cos~\theta  \\
+    1
+\end{bmatrix}
+ \end{align}"/></p>
+</div><p>The rotation matrix is less intuitive. Let’s take an example of a point at 2,2 and rotate it by 90 degrees. Afterward it should be at -2,2. The cosine of
+90 degrees is 0. The sine of 90 degrees is 1. So <img class="math" src="_images/math/202a2b55da771e6b0612ae91969d542e90312146.png" alt="x_{new} = 2 * 0 - 2 * 1 = -2"/> and <img class="math" src="_images/math/8f10491db7e2418bfd3f5efe5e9c3d9fd2dfc1f8.png" alt="y_{new} = 2 * 1 + 2 * 0 = 2"/>. So, this works out.</p>
+<p>Now, the really interesting thing that comes out of this has to do with the fact that when displaying computer graphics the same rotation, translation,
+and scaling tranformations often have to be performed on many, many points. It turns out that we can save a LOT of computer calculations if we
+build up a composite matrix.</p>
+<div class="math">
+<p><img src="_images/math/ca95b8c79745103893e53a556414e524a8c6af47.png" alt="\begin{align}
+ v_{new} &amp;= \begin{bmatrix}
+ 1 &amp; 0 &amp; t_x \\
+ 0 &amp; 1 &amp; t_y \\
+ 0 &amp; 0 &amp; 1
+\end{bmatrix}
+\begin{bmatrix}
+    cos~\theta &amp; -sin~\theta &amp; 0 \\
+    sin~\theta &amp; cos~\theta &amp; 0 \\
+    0 &amp; 0 &amp; 1
+\end{bmatrix}
+\begin{bmatrix}
+ s_x &amp; 0 &amp; 0 \\
+ 0 &amp; s_y &amp; 0 \\
+ 0 &amp; 0 &amp; 1
+ \end{bmatrix}
+ \begin{bmatrix}
+  1 &amp; 0 &amp; -t_x \\
+  0 &amp; 1 &amp; -t_y \\
+  0 &amp; 0 &amp; 1
+\end{bmatrix}
+\begin{bmatrix}
+    x      \\
+    y  \\
+    1
+\end{bmatrix} =
+\begin{bmatrix}
+    x_{new}      \\
+    y_{new}  \\
+    1
+ \end{bmatrix}
+ \end{align}"/></p>
+</div><p>Consider the calculation above. In this we are first translating by <img class="math" src="_images/math/af60cf53e1994ceb6bc5956ed3f5cedcfdbdcb4f.png" alt="-t_x,-t_y"/>. Then we are scaling by <img class="math" src="_images/math/93ef29f5ca3308c5c863d9d66cfa8fe0bf5c8cb3.png" alt="s_x,s_y"/>. Then
+we are rotating by some angle <img class="math" src="_images/math/3be04d4207434584251f6921820c24ac9fa8c6f1.png" alt="\theta"/>. Then we are translating back by <img class="math" src="_images/math/c1ae64e5e4172a7a22cfac1ca90d444d2ffd3494.png" alt="t_x,t_y"/>. This is a very common sequence of matrix multiplications.
+What’s really cool is if we multiply all those matrices together (without the x,y vector) we get a composite matrix that does all the operations
+in the order we specified when applied to a vector. Any vector. So if we have lots of points that all need to be transformed in the same way, we can compute
+the composite matrix once and then apply it to all the points for our surface(s).</p>
+<p>What does this mean for us? Not a whole lot in terms of what we are doing. But it is important that you understand that this concept of building
+composite transformation matrices is built into many computer graphics frameworks like OpenGL for instance. And it is important to know that
+the computer graphics cards that you can buy all support doing these matrix calculations in hardware. They are really vector processors that are capable
+of doing many, many vector and matrix multiplications each second. In fact, they can often do trillions of floating point operations each second and therefore we
+talk about how many teraflops (i.e. tflops) they might support which is trillions of floating point operations per second. The graphics hardware we have
+today rivals the power of older vector processors which were our early supercomputers. We now can put a supercomputer in a desktop machine by adding
+a graphics card to the computer. These supercomputing cards are good for lots of things, not just computer graphics.</p>
+<p>What all of this does mean for us is that for some things like rotations, you might have to specify what you want it rotated about. For instance, the origin
+of a sprite is usually the top left corner. But, if you want to rotate a sprite about its center, then you have to specify that. So, these two lines of code
+will make sure that you rotate an image around the center of it. We have to specify both of these key pieces of information because they will get translated
+into the composite transformation matrix that will be applied to all the points in the surface (i.e. the entire graphics image in the case of our sprite.)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">originalImage</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">angle</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_rect</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">center</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>When rotating a sprite or any image, we want to rotate the original image because each rotation will have a little round off error and if we were
+to keep rotating an already rotated image, we would end up with it not being recognizable.</p>
+</div>
+<div class="section" id="lesson-23">
+<h2>Lesson 23<a class="headerlink" href="#lesson-23" title="Permalink to this headline">¶</a></h2>
+<p>Modify your bouncing ball application so that the balls rotate as they move about the screen. You can randomly assign an amount to rotate
+each frame. Remember that <img class="math" src="_images/math/1237b94d51572f741540f7d242a1a0a8b8635018.png" alt="theta"/> must be in degrees in your program.</p>
+</div>
+<div class="section" id="backgrounds-and-render-ordering">
+<h2>Backgrounds and Render Ordering<a class="headerlink" href="#backgrounds-and-render-ordering" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 <div class="section" id="building-a-video-game">
@@ -2505,8 +2914,8 @@ What is even more astonishing than that is that the algorithm learned to do thes
 things by itself.</p>
 <p>Building an AlphaZero opponent for Connect Four.</p>
 </div>
-<div class="section" id="python-quick-reference-links">
-<h1>Python Quick Reference Links<a class="headerlink" href="#python-quick-reference-links" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="quick-reference-links">
+<h1>Quick Reference Links<a class="headerlink" href="#quick-reference-links" title="Permalink to this headline">¶</a></h1>
 <blockquote>
 <div><ul class="simple">
 <li><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html">Types and Operators</a></li>
@@ -2630,8 +3039,11 @@ things by itself.</p>
 <li><a class="reference internal" href="#lesson-21">Lesson 21</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#introducting-pygame">Introducting PyGame</a><ul>
+<li><a class="reference internal" href="#introducing-pygame">Introducing PyGame</a><ul>
+<li><a class="reference internal" href="#lesson-22">Lesson 22</a></li>
 <li><a class="reference internal" href="#translation-rotation-and-scaling">Translation, Rotation, and Scaling</a></li>
+<li><a class="reference internal" href="#lesson-23">Lesson 23</a></li>
+<li><a class="reference internal" href="#backgrounds-and-render-ordering">Backgrounds and Render Ordering</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#building-a-video-game">Building a Video Game</a></li>
@@ -2639,7 +3051,7 @@ things by itself.</p>
 <li><a class="reference internal" href="#id11">Detecting Collisions</a></li>
 <li><a class="reference internal" href="#games-of-perfect-information">Games of Perfect Information</a></li>
 <li><a class="reference internal" href="#machine-learning-opponents">Machine Learning Opponents</a></li>
-<li><a class="reference internal" href="#python-quick-reference-links">Python Quick Reference Links</a></li>
+<li><a class="reference internal" href="#quick-reference-links">Quick Reference Links</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 

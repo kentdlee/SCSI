@@ -1455,6 +1455,8 @@ the turtle to draw a square at a particular location and with a particular size 
 Event-Driven Programming
 =========================
 
+.. Second Day of class
+
 In this part of the class we will create a Minesweeper application.
 Along the way you'll learn some things about event-driven and GUI programming.
 The word GUI stands for Graphical User Interface and refers to programs that run in a window.
@@ -2162,7 +2164,7 @@ floor you can *dampen* its vector (i.e. its dx and dy values) a bit because boun
 Lesson 20
 ----------
 
-Add gravity to your ball application by changing the move function of the Ball class to reflect the affects of gravity. Play with the gravitational and
+Add gravity to your ball application by changing the move function of the Ball class to reflect the effects of gravity. Play with the gravitational and
 heat transfer dampening values until you have a realistic looking simulation of bouncing balls.
 
 
@@ -2183,16 +2185,333 @@ detection.
 To accomplish this, write a detectCollision method in the Ball class that is given the ballList as an argument. Then remove both *self*
 and the other element from the *ballList* if a ball has collided with the current object.
 
-Introducting PyGame
+There is one gotcha in this project. If you are iterating over a list, then you cannot alter this list while iterating over it. So, you'll
+first need to build up a list or set of the items to remove from the list. Then you can remove all the items.
+
+
+Introducing PyGame
 =========================
 
-How does PyGame do it?
+Turtle graphics works nicely for many games written in Python, but there are some limitations. Turtle graphics is not quite as fast as another framework called PyGame.
+In addition, there is no way to play sounds using turtle graphics. Turtle graphics is only for drawing. And turtle graphics does not support the rotation of objects
+within the game which is necessary for some game applications.
+
+Learning to program using PyGame is not that hard. Many of the same concepts that we learned with turtle graphics apply to PyGame.
+There are still frames that are
+needed for animation. There is still double buffering. There are just some extra things we can do as well.
+
+Consider the bouncing ball code for pygame as shown here. Look this over carefully to understand all the parts of it.
+
+.. code-block:: python
+    :linenos:
+
+    # This is a pygame application and sample classes for
+    # the organization of a pygame application.
+
+    import pygame
+    import random
+
+    # Notice here that Ball inherits from Sprite so it gets
+    # all the code associated with Sprites which is quite
+    # a bit.
+    class Ball(pygame.sprite.Sprite):
+        def __init__(self,x,y,dx=0,dy=0):
+            super().__init__()
+            self.image = pygame.image.load("soccerball.gif")
+            self.rect = self.image.get_rect()
+            self.originalImage = self.image
+            self.rect.x = x
+            self.rect.y = y
+            self.dx = dx
+            self.dy = dy
+
+        def getX(self):
+            return self.rect.x
+
+        def getY(self):
+            return self.rect.y
+
+        def move(self):
+            if self.rect.x + self.dx > 600:
+                self.dx = -self.dx
+            if self.rect.y + self.dy > 600:
+                self.dy = -self.dy
+            if self.rect.y + self.dy < 0:
+                self.dy = -self.dy
+            if self.rect.x + self.dx < 0:
+                self.dx = -self.dx
+            self.rect.x += self.dx
+            self.rect.y += self.dy
+
+    class App:
+        def __init__(self):
+            self.running = True
+            self.screen = None
+            self.size = self.width, self.height = 600, 600
+
+
+        def on_init(self):
+            # The following lines are needed for any pygame.
+            pygame.init()
+            self.screen = pygame.display.set_mode(self.size, pygame.HWSURFACE | pygame.DOUBLEBUF)
+            self.running = True
+
+            # A surface is a solid colored box. In this case it is green.
+            self.bgImg = pygame.Surface((600,600))
+            self.bgImg.fill((0,255,0))
+            # blit displays it on the screen (actually in the buffer).
+            self.screen.blit(self.bgImg,(0,0))
+
+            pygame.display.set_caption("Bouncing Balls")
+
+            # self.sprites is a RenderUpdates group. A group is a group of sprites. Groups
+            # provide the ability to draw sprites on the screen and other management of
+            # sprites.
+            self.sprites = pygame.sprite.RenderUpdates()
+
+            # The ball is one of the sprites. The self.balls list is the list of balls
+            # bouncing on the screen.
+            for i in range(10):
+                ball = Ball(random.uniform(10,590),random.uniform(10,590), \
+                   random.uniform(-6,6),random.uniform(-6,6))
+                self.sprites.add(ball)
+
+            return True
+
+
+        def on_event(self, event):
+            # This is an event processing function that is called with an event when it occurs.
+            if event.type == pygame.QUIT:
+                self.running = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    ball = Ball(random.uniform(10,590),random.uniform(10,590), \
+                       random.uniform(-6,6),random.uniform(-6,6))
+                    self.sprites.add(ball)
+
+        def on_loop(self):
+            # The on_loop is called below in the on_execute. This handles the changes
+            # to the model of this program. It does not do any drawing.
+            for ball in self.sprites:
+                ball.move()
+
+        def on_render(self):
+            # The on_render is responsible for rendering or drawing the
+            # frame.
+            # These next lines clear each sprite from the screen by redrawing
+            # the background behind that sprite.
+            self.sprites.clear(self.screen,self.bgImg)
+
+            # These next lines call blit to draw each sprite on the screen
+            self.sprites.draw(self.screen)
+
+            # Since double buffering is used, the flip method
+            # switches the displayed buffer and the drawing buffer.
+            pygame.display.flip()
+
+        def on_cleanup(self):
+            pygame.quit()
+
+        def on_execute(self):
+            if not self.on_init():
+                self._running = False
+
+            while(self.running):
+                # The following get method call is a non-blocking
+                # call that gets an event if one is ready. Otherwise
+                # it drops through the for loop.
+                for event in pygame.event.get():
+                    self.on_event(event)
+                self.on_loop()
+                self.on_render()
+            self.on_cleanup()
+
+    if __name__ == "__main__" :
+        theApp = App()
+        theApp.on_execute()
+
+Lesson 22
+-----------
+Detect if two balls collide in the application and have them cancel each other out (i.e. make them
+disappear from the screen). You can do this by `examining the *pygame.sprite.spritecollideany* method <https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.groupcollideany>`_
+and coding your program to detect collisions. You must code the distance formula into your callback to detect collisions.
+
+You will have to research a few things to get this to work. One gotcha is the before sprites are rendered the first time, their locations are all
+0,0. So you need to wait until they have been rendered at least once before you start detecting collisions.  You could do this with a boolean variable
+in the *App* class. After you switch the boolean value to true, then you can
+start checking for collisions.
 
 Translation, Rotation, and Scaling
 -----------------------------------
-Always relative to origin.
 
-How does PyGame do it?
+At this point we should learn some things about computer graphics hardware. It turns out that 3D computer graphics is all about rendering surfaces that are
+essentially little triangle. We aren't doing 3D graphics in this course because that adds a whole other dimension and additional complexity to our
+programs. However, many of the 3D topics also apply to 2D graphics. So, you can learn a lot by considering 2D graphics engines. The PyGame environment
+includes great support for drawing 2D graphics, but how does it do it so fast?
+
+The answer comes from the way calculations are performed in a graphics engine. First, all these points that make up the corners of surfaces are represented
+as vectors. Each point on the edge of a surface is represented like this.
+
+.. math::
+
+    \begin{align}
+       v &= \begin{bmatrix}
+              x \\
+              y \\
+              1
+            \end{bmatrix}
+     \end{align}
+
+Once the *x* and *y* coordinates are in this form, we can apply tranformations to this vector to move the point around in space. For instance,
+if we want to move a point to another location, this is called translation and it is accomplished by doing matrix multiplication by this vector.
+Here is the matrix for translation.
+
+.. math::
+
+    \begin{align}
+       v_{new} &= \begin{bmatrix}
+        1 & 0 & t_x \\
+        0 & 1 & t_y \\
+        0 & 0 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+        x      \\
+        y  \\
+        1
+    \end{bmatrix} =
+    \begin{bmatrix}
+        x + t_x      \\
+        y + t_y  \\
+        1
+    \end{bmatrix}
+     \end{align}
+
+By considering this matrix multiplication and the result you can see why we want the additional 1 in the x,y vector. Scaling a point means moving
+it further from the origin relative to its current position. So, for instance if we have a point a 2,3 and scale it by 2 then it would end up at 4,6. This
+is done with a scaling matrix.
+
+.. math::
+
+    \begin{align}
+       v_{new} &= \begin{bmatrix}
+        s_x & 0 & 0 \\
+        0 & s_y & 0 \\
+        0 & 0 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+        x      \\
+        y  \\
+        1
+    \end{bmatrix} =
+    \begin{bmatrix}
+        x * s_x      \\
+        y * s_y  \\
+        1
+    \end{bmatrix}
+     \end{align}
+
+And, if we want to rotate a point, we rotate it about the origin. Rotation of a point will move it some angle, :math:`\theta`. To rotate by this
+angle we can also multiply by a matrix.
+
+.. math::
+
+    \begin{align}
+       v_{new} &= \begin{bmatrix}
+        cos~\theta & -sin~\theta & 0 \\
+        sin~\theta & cos~\theta & 0 \\
+        0 & 0 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+        x      \\
+        y  \\
+        1
+    \end{bmatrix} =
+    \begin{bmatrix}
+        x * cos~\theta - y * sin~\theta      \\
+        x * sin~\theta + y * cos~\theta  \\
+        1
+    \end{bmatrix}
+     \end{align}
+
+The rotation matrix is less intuitive. Let's take an example of a point at 2,2 and rotate it by 90 degrees. Afterward it should be at -2,2. The cosine of
+90 degrees is 0. The sine of 90 degrees is 1. So :math:`x_{new} = 2 * 0 - 2 * 1 = -2` and :math:`y_{new} = 2 * 1 + 2 * 0 = 2`. So, this works out.
+
+Now, the really interesting thing that comes out of this has to do with the fact that when displaying computer graphics the same rotation, translation,
+and scaling tranformations often have to be performed on many, many points. It turns out that we can save a LOT of computer calculations if we
+build up a composite matrix.
+
+.. math::
+
+    \begin{align}
+     v_{new} &= \begin{bmatrix}
+     1 & 0 & t_x \\
+     0 & 1 & t_y \\
+     0 & 0 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+        cos~\theta & -sin~\theta & 0 \\
+        sin~\theta & cos~\theta & 0 \\
+        0 & 0 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+     s_x & 0 & 0 \\
+     0 & s_y & 0 \\
+     0 & 0 & 1
+     \end{bmatrix}
+     \begin{bmatrix}
+      1 & 0 & -t_x \\
+      0 & 1 & -t_y \\
+      0 & 0 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+        x      \\
+        y  \\
+        1
+    \end{bmatrix} =
+    \begin{bmatrix}
+        x_{new}      \\
+        y_{new}  \\
+        1
+     \end{bmatrix}
+     \end{align}
+
+Consider the calculation above. In this we are first translating by :math:`-t_x,-t_y`. Then we are scaling by :math:`s_x,s_y`. Then
+we are rotating by some angle :math:`\theta`. Then we are translating back by :math:`t_x,t_y`. This is a very common sequence of matrix multiplications.
+What's really cool is if we multiply all those matrices together (without the x,y vector) we get a composite matrix that does all the operations
+in the order we specified when applied to a vector. Any vector. So if we have lots of points that all need to be transformed in the same way, we can compute
+the composite matrix once and then apply it to all the points for our surface(s).
+
+What does this mean for us? Not a whole lot in terms of what we are doing. But it is important that you understand that this concept of building
+composite transformation matrices is built into many computer graphics frameworks like OpenGL for instance. And it is important to know that
+the computer graphics cards that you can buy all support doing these matrix calculations in hardware. They are really vector processors that are capable
+of doing many, many vector and matrix multiplications each second. In fact, they can often do trillions of floating point operations each second and therefore we
+talk about how many teraflops (i.e. tflops) they might support which is trillions of floating point operations per second. The graphics hardware we have
+today rivals the power of older vector processors which were our early supercomputers. We now can put a supercomputer in a desktop machine by adding
+a graphics card to the computer. These supercomputing cards are good for lots of things, not just computer graphics.
+
+What all of this does mean for us is that for some things like rotations, you might have to specify what you want it rotated about. For instance, the origin
+of a sprite is usually the top left corner. But, if you want to rotate a sprite about its center, then you have to specify that. So, these two lines of code
+will make sure that you rotate an image around the center of it. We have to specify both of these key pieces of information because they will get translated
+into the composite transformation matrix that will be applied to all the points in the surface (i.e. the entire graphics image in the case of our sprite.)
+
+.. code-block:: python
+
+    self.image = pygame.transform.rotate(self.originalImage, self.angle)
+    self.rect = self.image.get_rect(center=self.rect.center)
+
+When rotating a sprite or any image, we want to rotate the original image because each rotation will have a little round off error and if we were
+to keep rotating an already rotated image, we would end up with it not being recognizable.
+
+Lesson 23
+-----------
+
+Modify your bouncing ball application so that the balls rotate as they move about the screen. You can randomly assign an amount to rotate
+each frame. Remember that :math:`theta` must be in degrees in your program.
+
+Backgrounds and Render Ordering
+----------------------------------
+
+
 
 Building a Video Game
 ======================
@@ -2232,7 +2551,7 @@ things by itself.
 
 Building an AlphaZero opponent for Connect Four.
 
-Python Quick Reference Links
+Quick Reference Links
 ==============================
 
   * `Types and Operators <https://docs.python.org/3.6/library/stdtypes.html>`_
