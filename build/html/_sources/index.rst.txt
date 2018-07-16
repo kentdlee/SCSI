@@ -3890,7 +3890,7 @@ could win all the time or at least play well enough you might never win.
   * Build a Ms Pacman game.
   * Build a Snake game with levels and sounds.
   * Build a Galaga video game. You can `start with this code <https://github.com/shaunc44/galaga>`_ but you'll have to learn to use
-    the ppb library as well which is built on type of pygame. You can get `documentation for ppb here <http://aharrisbooks.net/pythonGame/>`_. You might
+    the ppb library as well which is built on top of pygame. You can get `documentation for ppb here <http://aharrisbooks.net/pythonGame/>`_. You might
     want to look at appendix B.
   * Develop the game of Othello with a computer opponent. You might use the AlphaZero framework but develop a new front-end for it that
     makes the graphics part of it fun to play.
