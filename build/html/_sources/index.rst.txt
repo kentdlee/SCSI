@@ -3864,7 +3864,7 @@ Lesson 29
 
 Develop a Connect 4 backend that uses the alpha zero general prebuilt connect four neural network to play the game of connect four against a human
 opponent. Take a look at the tictactoebackendaz.py file and the tictactoeaz.py file to get the general form of these two programs and then apply it
-to the connect 4 alpha zero opponent. 
+to the connect 4 alpha zero opponent.
 
 Research Projects
 ==================
@@ -3874,7 +3874,10 @@ gain more in depth knowledge about a specific area. You can suggest your own res
 experience with the size of a project I will offer advice on how to manage the scope of the project so you will have a reasonable chance to produce something
 cool by the end of your three weeks.
 
-Since this is all new to you and because of the short timeframe that we have I have some suggestions of projects you can work on.
+Since this is all new to you and because of the short timeframe that we have I have some suggestions of projects you can work on. With
+any of these projects you may want to spend some time considering what makes a game fun. Do some research into the enjoyment of
+playing games and what makes a game fun to play since at least some of these would not be fun to play since the computer opponent
+could win all the time or at least play well enough you might never win.
 
   * Develop a Frogger video game with several levels that keeps score and has you attain some goal. I'll leave details to you. This
     could be implemented with either Turtle graphics or with PyGame.
@@ -3883,7 +3886,8 @@ Since this is all new to you and because of the short timeframe that we have I h
   * Take the Connect 4 app and build a better Connect 4 using Monte Carlo Tree Search or some other search techniques. Research other optimization and heuristics for game search and implement one or more of them for the
     game of Connect 4 or some other game of perfect information.
   * Build a machine learning opponent and game for a different game like the Metasquares game.
-  * Build a Missile Command video game.
+  * Build an Asteroids video game with PyGame.
+  * Build a Ms Pacman game. 
   * Build a Snake game with levels and sounds.
   * Build a Gallagha video game.
   * Develop the game of Othello with a computer opponent. You might use the AlphaZero framework but develop a new front-end for it that
