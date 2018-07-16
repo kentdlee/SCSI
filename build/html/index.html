@@ -4377,9 +4377,8 @@ the function should return true if the two boards are equal and false otherwise.
 </div>
 <p>You create <em>newboard</em> because you want a copy that will not be mutated at all otherwise the dictionary will not work correctly. Try this out and add some print statements to verify that your memoization is working.</p>
 </div>
-</div>
 <div class="section" id="connect-four">
-<h1>Connect Four<a class="headerlink" href="#connect-four" title="Permalink to this headline">¶</a></h1>
+<h2>Connect Four<a class="headerlink" href="#connect-four" title="Permalink to this headline">¶</a></h2>
 <p>Connect 4 is a game where checker pieces in alternating colors are dropped into a vertical 6 rows and 7 columns board. Pieces are dropped from above and drop
 down as far as they can until they reach the bottom.</p>
 <p>Programming Tic Tac Toe works very well using a simplified version of minimax. It doesn’t work as well with Connect Four. You still can use minimax, but
@@ -4387,8 +4386,631 @@ there has to be a cut-off because you don’t have the time to search deeply sin
 and you can’t memoize it because it is too big in either case. If we are going to use minimax then we must cut off the search at some depth. So we add a
 depth parameter to minimax and then decrement that depth on each recursive call. When we reach 0 for the remaining depth we need to statically evaluate the
 board to see who is more likely to win. This static evaluation must be fast and cannot involve more search.</p>
-<p>Building a Connect 4 can be done similarly to the Tic Tac Toe application. The frontend code is provided here with the same architecture as before. The
-application uses two checkers</p>
+<p>Building a Connect 4 can be done similarly to the Tic Tac Toe application. The frontend code is <a class="reference external" href="_static/c4.py">provided here with the same architecture as before</a>. The
+application uses two checkers.</p>
+<div class="figboxright docutils container">
+<div class="figure">
+<img alt="_images/redchecker.gif" src="_images/redchecker.gif" />
+</div>
+<div class="figure">
+<img alt="_images/blackchecker.gif" src="_images/blackchecker.gif" />
+</div>
+</div>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">turtle</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">tkinter</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="c1"># The following program will play connect four. This front-end</span>
+<span class="c1"># program and a back-end program communicate through pipes (both input and output)</span>
+<span class="c1"># according to this architecture. When a command is sent it is indicated</span>
+<span class="c1"># with a right arrow indicating something is written to the other program&#39;s</span>
+<span class="c1"># standard input. When the other program sends something to this Python Program</span>
+<span class="c1"># it is indicated with a left arrow. That means it is written to the standard</span>
+<span class="c1"># output of the other program.</span>
+
+<span class="c1"># front-end   back-end</span>
+<span class="c1">#   0 -----------&gt;     # New Game is initiated by the front-end code</span>
+<span class="c1">#   &lt;----------- 0     # Back-end code says OK.</span>
+<span class="c1">#   2 M ---------&gt;     # Human Move followed by Move Value M which is 0-6.</span>
+<span class="c1">#                      # Move Value M will be on separate line.</span>
+<span class="c1">#   &lt;----------- 0     # Back-end code says OK.</span>
+<span class="c1">#   1 -----------&gt;     # Computer Move is indicated to back-end code.</span>
+<span class="c1">#   &lt;--------- 0 M     # Status OK and Move Value M which is 0-6.</span>
+<span class="c1">#   3 -----------&gt;     # Game Over?</span>
+<span class="c1">#   &lt;--------- Val     # Val is 0=Not Over, 1=Computer Won, 2=Human Won, 3=Tie.</span>
+
+<span class="c1"># If you wish to implement your own back-end you must alter the line of code below</span>
+<span class="c1"># that looks like this:</span>
+<span class="c1">#</span>
+<span class="c1"># proc = subprocess.Popen([&quot;clisp&quot;,&quot;c4.fas&quot;],stdout=subprocess.PIPE, \</span>
+<span class="c1">#    stdin=subprocess.PIPE,universal_newlines=True)</span>
+<span class="c1">#</span>
+<span class="c1"># You must replace clisp with the program that starts your program running. If you</span>
+<span class="c1"># have written your back-end with python 3.x then replace clisp with python3.</span>
+<span class="c1"># The c4.fas should be replaced by any command-line arguments to your program. If</span>
+<span class="c1"># you have written your program in python, then the argument should be the name of your</span>
+<span class="c1"># program which must be in the same directory as this front-end code.</span>
+<span class="c1">#</span>
+<span class="c1"># Output that you want to print for debugging purposes can be written to standard error</span>
+<span class="c1"># instead of standard output. In this way standard output can be used to communicate</span>
+<span class="c1"># with the front-end while you still see output printed to the terminal window for</span>
+<span class="c1"># debugging purposes. In python, standard error can be written to as follows:</span>
+<span class="c1">#</span>
+<span class="c1"># import sys</span>
+<span class="c1"># sys.stderr.write(&#39;Your text goes here.\n&#39;)</span>
+<span class="c1">#</span>
+<span class="c1"># This architecture must be adhered to strictly for this program to work. Here</span>
+<span class="c1"># is sample Lisp code that will handle this interaction. However, the other</span>
+<span class="c1"># program may be written in any programming language, including Python.</span>
+
+<span class="c1">#(defun play ()</span>
+  <span class="c1">#(let ((gameBoard (make-hash-table :size 10))</span>
+        <span class="c1">#(memo (make-hash-table :size 27 :test #&#39;equalp))</span>
+        <span class="c1">#(lastMove nil))</span>
+
+    <span class="c1">#(do () (nil nil)</span>
+        <span class="c1">#;(printBoard gameBoard)</span>
+        <span class="c1">#(let ((msgId (read)))</span>
+          <span class="c1">#(cond ((equal msgId 2) ;; Human turn to call human turn function</span>
+                 <span class="c1">#(setf lastMove (humanTurn gameBoard)))</span>
+
+                <span class="c1">#((equal msgId 0) ;; New Game message</span>
+                 <span class="c1">#(progn</span>
+                   <span class="c1">#(setf gameBoard (make-hash-table :size 10))</span>
+                   <span class="c1">#(setf memo (make-hash-table :size 27 :test #&#39;equalp))</span>
+                   <span class="c1">#(format t &quot;0~%&quot;)))</span>
+                   <span class="c1">#;; Return a 0 to indicate the computer is ready</span>
+
+                <span class="c1">#((equal msgId 1) ;; Computer Turn message</span>
+                 <span class="c1">#(setf lastMove (computerTurn gameBoard)))</span>
+
+                <span class="c1">#((equal msgId 3) ;; Get Game Status</span>
+
+                 <span class="c1">#(cond ((equal (evalBoard gameBoard lastMove) 1) (format t &quot;1~%&quot;))</span>
+                       <span class="c1">#;; The Computer Won</span>
+
+                       <span class="c1">#((equal (evalBoard gameBoard lastMove) -1) (format t &quot;2~%&quot;))</span>
+                       <span class="c1">#;; The Human Won</span>
+
+                       <span class="c1">#((fullBoard gameBoard) (format t &quot;3~%&quot;))</span>
+                       <span class="c1">#;; It&#39;s a draw</span>
+
+                       <span class="c1">#(t (format t &quot;0~%&quot;))))</span>
+                       <span class="c1">#;; The game is not over yet.</span>
+
+                <span class="c1">#(t (format t &quot;-1~%&quot;)))))))</span>
+
+<span class="n">Computer</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">Human</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+<span class="k">class</span> <span class="nc">Tile</span><span class="p">(</span><span class="n">turtle</span><span class="o">.</span><span class="n">RawTurtle</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">canvas</span><span class="p">,</span><span class="n">row</span><span class="p">,</span><span class="n">col</span><span class="p">,</span><span class="n">app</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">row</span> <span class="o">=</span> <span class="n">row</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="n">col</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tttApplication</span> <span class="o">=</span> <span class="n">app</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">penup</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ht</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">col</span><span class="o">*</span><span class="mi">100</span><span class="o">+</span><span class="mi">50</span><span class="p">,</span><span class="n">row</span><span class="o">*</span><span class="mi">100</span><span class="o">+</span><span class="mi">50</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">setShape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">horc</span><span class="p">,</span><span class="n">screen</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">horc</span>
+
+        <span class="k">if</span> <span class="n">horc</span> <span class="o">==</span> <span class="n">Computer</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="s2">&quot;blackchecker.gif&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="s2">&quot;redchecker.gif&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">screen</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getOwner</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span>
+
+    <span class="k">def</span> <span class="nf">clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">row</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">col</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">drop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">screen</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">col</span><span class="o">*</span><span class="mi">100</span><span class="o">+</span><span class="mi">50</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">tracer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">col</span><span class="o">*</span><span class="mi">100</span><span class="o">+</span><span class="mi">50</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">row</span><span class="o">*</span><span class="mi">100</span><span class="o">+</span><span class="mi">55</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">col</span><span class="o">*</span><span class="mi">100</span><span class="o">+</span><span class="mi">50</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">row</span><span class="o">*</span><span class="mi">100</span><span class="o">+</span><span class="mi">45</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">col</span><span class="o">*</span><span class="mi">100</span><span class="o">+</span><span class="mi">50</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">row</span><span class="o">*</span><span class="mi">100</span><span class="o">+</span><span class="mi">50</span><span class="p">)</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">Connect4Application</span><span class="p">(</span><span class="n">tkinter</span><span class="o">.</span><span class="n">Frame</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">master</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buildWindow</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="bp">False</span>
+
+    <span class="k">def</span> <span class="nf">buildWindow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Connect Four&quot;</span><span class="p">)</span>
+
+        <span class="n">bar</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Menu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="p">)</span>
+        <span class="n">fileMenu</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Menu</span><span class="p">(</span><span class="n">bar</span><span class="p">,</span><span class="n">tearoff</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">fileMenu</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Exit&quot;</span><span class="p">,</span><span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">quit</span><span class="p">)</span>
+
+        <span class="n">bar</span><span class="o">.</span><span class="n">add_cascade</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;File&quot;</span><span class="p">,</span><span class="n">menu</span><span class="o">=</span><span class="n">fileMenu</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">menu</span><span class="o">=</span><span class="n">bar</span><span class="p">)</span>
+
+        <span class="n">canvas</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Canvas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mi">700</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tkinter</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+
+        <span class="n">theTurtle</span> <span class="o">=</span> <span class="n">turtle</span><span class="o">.</span><span class="n">RawTurtle</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span>
+        <span class="n">theTurtle</span><span class="o">.</span><span class="n">ht</span><span class="p">()</span>
+        <span class="n">screen</span> <span class="o">=</span> <span class="n">theTurtle</span><span class="o">.</span><span class="n">getscreen</span><span class="p">()</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">setworldcoordinates</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">600</span><span class="p">,</span><span class="mi">700</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">register_shape</span><span class="p">(</span><span class="s2">&quot;blackchecker.gif&quot;</span><span class="p">)</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">register_shape</span><span class="p">(</span><span class="s2">&quot;redchecker.gif&quot;</span><span class="p">)</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">tracer</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">bgcolor</span><span class="p">(</span><span class="s2">&quot;yellow&quot;</span><span class="p">)</span>
+
+        <span class="n">theTurtle</span><span class="o">.</span><span class="n">width</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>
+            <span class="n">theTurtle</span><span class="o">.</span><span class="n">penup</span><span class="p">()</span>
+            <span class="n">theTurtle</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">k</span><span class="o">*</span><span class="mi">100</span><span class="o">+</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">theTurtle</span><span class="o">.</span><span class="n">pendown</span><span class="p">()</span>
+            <span class="n">theTurtle</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">k</span><span class="o">*</span><span class="mi">100</span><span class="o">+</span><span class="mi">100</span><span class="p">,</span><span class="mi">600</span><span class="p">)</span>
+
+        <span class="n">theTurtle</span><span class="o">.</span><span class="n">ht</span><span class="p">()</span>
+
+        <span class="n">screen</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+        <span class="k">def</span> <span class="nf">checkStatus</span><span class="p">():</span>
+            <span class="n">toOther</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;3</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">toOther</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+
+            <span class="n">status</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fromOther</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+
+            <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">tkinter</span><span class="o">.</span><span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;Game Over&quot;</span><span class="p">,</span> <span class="s2">&quot;I Won!!!!!&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">tkinter</span><span class="o">.</span><span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;Game Over&quot;</span><span class="p">,</span> <span class="s2">&quot;You Won!!!!!&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">tkinter</span><span class="o">.</span><span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;Game Over&quot;</span><span class="p">,</span> <span class="s2">&quot;It&#39;s a tie.&quot;</span><span class="p">)</span>
+
+            <span class="c1">#print(&quot;Status is &quot;, status)</span>
+            <span class="k">return</span> <span class="n">status</span>
+
+        <span class="k">def</span> <span class="nf">ComputerTurn</span><span class="p">():</span>
+            <span class="n">toOther</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;1</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">toOther</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fromOther</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+            <span class="c1">#print(&quot;Computer Turn Other Status = &quot;, status)</span>
+            <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">move</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fromOther</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span>
+                <span class="c1">#print(&quot;Move is&quot;, move)</span>
+                <span class="n">row</span> <span class="o">=</span> <span class="n">move</span> <span class="o">//</span> <span class="mi">7</span>
+                <span class="n">col</span> <span class="o">=</span> <span class="n">move</span> <span class="o">%</span> <span class="mi">7</span>
+
+                <span class="n">matrix</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="n">Computer</span><span class="p">,</span><span class="n">screen</span><span class="p">)</span>
+                <span class="n">screen</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+        <span class="k">def</span> <span class="nf">HumanTurn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="p">:</span>
+                <span class="k">return</span>
+
+            <span class="c1">#status = checkStatus()</span>
+
+            <span class="c1">#if status != 0:</span>
+                <span class="c1">#return</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="n">col</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">//</span> <span class="mi">100</span>
+
+            <span class="n">row</span> <span class="o">=</span> <span class="mi">5</span>
+            <span class="k">while</span> <span class="n">row</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">matrix</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">isvisible</span><span class="p">():</span>
+                <span class="n">row</span> <span class="o">=</span> <span class="n">row</span> <span class="o">-</span> <span class="mi">1</span>
+
+            <span class="k">if</span> <span class="n">row</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1">#Then we clicked in a column that was already full.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="bp">True</span>
+                <span class="k">return</span>
+
+            <span class="n">val</span> <span class="o">=</span> <span class="n">row</span> <span class="o">*</span> <span class="mi">7</span> <span class="o">+</span> <span class="n">col</span>
+
+            <span class="c1"># Do the Human Turn</span>
+            <span class="n">toOther</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;2</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">toOther</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+            <span class="n">toOther</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">toOther</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+
+            <span class="n">status</span> <span class="o">=</span> <span class="n">fromOther</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="c1">#print(&quot;Status is &quot;,status)</span>
+
+            <span class="n">matrix</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="n">Human</span><span class="p">,</span><span class="n">screen</span><span class="p">)</span>
+            <span class="n">screen</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+            <span class="c1"># Check the status of the game</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="n">checkStatus</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># Do a Computer Turn</span>
+                <span class="n">ComputerTurn</span><span class="p">()</span>
+                <span class="n">checkStatus</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="bp">False</span>
+
+
+        <span class="n">matrix</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">):</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="n">Tile</span><span class="p">(</span><span class="n">canvas</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span>
+                <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+            <span class="n">matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+        <span class="n">screen</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">onclick</span><span class="p">(</span><span class="n">HumanTurn</span><span class="p">)</span>
+
+        <span class="n">sideBar</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">relief</span><span class="o">=</span><span class="n">tkinter</span><span class="o">.</span><span class="n">RAISED</span><span class="p">,</span><span class="n">borderwidth</span><span class="o">=</span><span class="s2">&quot;5pt&quot;</span><span class="p">)</span>
+        <span class="n">sideBar</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tkinter</span><span class="o">.</span><span class="n">RIGHT</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">tkinter</span><span class="o">.</span><span class="n">BOTH</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">NewGame</span><span class="p">():</span>
+            <span class="n">toOther</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;0</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">toOther</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fromOther</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">matrix</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+                    <span class="n">token</span><span class="o">.</span><span class="n">ht</span><span class="p">()</span>
+
+            <span class="n">screen</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+        <span class="n">kb</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">sideBar</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Pass&quot;</span><span class="p">,</span><span class="n">command</span><span class="o">=</span><span class="n">ComputerTurn</span><span class="p">)</span>
+        <span class="n">kb</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+
+        <span class="n">ng</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">sideBar</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;New Game&quot;</span><span class="p">,</span><span class="n">command</span><span class="o">=</span><span class="n">NewGame</span><span class="p">)</span>
+        <span class="n">ng</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+
+
+        <span class="c1">#proc = subprocess.Popen([&quot;clisp&quot;,&quot;c4.fas&quot;],stdout=subprocess.PIPE, \</span>
+        <span class="c1">#    stdin=subprocess.PIPE,universal_newlines=True)</span>
+        <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="s2">&quot;python3&quot;</span><span class="p">,</span><span class="s2">&quot;c4backend.py&quot;</span><span class="p">],</span><span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> \
+            <span class="n">stdin</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span><span class="n">universal_newlines</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">fromOther</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">stdout</span>
+        <span class="n">toOther</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">stdin</span>
+
+        <span class="c1"># To write to the other program you should use commands like this</span>
+        <span class="c1"># toOther.write(val+&quot;\n&quot;)</span>
+        <span class="c1"># Don&#39;t forget to flush the buffer</span>
+        <span class="c1"># toOther.flush()</span>
+
+        <span class="c1"># To read from the other program you write</span>
+        <span class="c1"># line = fromOther.readline().strip()</span>
+
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
+    <span class="n">animApp</span> <span class="o">=</span> <span class="n">Connect4Application</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+
+    <span class="n">animApp</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Program Execution Completed.&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+<p>The backend is not supplied with this project. But you can consult your Tic Tac Toe version to see how this might be constructed. Of course the Board class
+would have to change. The eval method must return a best estimate of who would win when there is not a winner already. Heuristics, which are rules of thumb,
+can be applied to help make a guess as to who would win. However, other techniques like Alpha/Beta pruning might also be applied to help.</p>
+<p>The best solution is to search deeper faster. This can be done with a Monte Carlo Tree Search. And it helps to run code in as fast a manner as possible.
+So, choosing a compiled language like C++ or C would help to speed up minimax. But using C or C++ does not solve all problems.</p>
+</div>
 </div>
 <div class="section" id="machine-learning-opponents">
 <h1>Machine Learning Opponents<a class="headerlink" href="#machine-learning-opponents" title="Permalink to this headline">¶</a></h1>
@@ -4396,8 +5018,31 @@ application uses two checkers</p>
 written on this that is available here</a>.
 What is even more astonishing is that the Alpha Zero Go algorithm has now beaten virtually all of the previous computer opponents of Go and Chess.
 What is even more astonishing than that is that the algorithm learned to do these things without any human expert interaction. It simply learned to do these
-things by itself.</p>
-<p>Building an AlphaZero opponent for Connect Four.</p>
+things by playing games against itself.</p>
+<p>The recent developments in machine learning have occurred because computer hardware, like the graphics hardware we talked about earlier in the course, is
+now being re-purposed to work on machine learning algorithms. Many years ago there was some work on Neural Networks and while there were some very interesting
+algorithms developed with the help of neural nets, most programmers did not understand them well enough to use them effectively. Neural nets have been used
+for handwriting recognition by the post office for many years. Recently statisticians and
+computer programmers have combined their efforts to solve some very tough problems like voice recognition.</p>
+<p>What has come out of much of this work are libraries that not only allow us to build Neural Networks very easily, but also allow us to run them
+very efficiently. Efficient computation is SO important because neural networks typically are trained with massive amounts of data.</p>
+<p><a class="reference external" href="https://medium.com/technology-invention-and-more/how-to-build-a-simple-neural-network-in-9-lines-of-python-code-cc8f23647ca1">Take a look at this article</a>.
+The Python 3 version of this <a class="reference external" href="_static/neuralnet.py">code is provided here</a>.</p>
+<p>The idea behind a neural network is curve fitting. We are fitting a curve in multiple dimensions and asking what a point is on that curve for a set of
+data inputs and an unknown output value.</p>
+<p>There is another important concept of one-hot encoding which is used when data is not continuously numerical in nature. For instance, if you have a is_present
+or is_not_present kind of attribute, you would want to one-hot encode it so it doesn’t look like one value is better than the other.</p>
+<p>The AlphaZero neural network is large, consisting of many neurons and many layers. The package <em>keras</em> manages this for us so we can create a neural network
+of whatever size is necessary and train it efficiently given our training data.</p>
+<p>Go to <a class="reference external" href="https://github.com/kentdlee/alpha-zero-general">https://github.com/kentdlee/alpha-zero-general</a> to get the alpha-zero-general framework and see
+how it can be used to play tic tac toe. Clone this repository to download it or just download the zip file and unzip it.
+Then you can get into the alpha-zero-general directory and run the tictactoeaz.py program to use the pre-built tic tac toe model that is found there.</p>
+<div class="section" id="lesson-29">
+<h2>Lesson 29<a class="headerlink" href="#lesson-29" title="Permalink to this headline">¶</a></h2>
+<p>Develop a Connect 4 backend that uses the alpha zero general prebuilt connect four neural network to play the game of connect four against a human
+opponent. Take a look at the tictactoebackendaz.py file and the tictactoeaz.py file to get the general form of these two programs and then apply it
+to the connect 4 alpha zero opponent.</p>
+</div>
 </div>
 <div class="section" id="research-projects">
 <h1>Research Projects<a class="headerlink" href="#research-projects" title="Permalink to this headline">¶</a></h1>
@@ -4418,8 +5063,9 @@ game of Connect 4 or some other game of perfect information.</li>
 <li>Build a Missile Command video game.</li>
 <li>Build a Snake game with levels and sounds.</li>
 <li>Build a Gallagha video game.</li>
-<li>Develop the game of Othello with a computer opponent.</li>
+<li>Develop the game of Othello with a computer opponent. You might use the AlphaZero framework but develop a new front-end for it that</li>
 </ul>
+<p>makes the graphics part of it fun to play.</p>
 </div></blockquote>
 <p>Again, these are only initial suggestions. In each of these projects you would need to research the rules of the game. You would also decide on a minimum
 viable product and see if you were able to finish that much while at the camp.</p>
@@ -4575,10 +5221,13 @@ too hard to do and I would be happy to get you started.</p>
 <li><a class="reference internal" href="#lesson-27">Lesson 27</a></li>
 <li><a class="reference internal" href="#the-tic-tac-toe-search-space">The Tic Tac Toe Search Space</a></li>
 <li><a class="reference internal" href="#lesson-28">Lesson 28</a></li>
+<li><a class="reference internal" href="#connect-four">Connect Four</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#connect-four">Connect Four</a></li>
-<li><a class="reference internal" href="#machine-learning-opponents">Machine Learning Opponents</a></li>
+<li><a class="reference internal" href="#machine-learning-opponents">Machine Learning Opponents</a><ul>
+<li><a class="reference internal" href="#lesson-29">Lesson 29</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#research-projects">Research Projects</a></li>
 <li><a class="reference internal" href="#quick-reference-links">Quick Reference Links</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
