@@ -667,7 +667,20 @@ number appears in a list we might write something like this.</p>
   <span class="k">print</span><span class="p">(</span><span class="s2">&quot;There were no even numbers in the list.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Again, there are many different versions of this guess and check pattern.</p>
+<p>Again, there are many different versions of this guess and check pattern. For instance, if we want to find the maximum value of a list of values we might
+do it like this. Assume that we know that all values are non-negative in a list that we are given. Consider this code.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span> <span class="c1"># This is some collection of values given to us.</span>
+
+<span class="c1"># -1 works as an initial value because it is less than any maximum value.</span>
+<span class="n">maxVal</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">:</span>
+  <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">maxVal</span><span class="p">:</span>
+    <span class="n">maxVal</span> <span class="o">=</span> <span class="n">x</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;The maximum value is&quot;</span><span class="p">,</span> <span class="n">maxVal</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="reading-a-file">
 <h2>Reading a File<a class="headerlink" href="#reading-a-file" title="Permalink to this headline">¶</a></h2>
@@ -1557,6 +1570,23 @@ For instance, to tell the turtle to go forward 50 steps you would write:</p>
 the turtle to draw a square at a particular location and with a particular size on the screen.</p>
 </div>
 </div>
+<div class="section" id="have-more-time">
+<h1>Have More Time?<a class="headerlink" href="#have-more-time" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><ul>
+<li><p class="first">Write a function called <em>isPalindrome</em> that returns true if a string is a palindrome. A palindrome is a string that spelled backwards is the same as forwards. For instance,
+“radar” is a palindrome. So is “madam i’m adam” and “a man, a plan, a canal: Panama” but you don’t have to handle these as they have spaces and puncutation
+to deal with. You only have to return true if it is a true palindrome with all punctuation and spelling included.</p>
+<p>Write a main program that asks the user for input and then print “This is a palindrome.” or “This is not a palindrome.”</p>
+</li>
+<li><p class="first">Write a function called <em>intersection</em> that returns the elements of two lists that are common to each other. Then write a test program that asks the user
+to enter two lists of strings and then prints the items that were common to each other. You can get input from the user with the <em>input</em> function and you
+can split a string into a list of strings with the <em>split</em> method on a string. So if <em>s</em> is the string <em>‘Hello World’</em> then <em>s.split()</em> returns the list
+<em>[‘Hello’, ‘World’]</em>.</p>
+</li>
+</ul>
+</div></blockquote>
+</div>
 <div class="section" id="event-driven-programming-and-minesweeper">
 <h1>Event-Driven Programming and Minesweeper<a class="headerlink" href="#event-driven-programming-and-minesweeper" title="Permalink to this headline">¶</a></h1>
 <p>In this part of the class we will create a Minesweeper application.
@@ -2035,8 +2065,9 @@ using the <em>datetime</em> module. By writing this code in your <em>MineSweepAp
 <p>You could display a final score for your application which might be some measure of how many bombs we uncovered with the time factored into
 it as well.</p>
 </div>
-<div class="section" id="have-more-time">
-<h2>Have More Time?<a class="headerlink" href="#have-more-time" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="id11">
+<h1>Have More Time?<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h1>
 <p>The game of concentration is played by placing, face down, 52 cards. Then you turn over two cards and check to see if they are two red jacks for instance.
 If they are not matching in this way, then you turn them both back over and select two other cards (perhaps one of the same) to see if you have a match.
 When you get a match, the matching cards are removed and play continues with the remaining cards until all cards are removed.</p>
@@ -2049,7 +2080,6 @@ you can use the PIL, which stands for Python Imaging Library, to resize them. Yo
 <a class="reference external" href="http://pillow.readthedocs.io/en/3.0.x/reference/Image.html?highlight=resize#image-processing">documentation useful</a> on how to use the Image class
 of the PIL. If you need to resize your cards to get them to the correct size then you can run a Python program once to resize all of them for you.
 You’ll also have to study the names of the cards a bit to see how they are named and how that will apply to your concentration game.</p>
-</div>
 </div>
 <div class="section" id="introduction-to-animation">
 <h1>Introduction to Animation<a class="headerlink" href="#introduction-to-animation" title="Permalink to this headline">¶</a></h1>
@@ -2754,6 +2784,17 @@ and coding your program to detect collisions. You must code the distance formula
 in the <em>App</em> class. After you switch the boolean value to true, then you can
 start checking for collisions.</p>
 </div>
+<div class="section" id="cosine-and-sine">
+<h2>Cosine and Sine<a class="headerlink" href="#cosine-and-sine" title="Permalink to this headline">¶</a></h2>
+<p>Cosine and Sine are used to find the <em>x</em> and <em>y</em> coordinates of an angle on the unit circle. In fact if we multiply them times <em>r</em> the radius of a circle
+they give us the coordinates of any point on any circle that is centered at the origin. This comes into play a fair bit in computer graphics when
+objects are rotated.</p>
+<div class="figboxright docutils container">
+<div class="figure">
+<img alt="_images/cossin.png" src="_images/cossin.png" />
+</div>
+</div>
+</div>
 <div class="section" id="translation-rotation-and-scaling">
 <h2>Translation, Rotation, and Scaling<a class="headerlink" href="#translation-rotation-and-scaling" title="Permalink to this headline">¶</a></h2>
 <p>At this point we should learn some things about computer graphics hardware. It turns out that 3D computer graphics is all about rendering surfaces that are
@@ -2763,18 +2804,18 @@ includes great support for drawing 2D graphics, but how does it do it so fast?</
 <p>The answer comes from the way calculations are performed in a graphics engine. First, all these points that make up the corners of surfaces are represented
 as vectors. Each point on the edge of a surface is represented like this.</p>
 <div class="math">
-<p><img src="_images/math/3827269603b75761e3fbd3ad7b42a23b716ba2cf.png" alt="\begin{align}
+<p><img src="_images/math/1299fad5b0045ed968ba7e38826f7dbb7c3710ca.png" alt="\begin{align*}
    v &amp;= \begin{bmatrix}
           x \\
           y \\
           1
         \end{bmatrix}
- \end{align}"/></p>
+ \end{align*}"/></p>
 </div><p>Once the <em>x</em> and <em>y</em> coordinates are in this form, we can apply tranformations to this vector to move the point around in space. For instance,
 if we want to move a point to another location, this is called translation and it is accomplished by doing matrix multiplication by this vector.
 Here is the matrix for translation.</p>
 <div class="math">
-<p><img src="_images/math/79297b2ed3b70aab3b0f8e9d8bcff4ac2ee19982.png" alt="\begin{align}
+<p><img src="_images/math/d31d14170a92ce929f1379f2195a2da9e521fc07.png" alt="\begin{align*}
    v_{new} &amp;= \begin{bmatrix}
     1 &amp; 0 &amp; t_x \\
     0 &amp; 1 &amp; t_y \\
@@ -2790,12 +2831,12 @@ Here is the matrix for translation.</p>
     y + t_y  \\
     1
 \end{bmatrix}
- \end{align}"/></p>
+ \end{align*}"/></p>
 </div><p>By considering this matrix multiplication and the result you can see why we want the additional 1 in the x,y vector. Scaling a point means moving
 it further from the origin relative to its current position. So, for instance if we have a point a 2,3 and scale it by 2 then it would end up at 4,6. This
 is done with a scaling matrix.</p>
 <div class="math">
-<p><img src="_images/math/598da3322c927e91a496103f225297052a1e59f9.png" alt="\begin{align}
+<p><img src="_images/math/980779b386ff1fe13addb1a92ab3ca6e14806644.png" alt="\begin{align*}
    v_{new} &amp;= \begin{bmatrix}
     s_x &amp; 0 &amp; 0 \\
     0 &amp; s_y &amp; 0 \\
@@ -2811,11 +2852,11 @@ is done with a scaling matrix.</p>
     y * s_y  \\
     1
 \end{bmatrix}
- \end{align}"/></p>
+ \end{align*}"/></p>
 </div><p>And, if we want to rotate a point, we rotate it about the origin. Rotation of a point will move it some angle, <img class="math" src="_images/math/3be04d4207434584251f6921820c24ac9fa8c6f1.png" alt="\theta"/>. To rotate by this
 angle we can also multiply by a matrix.</p>
 <div class="math">
-<p><img src="_images/math/4bc51f66a5200cabca737909106610073d38af4e.png" alt="\begin{align}
+<p><img src="_images/math/774c5ac04d0b28b097093ea6ad4e2655bac6ce1e.png" alt="\begin{align*}
    v_{new} &amp;= \begin{bmatrix}
     cos~\theta &amp; -sin~\theta &amp; 0 \\
     sin~\theta &amp; cos~\theta &amp; 0 \\
@@ -2831,14 +2872,14 @@ angle we can also multiply by a matrix.</p>
     x * sin~\theta + y * cos~\theta  \\
     1
 \end{bmatrix}
- \end{align}"/></p>
+ \end{align*}"/></p>
 </div><p>The rotation matrix is less intuitive. Let’s take an example of a point at 2,2 and rotate it by 90 degrees. Afterward it should be at -2,2. The cosine of
 90 degrees is 0. The sine of 90 degrees is 1. So <img class="math" src="_images/math/202a2b55da771e6b0612ae91969d542e90312146.png" alt="x_{new} = 2 * 0 - 2 * 1 = -2"/> and <img class="math" src="_images/math/8f10491db7e2418bfd3f5efe5e9c3d9fd2dfc1f8.png" alt="y_{new} = 2 * 1 + 2 * 0 = 2"/>. So, this works out.</p>
 <p>Now, the really interesting thing that comes out of this has to do with the fact that when displaying computer graphics the same rotation, translation,
 and scaling tranformations often have to be performed on many, many points. It turns out that we can save a LOT of computer calculations if we
 build up a composite matrix.</p>
 <div class="math">
-<p><img src="_images/math/ca95b8c79745103893e53a556414e524a8c6af47.png" alt="\begin{align}
+<p><img src="_images/math/37f86438cbea3d8f0ecac14904b39dc2e6b0c987.png" alt="\begin{align*}
  v_{new} &amp;= \begin{bmatrix}
  1 &amp; 0 &amp; t_x \\
  0 &amp; 1 &amp; t_y \\
@@ -2869,7 +2910,7 @@ build up a composite matrix.</p>
     y_{new}  \\
     1
  \end{bmatrix}
- \end{align}"/></p>
+ \end{align*}"/></p>
 </div><p>Consider the calculation above. In this we are first translating by <img class="math" src="_images/math/af60cf53e1994ceb6bc5956ed3f5cedcfdbdcb4f.png" alt="-t_x,-t_y"/>. Then we are scaling by <img class="math" src="_images/math/93ef29f5ca3308c5c863d9d66cfa8fe0bf5c8cb3.png" alt="s_x,s_y"/>. Then
 we are rotating by some angle <img class="math" src="_images/math/3be04d4207434584251f6921820c24ac9fa8c6f1.png" alt="\theta"/>. Then we are translating back by <img class="math" src="_images/math/c1ae64e5e4172a7a22cfac1ca90d444d2ffd3494.png" alt="t_x,t_y"/>. This is a very common sequence of matrix multiplications.
 What’s really cool is if we multiply all those matrices together (without the x,y vector) we get a composite matrix that does all the operations
@@ -3315,28 +3356,1039 @@ front plane balls to make it clear which are which.</p>
 </div>
 <div class="section" id="pygame-sounds">
 <h2>PyGame Sounds<a class="headerlink" href="#pygame-sounds" title="Permalink to this headline">¶</a></h2>
-<p>Another nice feature of PyGame that you probably already noticed is the ability to incorporate sound into an application. Line 95 of the code above loads
-a sound into the application.</p>
+<p>Another nice feature of PyGame that you probably already noticed is the ability to incorporate sound into an application. Line 95 of the angry birds code
+above loads
+a sound into the application. And you can play a sound using the code on line 136 of the application.</p>
+</div>
+<div class="section" id="lesson-25">
+<h2>Lesson 25<a class="headerlink" href="#lesson-25" title="Permalink to this headline">¶</a></h2>
+<p>You can get many sounds from the internet. The site <a class="reference external" href="http://freesound.org">freesound.org</a> has many free sounds. Googling a sound also helps.
+Add a sound when two balls collide in any of the earlier labs of colliding balls. Pick any sound you like that is appropriate of course.</p>
 </div>
 </div>
-<div class="section" id="building-a-video-game">
-<h1>Building a Video Game<a class="headerlink" href="#building-a-video-game" title="Permalink to this headline">¶</a></h1>
-<p>Missile Command? Angry Birds?</p>
-<p>End of session two.</p>
-</div>
-<div class="section" id="composite-shapes">
-<h1>Composite Shapes<a class="headerlink" href="#composite-shapes" title="Permalink to this headline">¶</a></h1>
-<p>Animating.</p>
-</div>
-<div class="section" id="id11">
-<h1>Detecting Collisions<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h1>
-<p>End of Session 3.</p>
+<div class="section" id="id12">
+<h1>Have More Time?<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h1>
+<p>Build a <em>Lunar Lander</em> video game. In this game you have a rocket ship that needs to land on the surface of the moon. You are in orbit but have entered
+into a decaying orbit. In other words you are caught in the moon’s gravity and are descending. You only have so much fuel left. And you have
+to get to a specific landing location. There is a level landing place on the moon. You can make the landing area very simple by drawing a rectangle on the
+screen where you need to land.</p>
+<p>There should be keys for angling the rocket left or right so you can move to either side. And there is only one engine on the bottom of the rocket
+that can be fired. When you fire the rocket engine it creates thrust in the opposite direction. You need to understand <em>cosine</em> and <em>sine</em> to compute
+the thrust applied to the rocket. There are two pieces of information, the thrust supplied by the rocket engine and the angle of the rocket. With these
+two pieces of information you can compute a <em>dx</em> and a <em>dy</em> movement vector that can be applied to moving your rocket.</p>
+<p>Don’t forget that gravity is always working to accellerate the rocket toward the ground. So, in each frame a little gravity must be applied to the
+rocket as well.</p>
+<p>The goal of the game is to land the rocket with a very low velocity on the landing pad without running out of fuel. Otherwise the rocket crashes to the
+surface and you lose.</p>
+<p>It should be quite hard to win this game so make the required landing velocity quite low and the amount of initial fuel not very much.</p>
+<p>To make this fun you might also look for a space background image and a nice rocket image.</p>
 </div>
 <div class="section" id="games-of-perfect-information">
 <h1>Games of Perfect Information<a class="headerlink" href="#games-of-perfect-information" title="Permalink to this headline">¶</a></h1>
-<p>Tic Tac Toe</p>
-<p>Minimax</p>
-<p>Connect Four</p>
+<p>Games of perfect information are games where the two players know everything about their opponents state in the game. For instance, tic tac toe
+is a game of perfect information. Poker is not since the two opponents don’t know what cards are in each other’s hands. Board games tend to be
+games of perfect information.</p>
+<p>There has been a lot of research into how to play games of perfect information. One of the earliest outcomes of this research is the <em>minimax</em> algorithm.
+Minimax is recursive. A recursive algorithm is usually written as a <em>recursive function</em>. So, we’ll start by studying a little recursion. Then we’ll move
+on to minimax.</p>
+<div class="section" id="slicing">
+<h2>Slicing<a class="headerlink" href="#slicing" title="Permalink to this headline">¶</a></h2>
+<p>It will help if you understand something about sequence slicing in this example. In Python it is possible to take a slice of a sequence, like a list. If
+<em>L</em> is a list, then <em>L[1:]</em> is all but the first element of the list. And <em>L[:-1]</em> would be all but the last element of the list. And <em>L[:]</em> is a complete
+copy of a list. And one more, <em>L[1:3]</em> is a sublist. If <em>L = [“hi”, “there”, “how”, “are”, “you?”]</em> then <em>L[1:3]</em> would be <em>[“there”,”how”]</em>. The second
+index is always one past the end of the slice. If the first index is omitted in a slice it extends from the beginning and the slice extends to the
+end if the second value in the slice specification is omitted.</p>
+<p>In addition, negative indices into a list start from the far end. So, <em>L[-1]</em> is the last element of <em>L</em> which can sometimes be useful, but is Python specific.
+Most languages do not support negative indexing.</p>
+</div>
+<div class="section" id="recursion">
+<h2>Recursion<a class="headerlink" href="#recursion" title="Permalink to this headline">¶</a></h2>
+<p>I usually tell my students when they are learning recursion that this is the one time in Computer Science when programmers should not think
+too hard. Recursion works if you follow some simple steps. Let’s consider an example. Let’s reverse a list of items. Before we begin writing code
+we should decide on a name for our function and what it should be given and what it should return. In our case <em>reverse</em> seems like a good name. It
+is given a list and it should return a new list which is the reverse of the original.</p>
+<p>Then, there are two cases to consider.</p>
+<blockquote>
+<div><p>1. What happens to a very simple, smallest list. In our case that would be the empty list. If we reverse and empty list, then we have the
+empty list after reversing it. This is called the base case. The base case is the first thing we should come up with and the first thing
+to write in a recursive function.</p>
+<p>2. Then, the next case is called the recursive case and it is where I tell students <em>If you call the function on something smaller, it will work.</em>
+You have to trust that calling the function on a smaller value will work. Then you can build the return value from the original value and the
+result of calling it on something smaller.</p>
+</div></blockquote>
+<p>Here is the code that goes with this <em>reverse</em> function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">reverse</span><span class="p">(</span><span class="n">L</span><span class="p">):</span>
+
+    <span class="c1"># This is the base case</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">L</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+    <span class="c1"># This is the recursive case. You start by writing the call to reverse.</span>
+    <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> <span class="o">+</span> <span class="p">[</span><span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>In the recursive case, when writing it we start with the recursive call which is called on something smaller (all but the first element of the list).
+Since it is called on something smaller it will work. Don’t worry about how, it just works. So, then we can use that result in
+constructing the whole reversed list by adding the first element at the right end of it. If you don’t see why, then consider a concrete example like the list
+<em>L=[1,2,3]</em>. Use this list to see why you get back <em>[3,2,1]</em> if you call reverse.</p>
+</div>
+<div class="section" id="standard-input-output-and-error">
+<h2>Standard Input, Output, and Error<a class="headerlink" href="#standard-input-output-and-error" title="Permalink to this headline">¶</a></h2>
+<p>We’ll learn just a bit about programming language environments and their connection to host operating systems. Every program in Python has access to
+three streams. These streams provide the abstraction of standard input, standard output, and another output stream called standard error. Each stream
+can be read from/written to like it is a stream of characters or other types of values. Unix and Windows provide this same abstraction. In fact, the idea
+of standard input/output/error came from the original version of Unix, but was carried on into a set of low level supported modules called POSIX. POSIX
+is implemented by all operating systems makers today including Linux, Windows, and Mac OS.</p>
+<p>When a program reads information from the user, it is from Standard Input. When it prints, normally that goes to Standard Output. But, we can
+print to Standard Error if we like as well. Both Standard Error and Standard Output show up on the screen unless told to show up elsewhere by
+operating systems commands called redirection. In the next section we’ll use some redirection to tie a frontend and a backend together.</p>
+</div>
+<div class="section" id="tic-tac-toe">
+<h2>Tic Tac Toe<a class="headerlink" href="#tic-tac-toe" title="Permalink to this headline">¶</a></h2>
+<p>Let’s consider playing a game like tic tac toe. If we wanted to program a game of tic tac toe then our computer opponent would want to
+make moves against the user. Consider the last move in the game. The computer could take a board, make a move in it, see if that was a win or not, and
+then make that move permanently. That is exactly how the computer opponent works in a game like tic tac toe. Except that there is a little more to it.</p>
+<p>Let’s code a tic tac toe game. I will provide you with a tic tac toe frontend and the start of a tic tac toe backend to code this project. The frontend
+uses two pictures, which I am providing here.</p>
+<div class="figboxright docutils container">
+<div class="figure">
+<img alt="_images/O.gif" src="_images/O.gif" />
+</div>
+<div class="figure">
+<img alt="_images/X.gif" src="_images/X.gif" />
+</div>
+</div>
+<p>The frontend I am providing communicates through a pipe with the backend. What this means is that there is a well-defined architecture which the
+frontend and the backend use to communicate. It also means that the backend can simply print things that it wants to send to the frontend and read from
+standard input the things it needs to read from the frontend. Let’s take a look at the frontend code first. You can <a class="reference external" href="_static/tictactoe.py">download the frontend code from here</a>.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">turtle</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">tkinter</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="c1"># The following program will play tic tac toe. This</span>
+<span class="c1"># program and a back end program communicate through pipes (both input and output)</span>
+<span class="c1"># according to this architecture. When a command is sent to the back end it is indicated</span>
+<span class="c1"># with a right arrow indicating something is written to the back end program&#39;s</span>
+<span class="c1"># standard input. When the back end program sends something to this Python Program</span>
+<span class="c1"># it is indicated with a left arrow. That means it is written to the standard</span>
+<span class="c1"># output of the back end program.</span>
+
+<span class="c1"># Front End    Back End</span>
+<span class="c1">#   0 -----------&gt;     # New Game is initiated by the back end Code</span>
+<span class="c1">#   &lt;----------- 0     # Back End Code says OK.</span>
+<span class="c1">#   2 M ---------&gt;     # Human Move followed by Move Value M which is 0-8.</span>
+<span class="c1">#                      # Move Value M will be on separate line.</span>
+<span class="c1">#   &lt;----------- 0     # Back End Code says OK.</span>
+<span class="c1">#   1 -----------&gt;     # Computer Move is indicated to Back End Code</span>
+<span class="c1">#   &lt;--------- 0 M     # Status OK and Move Value M which is 0-8.</span>
+<span class="c1">#   3 -----------&gt;     # Game Over?</span>
+<span class="c1">#   &lt;--------- Val     # Val is 0=Not Over, 1=Computer Won, 2=Human Won, 3=Tie.</span>
+
+<span class="c1"># This architecture must be adhered to strictly for this program to work. Here</span>
+<span class="c1"># is sample Lisp code that will handle this interaction.</span>
+
+<span class="c1">#(defun play ()</span>
+  <span class="c1">#(let ((gameBoard (make-hash-table :size 10))</span>
+        <span class="c1">#(memo (make-hash-table :size 27 :test #&#39;equalp)))</span>
+
+    <span class="c1">#(do () (nil nil)</span>
+        <span class="c1">#(let ((msgId (read)))</span>
+          <span class="c1">#(cond ((equal msgId 2) ;; Human turn to call human turn function</span>
+                 <span class="c1">#(humanTurn gameBoard))</span>
+
+                <span class="c1">#((equal msgId 0) ;; New Game message</span>
+                 <span class="c1">#(progn</span>
+                   <span class="c1">#(setf gameBoard (make-hash-table :size 10))</span>
+                   <span class="c1">#(setf memo (make-hash-table :size 27 :test #&#39;equalp))</span>
+                   <span class="c1">#(format t &quot;0~%&quot;)))</span>
+                   <span class="c1">#;; Return a 0 to indicate the computer is ready</span>
+
+                <span class="c1">#((equal msgId 1) ;; Computer Turn message</span>
+                 <span class="c1">#(computerTurn gameBoard memo))</span>
+
+                <span class="c1">#((equal msgId 3) ;; Get Game Status</span>
+
+                 <span class="c1">#(cond ((equal (evalBoard gameBoard) 1) (format t &quot;1~%&quot;))</span>
+                       <span class="c1">#;; The Computer Won</span>
+
+                       <span class="c1">#((equal (evalBoard gameBoard) -1) (format t &quot;2~%&quot;))</span>
+                       <span class="c1">#;; The Human Won</span>
+
+                       <span class="c1">#((fullBoard gameBoard) (format t &quot;3~%&quot;))</span>
+                       <span class="c1">#;; It&#39;s a draw</span>
+
+                       <span class="c1">#(t (format t &quot;0~%&quot;))))</span>
+                       <span class="c1">#;; The game is not over yet.</span>
+
+                <span class="c1">#(t (format t &quot;-1~%&quot;)))))))</span>
+
+<span class="n">Computer</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">Human</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+<span class="k">class</span> <span class="nc">Tile</span><span class="p">(</span><span class="n">turtle</span><span class="o">.</span><span class="n">RawTurtle</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">canvas</span><span class="p">,</span><span class="n">row</span><span class="p">,</span><span class="n">col</span><span class="p">,</span><span class="n">app</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="s2">&quot;tile.gif&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">row</span> <span class="o">=</span> <span class="n">row</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="n">col</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tttApplication</span> <span class="o">=</span> <span class="n">app</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">penup</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">col</span><span class="o">*</span><span class="mi">200</span><span class="o">+</span><span class="mi">100</span><span class="p">,</span><span class="n">row</span><span class="o">*</span><span class="mi">200</span><span class="o">+</span><span class="mi">100</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">setShape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">horc</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">horc</span>
+
+        <span class="k">if</span> <span class="n">horc</span> <span class="o">==</span> <span class="n">Computer</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="s2">&quot;X.gif&quot;</span><span class="p">)</span> <span class="c1"># You fill this in</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="s2">&quot;O.gif&quot;</span><span class="p">)</span> <span class="c1"># You fill this in</span>
+
+    <span class="k">def</span> <span class="nf">getOwner</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span>
+
+    <span class="k">def</span> <span class="nf">clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">row</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">col</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">TicTacToeApplication</span><span class="p">(</span><span class="n">tkinter</span><span class="o">.</span><span class="n">Frame</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">master</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buildWindow</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="bp">False</span>
+
+    <span class="k">def</span> <span class="nf">buildWindow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Tic Tac Toe&quot;</span><span class="p">)</span>
+
+        <span class="n">bar</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Menu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="p">)</span>
+        <span class="n">fileMenu</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Menu</span><span class="p">(</span><span class="n">bar</span><span class="p">,</span><span class="n">tearoff</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">fileMenu</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Exit&quot;</span><span class="p">,</span><span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">quit</span><span class="p">)</span>
+
+        <span class="n">bar</span><span class="o">.</span><span class="n">add_cascade</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;File&quot;</span><span class="p">,</span><span class="n">menu</span><span class="o">=</span><span class="n">fileMenu</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">menu</span><span class="o">=</span><span class="n">bar</span><span class="p">)</span>
+
+        <span class="n">canvas</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Canvas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tkinter</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+
+        <span class="n">theTurtle</span> <span class="o">=</span> <span class="n">turtle</span><span class="o">.</span><span class="n">RawTurtle</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span>
+        <span class="n">theTurtle</span><span class="o">.</span><span class="n">ht</span><span class="p">()</span>
+        <span class="n">screen</span> <span class="o">=</span> <span class="n">theTurtle</span><span class="o">.</span><span class="n">getscreen</span><span class="p">()</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">setworldcoordinates</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">600</span><span class="p">,</span><span class="mi">600</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">register_shape</span><span class="p">(</span><span class="s2">&quot;tile.gif&quot;</span><span class="p">)</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">register_shape</span><span class="p">(</span><span class="s2">&quot;X.gif&quot;</span><span class="p">)</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">register_shape</span><span class="p">(</span><span class="s2">&quot;O.gif&quot;</span><span class="p">)</span>
+        <span class="n">screen</span><span class="o">.</span><span class="n">tracer</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">checkStatus</span><span class="p">():</span>
+            <span class="n">toBackEnd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;3</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">toBackEnd</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+
+            <span class="n">status</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fromBackEnd</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+
+            <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">tkinter</span><span class="o">.</span><span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;Game Over&quot;</span><span class="p">,</span> <span class="s2">&quot;I Won!!!!!&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">tkinter</span><span class="o">.</span><span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;Game Over&quot;</span><span class="p">,</span> <span class="s2">&quot;You Won!!!!!&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                 <span class="n">tkinter</span><span class="o">.</span><span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;Game Over&quot;</span><span class="p">,</span> <span class="s2">&quot;It&#39;s a tie.&quot;</span><span class="p">)</span>
+
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Status is &quot;</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">status</span>
+
+        <span class="k">def</span> <span class="nf">ComputerTurn</span><span class="p">():</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;In Computer Turn&quot;</span><span class="p">)</span>
+            <span class="n">toBackEnd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;1</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">toBackEnd</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fromBackEnd</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Computer Turn Back End Status = &quot;</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">move</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fromBackEnd</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Move is&quot;</span><span class="p">,</span> <span class="n">move</span><span class="p">)</span>
+                <span class="n">row</span> <span class="o">=</span> <span class="n">move</span> <span class="o">//</span> <span class="mi">3</span>
+                <span class="n">col</span> <span class="o">=</span> <span class="n">move</span> <span class="o">%</span> <span class="mi">3</span>
+
+                <span class="n">matrix</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="n">Computer</span><span class="p">)</span>
+                <span class="n">screen</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+        <span class="k">def</span> <span class="nf">HumanTurn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="p">:</span>
+                <span class="k">return</span>
+
+            <span class="n">status</span> <span class="o">=</span> <span class="n">checkStatus</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="n">col</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">//</span> <span class="mi">200</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">//</span> <span class="mi">200</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">row</span><span class="p">,</span><span class="n">col</span><span class="p">)</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="n">row</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="n">col</span>
+
+            <span class="c1"># Do the Human Turn</span>
+            <span class="n">toBackEnd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;2</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">toBackEnd</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+            <span class="n">toBackEnd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">toBackEnd</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+
+            <span class="n">status</span> <span class="o">=</span> <span class="n">fromBackEnd</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Status is &quot;</span><span class="p">,</span><span class="n">status</span><span class="p">)</span>
+
+            <span class="n">matrix</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="n">Human</span><span class="p">)</span>
+            <span class="n">screen</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+            <span class="c1"># Check the status of the game</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="n">checkStatus</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># Do a Computer Turn</span>
+                <span class="n">ComputerTurn</span><span class="p">()</span>
+                <span class="n">checkStatus</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="bp">False</span>
+
+
+        <span class="n">matrix</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="n">Tile</span><span class="p">(</span><span class="n">canvas</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span>
+                <span class="n">t</span><span class="o">.</span><span class="n">onclick</span><span class="p">(</span><span class="n">HumanTurn</span><span class="p">)</span>
+                <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+            <span class="n">matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+        <span class="n">screen</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+        <span class="n">sideBar</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">relief</span><span class="o">=</span><span class="n">tkinter</span><span class="o">.</span><span class="n">RAISED</span><span class="p">,</span><span class="n">borderwidth</span><span class="o">=</span><span class="s2">&quot;5pt&quot;</span><span class="p">)</span>
+        <span class="n">sideBar</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tkinter</span><span class="o">.</span><span class="n">RIGHT</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">tkinter</span><span class="o">.</span><span class="n">BOTH</span><span class="p">)</span>
+
+        <span class="n">kb</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">sideBar</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Pass&quot;</span><span class="p">,</span><span class="n">command</span><span class="o">=</span><span class="n">ComputerTurn</span><span class="p">)</span>
+        <span class="n">kb</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+
+        <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="s2">&quot;python3&quot;</span><span class="p">,</span><span class="s2">&quot;tictactoebackend.py&quot;</span><span class="p">],</span>\
+          <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span><span class="n">stdin</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span><span class="n">universal_newlines</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">fromBackEnd</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">stdout</span>
+        <span class="n">toBackEnd</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">stdin</span>
+
+        <span class="c1"># To write to back end you should use commands like this</span>
+        <span class="c1"># toBackEnd.write(val+&quot;\n&quot;)</span>
+        <span class="c1"># Don&#39;t forget to flush the buffer</span>
+        <span class="c1"># toBackEnd.flush()</span>
+
+        <span class="c1"># To read from back end you write</span>
+        <span class="c1"># line = fromBackEnd.readline().strip()</span>
+
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
+    <span class="n">tttApp</span> <span class="o">=</span> <span class="n">TicTacToeApplication</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+
+    <span class="n">tttApp</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Program Execution Completed.&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+<p>The comments at the top of the code above detail the architecture that the frontend follows and that the backend must follow to keep all communication
+going between the two halves. For instance, if a 0 is printed by the frontend, the backend code must read the 0 and respond with a 0 by printing it.</p>
+<p>The locations on the board are numbered 0-8. The upper left corner is 0. The one to its right is 1. Then 2. The second row has 3,4,5 and the last row
+is 6,7,8.</p>
+<p>The code one line 211 starts the backend program which must be called <em>tictactoebackend.py</em>. This is the code you will write. I am providing you with an
+<a class="reference external" href="_static/tictactoebackend.py">outline of this code as well to get started</a>. I have also included it here for us to look at.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">use this script as the backend to the tictactoe.py frontend.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># The eprint function can be used instead of print to print debugging information</span>
+<span class="c1"># to the screen while the print function is used to send information to the frontend</span>
+<span class="c1"># code that started this module.</span>
+
+<span class="k">def</span> <span class="nf">eprint</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="n">Human</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="n">Computer</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># put you Board class here.</span>
+<span class="k">class</span> <span class="nc">Board</span><span class="p">:</span>
+    <span class="c1"># When a board is constructed, you may want to make a copy of the board.</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">board</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">board</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)]</span> <span class="o">=</span> <span class="n">Dummy</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)]</span> <span class="o">=</span> <span class="n">board</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)]</span>
+
+
+<span class="c1"># The Dummy class is a placeholder for locations that have not</span>
+<span class="c1"># yet been played. It is here for convenience in printing and</span>
+<span class="c1"># evaluating the board.</span>
+<span class="k">class</span> <span class="nc">Dummy</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># You can call eval to get its value.</span>
+    <span class="k">def</span> <span class="nf">eval</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">goto</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;Dummy()&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot; &quot;</span>
+
+<span class="k">class</span> <span class="nc">X</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># You can call eval to get its value.</span>
+    <span class="k">def</span> <span class="nf">eval</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Computer</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;X()&quot;</span>
+
+    <span class="c1"># calling str(v) where v is an X object will return the &quot;X&quot; as a string.</span>
+    <span class="c1"># This is useful if you write a __str__ method for your Board class</span>
+    <span class="c1"># as well. You can use this __str__ in your Board class __str__.</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;X&quot;</span>
+
+<span class="k">class</span> <span class="nc">O</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># You can call eval to get its value.</span>
+    <span class="k">def</span> <span class="nf">eval</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Human</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;O()&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;O&quot;</span>
+
+<span class="c1"># Put your minimax function here.</span>
+
+
+<span class="k">def</span> <span class="nf">humanTurn</span><span class="p">(</span><span class="n">gameBoard</span><span class="p">):</span>
+    <span class="n">move</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+    <span class="n">eprint</span><span class="p">(</span><span class="s2">&quot;In humanTurn&quot;</span><span class="p">)</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="n">move</span><span class="o">//</span><span class="mi">3</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="n">move</span><span class="o">%</span><span class="mi">3</span>
+
+    <span class="k">if</span> <span class="n">gameBoard</span><span class="o">.</span><span class="n">full</span><span class="p">():</span>
+        <span class="k">print</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">abs</span><span class="p">(</span><span class="n">gameBoard</span><span class="o">.</span><span class="n">eval</span><span class="p">())</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="c1"># game is already over</span>
+        <span class="k">print</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">gameBoard</span><span class="p">[(</span><span class="n">row</span><span class="p">,</span><span class="n">col</span><span class="p">)]</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># move was already made</span>
+        <span class="k">print</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Using X and O as classes will help</span>
+        <span class="c1"># if printing the board.</span>
+        <span class="n">gameBoard</span><span class="p">[(</span><span class="n">row</span><span class="p">,</span><span class="n">col</span><span class="p">)]</span> <span class="o">=</span> <span class="n">O</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">computerTurn</span><span class="p">(</span><span class="n">gameBoard</span><span class="p">):</span>
+    <span class="c1"># Here you should write your computerTurn function.</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">gameBoard</span> <span class="o">=</span> <span class="n">Board</span><span class="p">()</span>
+
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="c1">#The following eprint can be really handy during debugging so you</span>
+        <span class="c1">#can see how to interact with the program given the board contents.</span>
+        <span class="c1">#The code on the next line requires you to define a __str__ method</span>
+        <span class="c1">#for your Board class which returns a string representation of the</span>
+        <span class="c1">#board.</span>
+        <span class="n">eprint</span><span class="p">(</span><span class="n">gameBoard</span><span class="p">)</span>
+        <span class="n">eprint</span><span class="p">(</span><span class="s2">&quot;Enter a message Id: &quot;</span><span class="p">)</span>
+        <span class="n">msgId</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+
+        <span class="k">if</span> <span class="n">msgId</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">humanTurn</span><span class="p">(</span><span class="n">gameBoard</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">msgId</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">gameBoard</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span> <span class="c1"># or gameBoard = Board()</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;0&quot;</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">msgId</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">computerTurn</span><span class="p">(</span><span class="n">gameBoard</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">msgId</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="n">gameBoard</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">Computer</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">status</span> <span class="o">==</span> <span class="n">Human</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">gameBoard</span><span class="o">.</span><span class="n">full</span><span class="p">():</span>
+                    <span class="k">print</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">eprint</span><span class="p">(</span><span class="s2">&quot;Something is wrong with the front-end&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">main</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+<p>This frontend and backend architecture allows you to run the backend independently of the frontend code to debug it. Then when it is debugged
+and working
+you automatically get the GUI interface by running the frontend code. Just be sure to name your backend code <em>tictactoebackend.py</em>.</p>
+</div>
+<div class="section" id="lesson-26">
+<h2>Lesson 26<a class="headerlink" href="#lesson-26" title="Permalink to this headline">¶</a></h2>
+<p>To get started on getting Tic Tac Toe to work, let’s make sure that the HumanTurn code works with your board. You will likely have to
+write some code and do some debugging to get it to work, but it will work with the backend code above once you debug it. To interact with the
+program you can run it in Wing and it should interact like this.</p>
+<div class="highlight-text notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span>| || || |
+| || || |
+| || || |
+
+Enter a message Id:
+2
+0
+In humanTurn
+0
+|O|| || |
+| || || |
+| || || |
+
+Enter a message Id:
+</pre></div>
+</td></tr></table></div>
+<p>The input and output deserves a little explanation above. Lines 1-3 are <em>eprinted</em> by the main function when the board is printed. You need to
+complete a function called __str__ to get this working. The __str__ method of the Board class is called automatically from the humanTurn code on
+line 106 of the code above. You will need to know that “n” is a newline character and can be added to a string to create a new line. To get the
+__str__ method working you will need two nested for loops. Here is an outline of that code for you. Try to finish it to get the board printed
+correctly (HINT: The print method you worked on during the first day can be used as a template for this code. This time you are building a
+string of the result instead of printing.)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="o">...</span>
+
+    <span class="k">return</span> <span class="n">s</span>
+</pre></div>
+</div>
+<p>Once the board is printing, you will need your <em>eval</em> method working.  Get this to work first and see that you can fill the board with a bunch of O’s.</p>
+</div>
+<div class="section" id="minimax">
+<h2>Minimax<a class="headerlink" href="#minimax" title="Permalink to this headline">¶</a></h2>
+<p>Minimax is a function that plays the game by alternating between human and computer opponent. It does this to play the game either to its conclusion or
+to a maximum allowed depth. In the case of tic tac toe, it will play the game to its conslusion.</p>
+<p>The minimax function is recursive and it is given the player to make the next move and the current board. The function
+minimax returns the value of that board. Returning a -1 would indicate that the human has already won. Returning a 1 indicates the computer has won. A 0 says that
+neither the human or computer has won and there is no likely winner either. For tic tac toe, the return value of minimax will always be -1, 1, or 0.</p>
+<p>The base case of minimax calls your eval method on the board and if it is -1 or 1 then it returns that value before making any move. If the board
+is full then it returns 0. You should write a method called <em>full</em> for your board that returns true if the board is full and you can add the code to
+to your minimax function to call it.</p>
+<p>The rest of minimax is split into two parts for the recursive calls. One part is if the current player is a Human. The other is if the player to play next is
+the Computer. Humans are associated with -1 and Computer opponents are associated with 1 (see the constants at the top of tictactoebackend.py). So,
+if the computer is the next player, then we are looking to find the maximum of any value we get by making all possible moves in the board
+as the Computer (by placing an X on the board) and then recursively call minimax with the human as the next player.</p>
+<p>If the next player to play is a Human, then we make all possible moves on the board by placing an O on the board and seeing what minimax returns
+as a value with the computer as the next player to play.</p>
+<p>When the computer is the current player we want to find the maximum value. When the human is the next player we want to find the minimum value.
+We return that maximum or minimum value from minimax depending on the outcome of our search. What we have done is just search the entire search
+space of tic tac toe to see if we an find a good move.</p>
+<p>Minimax returns a 1, -1, or 0 but does not tell us which was the best move. To gather that information we need to write one more function, the
+computerTurn function which operates just like <em>minimax</em> when the computer is the next to make a move (i.e. the current player) except that it
+also keeps track of the best move associated with the maximum value that is returned.</p>
+</div>
+<div class="section" id="lesson-27">
+<h2>Lesson 27<a class="headerlink" href="#lesson-27" title="Permalink to this headline">¶</a></h2>
+<p>Code minimax and computerTurn according to the description given above. Once you have it done, try it out in Wing by using the interface to the
+backend directly. If it all seems to work, put it with the frontend code by running the tictactoe.py module. You should have a working Tic Tac Toe
+program at that point.</p>
+</div>
+<div class="section" id="the-tic-tac-toe-search-space">
+<h2>The Tic Tac Toe Search Space<a class="headerlink" href="#the-tic-tac-toe-search-space" title="Permalink to this headline">¶</a></h2>
+<p>The number of calls to minimax is actually quite large to play the whole thing out. There are 255,168 different sequences of moves in Tic Tac Toe. That’s
+not that bad for a computer, but it still takes a bit to figure out that first place to put a token, especially if you as the human pass on the first
+turn.</p>
+<p>The computer should put an X in the middle if allowed to make up its own mind and minimax will say to to do that. But the next time minimax is called it
+will have forgotten everything that it <em>learned</em> on the first call to minimax. On each computer turn it starts over. This is not really a big problem with
+tic tac toe, but we could remember what we learned and just apply our learning the next time to speed up tic tac toe a bit. This can be done by recording
+the outcome of a board, its max or min value, in a dictionary that we can come back to later. This technique is called <em>memoization</em> and is an optimization
+of minimax.</p>
+<p>To use <em>memoization</em> you first create a <em>memo</em> dictionary at the module level, outside of any function, where we can map boards to their values. In this
+dictionary we will map boards to their minimax values. To do this, the <em>Board</em> object will be a key in a dictionary while the value it maps to will be the
+dictionary value for that key.</p>
+<p>For reasons beyond this class, there are three requirements of a key in a dictionary. The key cannot be mutated once put in the dictionary. It also must
+support a __hash__ function and an __eq__ function. The __hash__ function returns an integer that should be evenly spread distributed across all boards.
+In our case we can build a unique integer for any board by computing its trinary number. Computing a trinary number is not too hard once you have seen it.
+Here it is for the Board class.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># This hash method is necessary eventually to memoize the tic tac toe</span>
+<span class="c1"># program. Memoization is a technique that can significantly speed up</span>
+<span class="c1"># search when the same paths are encountered multiple times.</span>
+<span class="c1"># It should return an integer that uniquely identifies</span>
+<span class="c1"># the state of the board.</span>
+<span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">val</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="n">val</span> <span class="o">+=</span> <span class="n">val</span><span class="o">*</span><span class="mi">3</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)]</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">val</span>
+</pre></div>
+</div>
+<p>You can see from this that we use the accumulator pattern and multiply the old result time 3 each time. The +1 at the end is because
+we want to compute with digits 0,1,2 and not -1,0,1 as the board holds since 0,1,2 are the numbers in the trinary base system.</p>
+</div>
+<div class="section" id="lesson-28">
+<h2>Lesson 28<a class="headerlink" href="#lesson-28" title="Permalink to this headline">¶</a></h2>
+<p>Write the __eq__ method for the Board class. Here is how it should be defined and one gotcha.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># This method should return true if the two boards, self and other,</span>
+<span class="c1"># represent exactly the same state.</span>
+<span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">other</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">other</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+    <span class="c1"># The rest of it goes here</span>
+</pre></div>
+</div>
+<p>The __eq__ method is given two boards. However, <em>other</em> might be <em>None</em> in some cases so we have to check for that. Otherwise,
+the function should return true if the two boards are equal and false otherwise. Write this code.</p>
+<p>Then, these two lines go at the beginning of minimax.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">board</span> <span class="ow">in</span> <span class="n">memo</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">memo</span><span class="p">[</span><span class="n">board</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>And in minimax, every time you have a board and a value you add it to the memo with code like this.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">newboard</span> <span class="o">=</span> <span class="n">Board</span><span class="p">(</span><span class="n">board</span><span class="p">)</span>
+<span class="n">memo</span><span class="p">[</span><span class="n">newboard</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+</pre></div>
+</div>
+<p>You create <em>newboard</em> because you want a copy that will not be mutated at all otherwise the dictionary will not work correctly. Try this out and add some print statements to verify that your memoization is working.</p>
+</div>
+</div>
+<div class="section" id="connect-four">
+<h1>Connect Four<a class="headerlink" href="#connect-four" title="Permalink to this headline">¶</a></h1>
+<p>Connect 4 is a game where checker pieces in alternating colors are dropped into a vertical 6 rows and 7 columns board. Pieces are dropped from above and drop
+down as far as they can until they reach the bottom.</p>
+<p>Programming Tic Tac Toe works very well using a simplified version of minimax. It doesn’t work as well with Connect Four. You still can use minimax, but
+there has to be a cut-off because you don’t have the time to search deeply since the search space grows to 4,531,985,219,092. You can’t search that space
+and you can’t memoize it because it is too big in either case. If we are going to use minimax then we must cut off the search at some depth. So we add a
+depth parameter to minimax and then decrement that depth on each recursive call. When we reach 0 for the remaining depth we need to statically evaluate the
+board to see who is more likely to win. This static evaluation must be fast and cannot involve more search.</p>
+<p>Building a Connect 4 can be done similarly to the Tic Tac Toe application. The frontend code is provided here with the same architecture as before. The
+application uses two checkers</p>
 </div>
 <div class="section" id="machine-learning-opponents">
 <h1>Machine Learning Opponents<a class="headerlink" href="#machine-learning-opponents" title="Permalink to this headline">¶</a></h1>
@@ -3346,6 +4398,31 @@ What is even more astonishing is that the Alpha Zero Go algorithm has now beaten
 What is even more astonishing than that is that the algorithm learned to do these things without any human expert interaction. It simply learned to do these
 things by itself.</p>
 <p>Building an AlphaZero opponent for Connect Four.</p>
+</div>
+<div class="section" id="research-projects">
+<h1>Research Projects<a class="headerlink" href="#research-projects" title="Permalink to this headline">¶</a></h1>
+<p>You should form teams of two for your research projects. You are in charge of your research. It will be your opportunity to build something unique and/or
+gain more in depth knowledge about a specific area. You can suggest your own research topic if you like, but because of my knowledge of the area and
+experience with the size of a project I will offer advice on how to manage the scope of the project so you will have a reasonable chance to produce something
+cool by the end of your three weeks.</p>
+<p>Since this is all new to you and because of the short timeframe that we have I have some suggestions of projects you can work on.</p>
+<blockquote>
+<div><ul class="simple">
+<li>Develop a Frogger video game with several levels that keeps score and has you attain some goal. I’ll leave details to you. This
+could be implemented with either Turtle graphics or with PyGame.</li>
+<li>Develop a Metasquare game that is built on Turtle graphics with a grid like graph paper. The goal of the game is to capture tokens next to another token.
+This could be done with a computer opponent or you might work on fun animations that make it fun to play with others.</li>
+<li>Take the Connect 4 app and build a better Connect 4 using Monte Carlo Tree Search or some other search techniques. Research other optimization and heuristics for game search and implement one or more of them for the
+game of Connect 4 or some other game of perfect information.</li>
+<li>Build a machine learning opponent and game for a different game like the Metasquares game.</li>
+<li>Build a Missile Command video game.</li>
+<li>Build a Snake game with levels and sounds.</li>
+<li>Build a Gallagha video game.</li>
+<li>Develop the game of Othello with a computer opponent.</li>
+</ul>
+</div></blockquote>
+<p>Again, these are only initial suggestions. In each of these projects you would need to research the rules of the game. You would also decide on a minimum
+viable product and see if you were able to finish that much while at the camp.</p>
 </div>
 <div class="section" id="quick-reference-links">
 <h1>Quick Reference Links<a class="headerlink" href="#quick-reference-links" title="Permalink to this headline">¶</a></h1>
@@ -3455,15 +4532,16 @@ things by itself.</p>
 <li><a class="reference internal" href="#lesson-13">Lesson 13</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#have-more-time">Have More Time?</a></li>
 <li><a class="reference internal" href="#event-driven-programming-and-minesweeper">Event-Driven Programming and Minesweeper</a><ul>
 <li><a class="reference internal" href="#lesson-14">Lesson 14</a></li>
 <li><a class="reference internal" href="#lesson-15">Lesson 15</a></li>
 <li><a class="reference internal" href="#lesson-16">Lesson 16</a></li>
 <li><a class="reference internal" href="#lesson-17">Lesson 17</a></li>
 <li><a class="reference internal" href="#lesson-18">Lesson 18</a></li>
-<li><a class="reference internal" href="#have-more-time">Have More Time?</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#id11">Have More Time?</a></li>
 <li><a class="reference internal" href="#introduction-to-animation">Introduction to Animation</a><ul>
 <li><a class="reference internal" href="#lesson-19">Lesson 19</a></li>
 <li><a class="reference internal" href="#adding-gravity">Adding Gravity</a></li>
@@ -3474,18 +4552,31 @@ things by itself.</p>
 </li>
 <li><a class="reference internal" href="#introducing-pygame">Introducing PyGame</a><ul>
 <li><a class="reference internal" href="#lesson-22">Lesson 22</a></li>
+<li><a class="reference internal" href="#cosine-and-sine">Cosine and Sine</a></li>
 <li><a class="reference internal" href="#translation-rotation-and-scaling">Translation, Rotation, and Scaling</a></li>
 <li><a class="reference internal" href="#lesson-23">Lesson 23</a></li>
 <li><a class="reference internal" href="#backgrounds-and-render-ordering">Backgrounds and Render Ordering</a></li>
 <li><a class="reference internal" href="#lesson-24">Lesson 24</a></li>
 <li><a class="reference internal" href="#pygame-sounds">PyGame Sounds</a></li>
+<li><a class="reference internal" href="#lesson-25">Lesson 25</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#building-a-video-game">Building a Video Game</a></li>
-<li><a class="reference internal" href="#composite-shapes">Composite Shapes</a></li>
-<li><a class="reference internal" href="#id11">Detecting Collisions</a></li>
-<li><a class="reference internal" href="#games-of-perfect-information">Games of Perfect Information</a></li>
+<li><a class="reference internal" href="#id12">Have More Time?</a></li>
+<li><a class="reference internal" href="#games-of-perfect-information">Games of Perfect Information</a><ul>
+<li><a class="reference internal" href="#slicing">Slicing</a></li>
+<li><a class="reference internal" href="#recursion">Recursion</a></li>
+<li><a class="reference internal" href="#standard-input-output-and-error">Standard Input, Output, and Error</a></li>
+<li><a class="reference internal" href="#tic-tac-toe">Tic Tac Toe</a></li>
+<li><a class="reference internal" href="#lesson-26">Lesson 26</a></li>
+<li><a class="reference internal" href="#minimax">Minimax</a></li>
+<li><a class="reference internal" href="#lesson-27">Lesson 27</a></li>
+<li><a class="reference internal" href="#the-tic-tac-toe-search-space">The Tic Tac Toe Search Space</a></li>
+<li><a class="reference internal" href="#lesson-28">Lesson 28</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#connect-four">Connect Four</a></li>
 <li><a class="reference internal" href="#machine-learning-opponents">Machine Learning Opponents</a></li>
+<li><a class="reference internal" href="#research-projects">Research Projects</a></li>
 <li><a class="reference internal" href="#quick-reference-links">Quick Reference Links</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>

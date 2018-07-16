@@ -747,7 +747,21 @@ number appears in a list we might write something like this.
     else:
       print("There were no even numbers in the list.")
 
-Again, there are many different versions of this guess and check pattern.
+Again, there are many different versions of this guess and check pattern. For instance, if we want to find the maximum value of a list of values we might
+do it like this. Assume that we know that all values are non-negative in a list that we are given. Consider this code.
+
+.. code-block:: python
+
+    lst = [3,1,5,4,7] # This is some collection of values given to us.
+
+    # -1 works as an initial value because it is less than any maximum value.
+    maxVal = -1
+
+    for x in lst:
+      if x > maxVal:
+        maxVal = x
+
+    print("The maximum value is", maxVal)
 
 Reading a File
 ---------------------
@@ -1452,6 +1466,20 @@ Lesson 13
 Draw a square with Turtle graphics. Use a *for loop* to do this. Then write a function called *drawSquare* that when called uses
 the turtle to draw a square at a particular location and with a particular size on the screen.
 
+Have More Time?
+================
+
+  * Write a function called *isPalindrome* that returns true if a string is a palindrome. A palindrome is a string that spelled backwards is the same as forwards. For instance,
+    "radar" is a palindrome. So is "madam i'm adam" and "a man, a plan, a canal: Panama" but you don't have to handle these as they have spaces and puncutation
+    to deal with. You only have to return true if it is a true palindrome with all punctuation and spelling included.
+
+    Write a main program that asks the user for input and then print "This is a palindrome." or "This is not a palindrome."
+
+  * Write a function called *intersection* that returns the elements of two lists that are common to each other. Then write a test program that asks the user
+    to enter two lists of strings and then prints the items that were common to each other. You can get input from the user with the *input* function and you
+    can split a string into a list of strings with the *split* method on a string. So if *s* is the string *'Hello World'* then *s.split()* returns the list
+    *['Hello', 'World']*.
+
 Event-Driven Programming and Minesweeper
 ==========================================
 
@@ -1916,7 +1944,7 @@ You could display a final score for your application which might be some measure
 it as well.
 
 Have More Time?
-----------------
+===================
 
 The game of concentration is played by placing, face down, 52 cards. Then you turn over two cards and check to see if they are two red jacks for instance.
 If they are not matching in this way, then you turn them both back over and select two other cards (perhaps one of the same) to see if you have a match.
@@ -2358,6 +2386,18 @@ You will have to research a few things to get this to work. One gotcha is the be
 in the *App* class. After you switch the boolean value to true, then you can
 start checking for collisions.
 
+
+Cosine and Sine
+------------------
+
+Cosine and Sine are used to find the *x* and *y* coordinates of an angle on the unit circle. In fact if we multiply them times *r* the radius of a circle
+they give us the coordinates of any point on any circle that is centered at the origin. This comes into play a fair bit in computer graphics when
+objects are rotated.
+
+.. container:: figboxright
+
+  .. figure:: cossin.png
+
 Translation, Rotation, and Scaling
 -----------------------------------
 
@@ -2371,13 +2411,13 @@ as vectors. Each point on the edge of a surface is represented like this.
 
 .. math::
 
-    \begin{align}
+    \begin{align*}
        v &= \begin{bmatrix}
               x \\
               y \\
               1
             \end{bmatrix}
-     \end{align}
+     \end{align*}
 
 Once the *x* and *y* coordinates are in this form, we can apply tranformations to this vector to move the point around in space. For instance,
 if we want to move a point to another location, this is called translation and it is accomplished by doing matrix multiplication by this vector.
@@ -2385,7 +2425,7 @@ Here is the matrix for translation.
 
 .. math::
 
-    \begin{align}
+    \begin{align*}
        v_{new} &= \begin{bmatrix}
         1 & 0 & t_x \\
         0 & 1 & t_y \\
@@ -2401,7 +2441,7 @@ Here is the matrix for translation.
         y + t_y  \\
         1
     \end{bmatrix}
-     \end{align}
+     \end{align*}
 
 By considering this matrix multiplication and the result you can see why we want the additional 1 in the x,y vector. Scaling a point means moving
 it further from the origin relative to its current position. So, for instance if we have a point a 2,3 and scale it by 2 then it would end up at 4,6. This
@@ -2409,7 +2449,7 @@ is done with a scaling matrix.
 
 .. math::
 
-    \begin{align}
+    \begin{align*}
        v_{new} &= \begin{bmatrix}
         s_x & 0 & 0 \\
         0 & s_y & 0 \\
@@ -2425,14 +2465,14 @@ is done with a scaling matrix.
         y * s_y  \\
         1
     \end{bmatrix}
-     \end{align}
+     \end{align*}
 
 And, if we want to rotate a point, we rotate it about the origin. Rotation of a point will move it some angle, :math:`\theta`. To rotate by this
 angle we can also multiply by a matrix.
 
 .. math::
 
-    \begin{align}
+    \begin{align*}
        v_{new} &= \begin{bmatrix}
         cos~\theta & -sin~\theta & 0 \\
         sin~\theta & cos~\theta & 0 \\
@@ -2448,7 +2488,7 @@ angle we can also multiply by a matrix.
         x * sin~\theta + y * cos~\theta  \\
         1
     \end{bmatrix}
-     \end{align}
+     \end{align*}
 
 The rotation matrix is less intuitive. Let's take an example of a point at 2,2 and rotate it by 90 degrees. Afterward it should be at -2,2. The cosine of
 90 degrees is 0. The sine of 90 degrees is 1. So :math:`x_{new} = 2 * 0 - 2 * 1 = -2` and :math:`y_{new} = 2 * 1 + 2 * 0 = 2`. So, this works out.
@@ -2459,7 +2499,7 @@ build up a composite matrix.
 
 .. math::
 
-    \begin{align}
+    \begin{align*}
      v_{new} &= \begin{bmatrix}
      1 & 0 & t_x \\
      0 & 1 & t_y \\
@@ -2490,7 +2530,7 @@ build up a composite matrix.
         y_{new}  \\
         1
      \end{bmatrix}
-     \end{align}
+     \end{align*}
 
 Consider the calculation above. In this we are first translating by :math:`-t_x,-t_y`. Then we are scaling by :math:`s_x,s_y`. Then
 we are rotating by some angle :math:`\theta`. Then we are translating back by :math:`t_x,t_y`. This is a very common sequence of matrix multiplications.
@@ -2755,36 +2795,719 @@ front plane balls to make it clear which are which.
 PyGame Sounds
 --------------
 
-Another nice feature of PyGame that you probably already noticed is the ability to incorporate sound into an application. Line 95 of the code above loads
-a sound into the application.
+Another nice feature of PyGame that you probably already noticed is the ability to incorporate sound into an application. Line 95 of the angry birds code
+above loads
+a sound into the application. And you can play a sound using the code on line 136 of the application.
+
+Lesson 25
+------------
+
+You can get many sounds from the internet. The site `freesound.org <http://freesound.org>`_ has many free sounds. Googling a sound also helps.
+Add a sound when two balls collide in any of the earlier labs of colliding balls. Pick any sound you like that is appropriate of course.
 
 
-
-Building a Video Game
-======================
-Missile Command? Angry Birds?
-
-End of session two.
-
-Composite Shapes
+Have More Time?
 =================
-Animating.
 
-Detecting Collisions
-====================
+Build a *Lunar Lander* video game. In this game you have a rocket ship that needs to land on the surface of the moon. You are in orbit but have entered
+into a decaying orbit. In other words you are caught in the moon's gravity and are descending. You only have so much fuel left. And you have
+to get to a specific landing location. There is a level landing place on the moon. You can make the landing area very simple by drawing a rectangle on the
+screen where you need to land.
 
-End of Session 3.
+There should be keys for angling the rocket left or right so you can move to either side. And there is only one engine on the bottom of the rocket
+that can be fired. When you fire the rocket engine it creates thrust in the opposite direction. You need to understand *cosine* and *sine* to compute
+the thrust applied to the rocket. There are two pieces of information, the thrust supplied by the rocket engine and the angle of the rocket. With these
+two pieces of information you can compute a *dx* and a *dy* movement vector that can be applied to moving your rocket.
+
+Don't forget that gravity is always working to accellerate the rocket toward the ground. So, in each frame a little gravity must be applied to the
+rocket as well.
+
+The goal of the game is to land the rocket with a very low velocity on the landing pad without running out of fuel. Otherwise the rocket crashes to the
+surface and you lose.
+
+It should be quite hard to win this game so make the required landing velocity quite low and the amount of initial fuel not very much.
+
+To make this fun you might also look for a space background image and a nice rocket image.
+
+
+.. End of Session 3.
 
 Games of Perfect Information
 ============================
 
 .. Fourth day of class.
 
+Games of perfect information are games where the two players know everything about their opponents state in the game. For instance, tic tac toe
+is a game of perfect information. Poker is not since the two opponents don't know what cards are in each other's hands. Board games tend to be
+games of perfect information.
+
+There has been a lot of research into how to play games of perfect information. One of the earliest outcomes of this research is the *minimax* algorithm.
+Minimax is recursive. A recursive algorithm is usually written as a *recursive function*. So, we'll start by studying a little recursion. Then we'll move
+on to minimax.
+
+Slicing
+----------
+
+It will help if you understand something about sequence slicing in this example. In Python it is possible to take a slice of a sequence, like a list. If
+*L* is a list, then *L[1:]* is all but the first element of the list. And *L[:-1]* would be all but the last element of the list. And *L[:]* is a complete
+copy of a list. And one more, *L[1:3]* is a sublist. If *L = ["hi", "there", "how", "are", "you?"]* then *L[1:3]* would be *["there","how"]*. The second
+index is always one past the end of the slice. If the first index is omitted in a slice it extends from the beginning and the slice extends to the
+end if the second value in the slice specification is omitted.
+
+In addition, negative indices into a list start from the far end. So, *L[-1]* is the last element of *L* which can sometimes be useful, but is Python specific.
+Most languages do not support negative indexing.
+
+Recursion
+-----------
+
+I usually tell my students when they are learning recursion that this is the one time in Computer Science when programmers should not think
+too hard. Recursion works if you follow some simple steps. Let's consider an example. Let's reverse a list of items. Before we begin writing code
+we should decide on a name for our function and what it should be given and what it should return. In our case *reverse* seems like a good name. It
+is given a list and it should return a new list which is the reverse of the original.
+
+Then, there are two cases to consider.
+
+  1. What happens to a very simple, smallest list. In our case that would be the empty list. If we reverse and empty list, then we have the
+  empty list after reversing it. This is called the base case. The base case is the first thing we should come up with and the first thing
+  to write in a recursive function.
+
+  2. Then, the next case is called the recursive case and it is where I tell students *If you call the function on something smaller, it will work.*
+  You have to trust that calling the function on a smaller value will work. Then you can build the return value from the original value and the
+  result of calling it on something smaller.
+
+Here is the code that goes with this *reverse* function.
+
+.. code-block:: python
+
+    def reverse(L):
+
+        # This is the base case
+        if len(L) == 0:
+            return []
+
+        # This is the recursive case. You start by writing the call to reverse.
+        return reverse(L[1:]) + [L[0]]
+
+In the recursive case, when writing it we start with the recursive call which is called on something smaller (all but the first element of the list).
+Since it is called on something smaller it will work. Don't worry about how, it just works. So, then we can use that result in
+constructing the whole reversed list by adding the first element at the right end of it. If you don't see why, then consider a concrete example like the list
+*L=[1,2,3]*. Use this list to see why you get back *[3,2,1]* if you call reverse.
+
+Standard Input, Output, and Error
+-----------------------------------
+
+We'll learn just a bit about programming language environments and their connection to host operating systems. Every program in Python has access to
+three streams. These streams provide the abstraction of standard input, standard output, and another output stream called standard error. Each stream
+can be read from/written to like it is a stream of characters or other types of values. Unix and Windows provide this same abstraction. In fact, the idea
+of standard input/output/error came from the original version of Unix, but was carried on into a set of low level supported modules called POSIX. POSIX
+is implemented by all operating systems makers today including Linux, Windows, and Mac OS.
+
+When a program reads information from the user, it is from Standard Input. When it prints, normally that goes to Standard Output. But, we can
+print to Standard Error if we like as well. Both Standard Error and Standard Output show up on the screen unless told to show up elsewhere by
+operating systems commands called redirection. In the next section we'll use some redirection to tie a frontend and a backend together.
+
 Tic Tac Toe
+-------------
+
+Let's consider playing a game like tic tac toe. If we wanted to program a game of tic tac toe then our computer opponent would want to
+make moves against the user. Consider the last move in the game. The computer could take a board, make a move in it, see if that was a win or not, and
+then make that move permanently. That is exactly how the computer opponent works in a game like tic tac toe. Except that there is a little more to it.
+
+Let's code a tic tac toe game. I will provide you with a tic tac toe frontend and the start of a tic tac toe backend to code this project. The frontend
+uses two pictures, which I am providing here.
+
+.. container:: figboxright
+
+  .. figure:: O.gif
+
+  .. figure:: X.gif
+
+The frontend I am providing communicates through a pipe with the backend. What this means is that there is a well-defined architecture which the
+frontend and the backend use to communicate. It also means that the backend can simply print things that it wants to send to the frontend and read from
+standard input the things it needs to read from the frontend. Let's take a look at the frontend code first. You can `download the frontend code from here
+<_static/tictactoe.py>`_.
+
+.. code-block:: python
+    :linenos:
+
+    import turtle
+    import subprocess
+    import tkinter
+    import sys
+    import time
+
+    # The following program will play tic tac toe. This
+    # program and a back end program communicate through pipes (both input and output)
+    # according to this architecture. When a command is sent to the back end it is indicated
+    # with a right arrow indicating something is written to the back end program's
+    # standard input. When the back end program sends something to this Python Program
+    # it is indicated with a left arrow. That means it is written to the standard
+    # output of the back end program.
+
+    # Front End    Back End
+    #   0 ----------->     # New Game is initiated by the back end Code
+    #   <----------- 0     # Back End Code says OK.
+    #   2 M --------->     # Human Move followed by Move Value M which is 0-8.
+    #                      # Move Value M will be on separate line.
+    #   <----------- 0     # Back End Code says OK.
+    #   1 ----------->     # Computer Move is indicated to Back End Code
+    #   <--------- 0 M     # Status OK and Move Value M which is 0-8.
+    #   3 ----------->     # Game Over?
+    #   <--------- Val     # Val is 0=Not Over, 1=Computer Won, 2=Human Won, 3=Tie.
+
+    # This architecture must be adhered to strictly for this program to work. Here
+    # is sample Lisp code that will handle this interaction.
+
+    #(defun play ()
+      #(let ((gameBoard (make-hash-table :size 10))
+            #(memo (make-hash-table :size 27 :test #'equalp)))
+
+        #(do () (nil nil)
+            #(let ((msgId (read)))
+              #(cond ((equal msgId 2) ;; Human turn to call human turn function
+                     #(humanTurn gameBoard))
+
+                    #((equal msgId 0) ;; New Game message
+                     #(progn
+                       #(setf gameBoard (make-hash-table :size 10))
+                       #(setf memo (make-hash-table :size 27 :test #'equalp))
+                       #(format t "0~%")))
+                       #;; Return a 0 to indicate the computer is ready
+
+                    #((equal msgId 1) ;; Computer Turn message
+                     #(computerTurn gameBoard memo))
+
+                    #((equal msgId 3) ;; Get Game Status
+
+                     #(cond ((equal (evalBoard gameBoard) 1) (format t "1~%"))
+                           #;; The Computer Won
+
+                           #((equal (evalBoard gameBoard) -1) (format t "2~%"))
+                           #;; The Human Won
+
+                           #((fullBoard gameBoard) (format t "3~%"))
+                           #;; It's a draw
+
+                           #(t (format t "0~%"))))
+                           #;; The game is not over yet.
+
+                    #(t (format t "-1~%")))))))
+
+    Computer = 1
+    Human = -1
+
+    class Tile(turtle.RawTurtle):
+        def __init__(self,canvas,row,col,app):
+            super().__init__(canvas)
+            self.shape("tile.gif")
+            self.val = 0
+            self.row = row
+            self.col = col
+            self.tttApplication = app
+            self.penup()
+            self.goto(col*200+100,row*200+100)
+
+        def setShape(self,horc):
+            self.val = horc
+
+            if horc == Computer:
+                self.shape("X.gif") # You fill this in
+            else:
+                self.shape("O.gif") # You fill this in
+
+        def getOwner(self):
+            return self.val
+
+        def clicked(self):
+            print(self.row,self.col)
+
+    class TicTacToeApplication(tkinter.Frame):
+        def __init__(self, master=None):
+            super().__init__(master)
+            self.pack()
+            self.buildWindow()
+            self.running = False
+
+        def buildWindow(self):
+
+            self.master.title("Tic Tac Toe")
+
+            bar = tkinter.Menu(self.master)
+            fileMenu = tkinter.Menu(bar,tearoff=0)
+
+            fileMenu.add_command(label="Exit",command=self.master.quit)
+
+            bar.add_cascade(label="File",menu=fileMenu)
+
+            self.master.config(menu=bar)
+
+            canvas = tkinter.Canvas(self,width=600,height=600)
+            canvas.pack(side=tkinter.LEFT)
+
+            theTurtle = turtle.RawTurtle(canvas)
+            theTurtle.ht()
+            screen = theTurtle.getscreen()
+            screen.setworldcoordinates(0,600,600,0)
+            screen.register_shape("tile.gif")
+            screen.register_shape("X.gif")
+            screen.register_shape("O.gif")
+            screen.tracer(0)
+
+            def checkStatus():
+                toBackEnd.write("3\n")
+                toBackEnd.flush()
+
+                status = int(fromBackEnd.readline().strip())
+
+                if status == 1:
+                    tkinter.messagebox.showinfo("Game Over", "I Won!!!!!")
+                elif status == 2:
+                    tkinter.messagebox.showinfo("Game Over", "You Won!!!!!")
+                elif status == 3:
+                     tkinter.messagebox.showinfo("Game Over", "It's a tie.")
+
+                print("Status is ", status)
+                return status
+
+            def ComputerTurn():
+                print("In Computer Turn")
+                toBackEnd.write("1\n")
+                toBackEnd.flush()
+                status = int(fromBackEnd.readline().strip())
+                print("Computer Turn Back End Status = ", status)
+                if status == 0:
+                    move = int(fromBackEnd.readline())
+                    print("Move is", move)
+                    row = move // 3
+                    col = move % 3
+
+                    matrix[row][col].setShape(Computer)
+                    screen.update()
+
+            def HumanTurn(x,y):
+                if self.running:
+                    return
+
+                status = checkStatus()
+
+                if status != 0:
+                    return
+
+                self.running = True
+                col = int(x) // 200
+                row = int(y) // 200
+                print(row,col)
+                val = row * 3 + col
+
+                # Do the Human Turn
+                toBackEnd.write("2\n")
+                toBackEnd.flush()
+                toBackEnd.write(str(val) + "\n")
+                toBackEnd.flush()
+
+                status = fromBackEnd.readline().strip()
+                print("Status is ",status)
+
+                matrix[row][col].setShape(Human)
+                screen.update()
+
+                # Check the status of the game
+                status = checkStatus()
+
+                if status == 0:
+                    # Do a Computer Turn
+                    ComputerTurn()
+                    checkStatus()
+
+                self.running = False
+
+
+            matrix = []
+
+            for i in range(3):
+                row = []
+                for j in range(3):
+                    t = Tile(canvas,i,j,self)
+                    t.onclick(HumanTurn)
+                    row.append(t)
+                matrix.append(row)
+
+            screen.update()
+
+            sideBar = tkinter.Frame(self,padx=5,pady=5, relief=tkinter.RAISED,borderwidth="5pt")
+            sideBar.pack(side=tkinter.RIGHT, fill=tkinter.BOTH)
+
+            kb = tkinter.Button(sideBar,text="Pass",command=ComputerTurn)
+            kb.pack()
+
+            proc = subprocess.Popen(["python3","tictactoebackend.py"],\
+              stdout=subprocess.PIPE,stdin=subprocess.PIPE,universal_newlines=True)
+            fromBackEnd = proc.stdout
+            toBackEnd = proc.stdin
+
+            # To write to back end you should use commands like this
+            # toBackEnd.write(val+"\n")
+            # Don't forget to flush the buffer
+            # toBackEnd.flush()
+
+            # To read from back end you write
+            # line = fromBackEnd.readline().strip()
+
+
+
+    def main():
+        root = tkinter.Tk()
+        tttApp = TicTacToeApplication(root)
+
+        tttApp.mainloop()
+        print("Program Execution Completed.")
+
+    if __name__ == "__main__":
+        main()
+
+The comments at the top of the code above detail the architecture that the frontend follows and that the backend must follow to keep all communication
+going between the two halves. For instance, if a 0 is printed by the frontend, the backend code must read the 0 and respond with a 0 by printing it.
+
+The locations on the board are numbered 0-8. The upper left corner is 0. The one to its right is 1. Then 2. The second row has 3,4,5 and the last row
+is 6,7,8.
+
+The code one line 211 starts the backend program which must be called *tictactoebackend.py*. This is the code you will write. I am providing you with an
+`outline of this code as well to get started <_static/tictactoebackend.py>`_. I have also included it here for us to look at.
+
+.. code-block:: python
+    :linenos:
+
+    import sys
+
+    """
+    use this script as the backend to the tictactoe.py frontend.
+    """
+
+    # The eprint function can be used instead of print to print debugging information
+    # to the screen while the print function is used to send information to the frontend
+    # code that started this module.
+
+    def eprint(*args, **kwargs):
+        print(*args, file=sys.stderr, **kwargs)
+
+    Human = -1
+    Computer = 1
+
+    # put you Board class here.
+    class Board:
+        # When a board is constructed, you may want to make a copy of the board.
+        def __init__(self, board=None):
+
+            self.data = {}
+            for i in range(3):
+                for j in range(3):
+                    if board==None:
+                        self.data[(i,j)] = Dummy()
+                    else:
+                        self.data[(i,j)] = board[(i,j)]
+
+
+    # The Dummy class is a placeholder for locations that have not
+    # yet been played. It is here for convenience in printing and
+    # evaluating the board.
+    class Dummy:
+        def __init__(self):
+            pass
+
+        # You can call eval to get its value.
+        def eval(self):
+            return 0
+
+        def goto(self,x,y):
+            pass
+
+        def __repr__(self):
+            return "Dummy()"
+
+        def __str__(self):
+            return " "
+
+    class X:
+        def __init__(self):
+            pass
+
+        # You can call eval to get its value.
+        def eval(self):
+            return Computer
+
+        def __repr__(self):
+            return "X()"
+
+        # calling str(v) where v is an X object will return the "X" as a string.
+        # This is useful if you write a __str__ method for your Board class
+        # as well. You can use this __str__ in your Board class __str__.
+        def __str__(self):
+            return "X"
+
+    class O:
+        def __init__(self):
+            pass
+
+        # You can call eval to get its value.
+        def eval(self):
+            return Human
+
+        def __repr__(self):
+            return "O()"
+
+        def __str__(self):
+            return "O"
+
+    # Put your minimax function here.
+
+
+    def humanTurn(gameBoard):
+        move = int(input())
+        eprint("In humanTurn")
+        row = move//3
+        col = move%3
+
+        if gameBoard.full():
+            print(1)
+        elif abs(gameBoard.eval()) == 1:
+            # game is already over
+            print(1)
+        elif gameBoard[(row,col)].eval() != 0:
+            # move was already made
+            print(2)
+        else:
+            # Using X and O as classes will help
+            # if printing the board.
+            gameBoard[(row,col)] = O()
+            print(0)
+
+    def computerTurn(gameBoard):
+        # Here you should write your computerTurn function.
+        pass
+
+    def main():
+        gameBoard = Board()
+
+        while True:
+            #The following eprint can be really handy during debugging so you
+            #can see how to interact with the program given the board contents.
+            #The code on the next line requires you to define a __str__ method
+            #for your Board class which returns a string representation of the
+            #board.
+            eprint(gameBoard)
+            eprint("Enter a message Id: ")
+            msgId = int(input())
+
+            if msgId == 2:
+                humanTurn(gameBoard)
+
+            elif msgId == 0:
+                gameBoard.reset() # or gameBoard = Board()
+                print("0")
+
+            elif msgId == 1:
+                computerTurn(gameBoard)
+
+            elif msgId == 3:
+                status = gameBoard.eval()
+
+                if status == Computer:
+                    print(1)
+                elif status == Human:
+                    print(2)
+                else:
+                    if gameBoard.full():
+                        print(3)
+                    else:
+                        print(0)
+            else:
+                eprint("Something is wrong with the front-end")
+                print(1)
+
+    main()
+
+
+This frontend and backend architecture allows you to run the backend independently of the frontend code to debug it. Then when it is debugged
+and working
+you automatically get the GUI interface by running the frontend code. Just be sure to name your backend code *tictactoebackend.py*.
+
+Lesson 26
+-----------
+
+To get started on getting Tic Tac Toe to work, let's make sure that the HumanTurn code works with your board. You will likely have to
+write some code and do some debugging to get it to work, but it will work with the backend code above once you debug it. To interact with the
+program you can run it in Wing and it should interact like this.
+
+.. code-block:: text
+    :linenos:
+
+    | || || |
+    | || || |
+    | || || |
+
+    Enter a message Id:
+    2
+    0
+    In humanTurn
+    0
+    |O|| || |
+    | || || |
+    | || || |
+
+    Enter a message Id:
+
+The input and output deserves a little explanation above. Lines 1-3 are *eprinted* by the main function when the board is printed. You need to
+complete a function called __str__ to get this working. The __str__ method of the Board class is called automatically from the humanTurn code on
+line 106 of the code above. You will need to know that "\n" is a newline character and can be added to a string to create a new line. To get the
+__str__ method working you will need two nested for loops. Here is an outline of that code for you. Try to finish it to get the board printed
+correctly (HINT: The print method you worked on during the first day can be used as a template for this code. This time you are building a
+string of the result instead of printing.)
+
+.. code-block:: python
+
+    def __str__(self):
+        s = ""
+        for row in range(3):
+            for col in range(3):
+                ...
+
+        return s
+
+Once the board is printing, you will need your *eval* method working.  Get this to work first and see that you can fill the board with a bunch of O's.
 
 Minimax
+---------
+
+Minimax is a function that plays the game by alternating between human and computer opponent. It does this to play the game either to its conclusion or
+to a maximum allowed depth. In the case of tic tac toe, it will play the game to its conslusion.
+
+The minimax function is recursive and it is given the player to make the next move and the current board. The function
+minimax returns the value of that board. Returning a -1 would indicate that the human has already won. Returning a 1 indicates the computer has won. A 0 says that
+neither the human or computer has won and there is no likely winner either. For tic tac toe, the return value of minimax will always be -1, 1, or 0.
+
+The base case of minimax calls your eval method on the board and if it is -1 or 1 then it returns that value before making any move. If the board
+is full then it returns 0. You should write a method called *full* for your board that returns true if the board is full and you can add the code to
+to your minimax function to call it.
+
+The rest of minimax is split into two parts for the recursive calls. One part is if the current player is a Human. The other is if the player to play next is
+the Computer. Humans are associated with -1 and Computer opponents are associated with 1 (see the constants at the top of tictactoebackend.py). So,
+if the computer is the next player, then we are looking to find the maximum of any value we get by making all possible moves in the board
+as the Computer (by placing an X on the board) and then recursively call minimax with the human as the next player.
+
+If the next player to play is a Human, then we make all possible moves on the board by placing an O on the board and seeing what minimax returns
+as a value with the computer as the next player to play.
+
+When the computer is the current player we want to find the maximum value. When the human is the next player we want to find the minimum value.
+We return that maximum or minimum value from minimax depending on the outcome of our search. What we have done is just search the entire search
+space of tic tac toe to see if we an find a good move.
+
+Minimax returns a 1, -1, or 0 but does not tell us which was the best move. To gather that information we need to write one more function, the
+computerTurn function which operates just like *minimax* when the computer is the next to make a move (i.e. the current player) except that it
+also keeps track of the best move associated with the maximum value that is returned.
+
+Lesson 27
+----------
+
+Code minimax and computerTurn according to the description given above. Once you have it done, try it out in Wing by using the interface to the
+backend directly. If it all seems to work, put it with the frontend code by running the tictactoe.py module. You should have a working Tic Tac Toe
+program at that point.
+
+.. solution is in the Solutions/SampleTicTacToe directory in tictactoebackend.py.
+
+The Tic Tac Toe Search Space
+------------------------------
+
+The number of calls to minimax is actually quite large to play the whole thing out. There are 255,168 different sequences of moves in Tic Tac Toe. That's
+not that bad for a computer, but it still takes a bit to figure out that first place to put a token, especially if you as the human pass on the first
+turn.
+
+The computer should put an X in the middle if allowed to make up its own mind and minimax will say to to do that. But the next time minimax is called it
+will have forgotten everything that it *learned* on the first call to minimax. On each computer turn it starts over. This is not really a big problem with
+tic tac toe, but we could remember what we learned and just apply our learning the next time to speed up tic tac toe a bit. This can be done by recording
+the outcome of a board, its max or min value, in a dictionary that we can come back to later. This technique is called *memoization* and is an optimization
+of minimax.
+
+To use *memoization* you first create a *memo* dictionary at the module level, outside of any function, where we can map boards to their values. In this
+dictionary we will map boards to their minimax values. To do this, the *Board* object will be a key in a dictionary while the value it maps to will be the
+dictionary value for that key.
+
+For reasons beyond this class, there are three requirements of a key in a dictionary. The key cannot be mutated once put in the dictionary. It also must
+support a __hash__ function and an __eq__ function. The __hash__ function returns an integer that should be evenly spread distributed across all boards.
+In our case we can build a unique integer for any board by computing its trinary number. Computing a trinary number is not too hard once you have seen it.
+Here it is for the Board class.
+
+.. code-block:: python
+
+    # This hash method is necessary eventually to memoize the tic tac toe
+    # program. Memoization is a technique that can significantly speed up
+    # search when the same paths are encountered multiple times.
+    # It should return an integer that uniquely identifies
+    # the state of the board.
+    def __hash__(self):
+        val = 0
+        for i in range(3):
+            for j in range(3):
+                val += val*3 + self.data[(i,j)].eval()+1
+
+        return val
+
+You can see from this that we use the accumulator pattern and multiply the old result time 3 each time. The +1 at the end is because
+we want to compute with digits 0,1,2 and not -1,0,1 as the board holds since 0,1,2 are the numbers in the trinary base system.
+
+Lesson 28
+-----------
+
+Write the __eq__ method for the Board class. Here is how it should be defined and one gotcha.
+
+.. code-block:: python
+
+    # This method should return true if the two boards, self and other,
+    # represent exactly the same state.
+    def __eq__(self,other):
+        if other == None:
+            return False
+
+        # The rest of it goes here
+
+The __eq__ method is given two boards. However, *other* might be *None* in some cases so we have to check for that. Otherwise,
+the function should return true if the two boards are equal and false otherwise. Write this code.
+
+Then, these two lines go at the beginning of minimax.
+
+.. code-block:: python
+
+    if board in memo:
+        return memo[board]
+
+And in minimax, every time you have a board and a value you add it to the memo with code like this.
+
+.. code-block:: python
+
+    newboard = Board(board)
+    memo[newboard] = val
+
+You create *newboard* because you want a copy that will not be mutated at all otherwise the dictionary will not work correctly. Try this out and add some print statements to verify that your memoization is working.
+
 
 Connect Four
+==============
+
+Connect 4 is a game where checker pieces in alternating colors are dropped into a vertical 6 rows and 7 columns board. Pieces are dropped from above and drop
+down as far as they can until they reach the bottom.
+
+Programming Tic Tac Toe works very well using a simplified version of minimax. It doesn't work as well with Connect Four. You still can use minimax, but
+there has to be a cut-off because you don't have the time to search deeply since the search space grows to 4,531,985,219,092. You can't search that space
+and you can't memoize it because it is too big in either case. If we are going to use minimax then we must cut off the search at some depth. So we add a
+depth parameter to minimax and then decrement that depth on each recursive call. When we reach 0 for the remaining depth we need to statically evaluate the
+board to see who is more likely to win. This static evaluation must be fast and cannot involve more search.
+
+Building a Connect 4 can be done similarly to the Tic Tac Toe application. The frontend code is provided here with the same architecture as before. The
+application uses two checkers
+
+
+
+
+
 
 Machine Learning Opponents
 ============================
@@ -2797,6 +3520,32 @@ things by itself.
 
 
 Building an AlphaZero opponent for Connect Four.
+
+Research Projects
+==================
+
+You should form teams of two for your research projects. You are in charge of your research. It will be your opportunity to build something unique and/or
+gain more in depth knowledge about a specific area. You can suggest your own research topic if you like, but because of my knowledge of the area and
+experience with the size of a project I will offer advice on how to manage the scope of the project so you will have a reasonable chance to produce something
+cool by the end of your three weeks.
+
+Since this is all new to you and because of the short timeframe that we have I have some suggestions of projects you can work on.
+
+  * Develop a Frogger video game with several levels that keeps score and has you attain some goal. I'll leave details to you. This
+    could be implemented with either Turtle graphics or with PyGame.
+  * Develop a Metasquare game that is built on Turtle graphics with a grid like graph paper. The goal of the game is to capture tokens next to another token.
+    This could be done with a computer opponent or you might work on fun animations that make it fun to play with others.
+  * Take the Connect 4 app and build a better Connect 4 using Monte Carlo Tree Search or some other search techniques. Research other optimization and heuristics for game search and implement one or more of them for the 
+    game of Connect 4 or some other game of perfect information.
+  * Build a machine learning opponent and game for a different game like the Metasquares game.
+  * Build a Missile Command video game.
+  * Build a Snake game with levels and sounds.
+  * Build a Gallagha video game.
+  * Develop the game of Othello with a computer opponent.
+
+Again, these are only initial suggestions. In each of these projects you would need to research the rules of the game. You would also decide on a minimum
+viable product and see if you were able to finish that much while at the camp.
+
 
 Quick Reference Links
 ==============================
