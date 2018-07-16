@@ -3887,11 +3887,13 @@ could win all the time or at least play well enough you might never win.
     game of Connect 4 or some other game of perfect information.
   * Build a machine learning opponent and game for a different game like the Metasquares game.
   * Build an Asteroids video game with PyGame.
-  * Build a Ms Pacman game. 
+  * Build a Ms Pacman game.
   * Build a Snake game with levels and sounds.
-  * Build a Gallagha video game.
+  * Build a Galaga video game. You can `start with this code <https://github.com/shaunc44/galaga>`_ but you'll have to learn to use
+    the ppb library as well which is built on type of pygame. You can get `documentation for ppb here <http://aharrisbooks.net/pythonGame/>`_. You might
+    want to look at appendix B.
   * Develop the game of Othello with a computer opponent. You might use the AlphaZero framework but develop a new front-end for it that
-  makes the graphics part of it fun to play.
+    makes the graphics part of it fun to play.
 
 Again, these are only initial suggestions. In each of these projects you would need to research the rules of the game. You would also decide on a minimum
 viable product and see if you were able to finish that much while at the camp.
@@ -3917,6 +3919,7 @@ Quick Reference Links
   * `Turtle Graphics <https://docs.python.org/3.6/library/turtle.html>`_
   * `Tkinter <https://docs.python.org/3.6/library/tkinter.html?highlight=tkinter>`_
   * `Andy Harris' PyGame Development Examples <https://cs.iupui.edu/~aharris/pygame/>`_
+  * `PPB GameEngine Documentation <http://aharrisbooks.net/pythonGame/>`_
   * `Jeff Bradberry's Introduction to Monte Carlo Tree Search <http://jeffbradberry.com/posts/2015/09/intro-to-monte-carlo-tree-search/>`_
   * `David Foster's Article on How to build your own AlphaZero AI with Python and Keras <https://medium.com/applied-data-science/how-to-build-your-own-alphazero-ai-using-python-and-keras-7f664945c188>`_
   * `Surag Nair's Github repository on a Generalized AlphaZero Framework <https://github.com/suragnair/alpha-zero-general>`_
