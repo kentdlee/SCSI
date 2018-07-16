@@ -3535,7 +3535,7 @@ Since this is all new to you and because of the short timeframe that we have I h
     could be implemented with either Turtle graphics or with PyGame.
   * Develop a Metasquare game that is built on Turtle graphics with a grid like graph paper. The goal of the game is to capture tokens next to another token.
     This could be done with a computer opponent or you might work on fun animations that make it fun to play with others.
-  * Take the Connect 4 app and build a better Connect 4 using Monte Carlo Tree Search or some other search techniques. Research other optimization and heuristics for game search and implement one or more of them for the 
+  * Take the Connect 4 app and build a better Connect 4 using Monte Carlo Tree Search or some other search techniques. Research other optimization and heuristics for game search and implement one or more of them for the
     game of Connect 4 or some other game of perfect information.
   * Build a machine learning opponent and game for a different game like the Metasquares game.
   * Build a Missile Command video game.
@@ -3546,6 +3546,9 @@ Since this is all new to you and because of the short timeframe that we have I h
 Again, these are only initial suggestions. In each of these projects you would need to research the rules of the game. You would also decide on a minimum
 viable product and see if you were able to finish that much while at the camp.
 
+Research projects may produce a working program, but even more important are the things you discovered along the way. A paper most often accompanies a
+research project. You may want to build a web page with your results on it. You can publish you research web page on Github if you like. Doing so is not
+too hard to do and I would be happy to get you started.  
 
 Quick Reference Links
 ==============================
