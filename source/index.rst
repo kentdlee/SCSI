@@ -3825,6 +3825,13 @@ can be applied to help make a guess as to who would win. However, other techniqu
 The best solution is to search deeper faster. This can be done with a Monte Carlo Tree Search. And it helps to run code in as fast a manner as possible.
 So, choosing a compiled language like C++ or C would help to speed up minimax. But using C or C++ does not solve all problems.
 
+The Necessity of Pruning
+--------------------------
+
+Because the Connect 4 search space is so large, there is a need to prune the search space. This is why we added a depth cut-off to the search space when
+the game was introduced above. But there is one other way to prune the search space called Alpha-Beta pruning. This is
+`discussed on Wikipedia <https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning>`_.
+
 Machine Learning Opponents
 ============================
 

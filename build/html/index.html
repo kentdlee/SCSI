@@ -5011,6 +5011,12 @@ can be applied to help make a guess as to who would win. However, other techniqu
 <p>The best solution is to search deeper faster. This can be done with a Monte Carlo Tree Search. And it helps to run code in as fast a manner as possible.
 So, choosing a compiled language like C++ or C would help to speed up minimax. But using C or C++ does not solve all problems.</p>
 </div>
+<div class="section" id="the-necessity-of-pruning">
+<h2>The Necessity of Pruning<a class="headerlink" href="#the-necessity-of-pruning" title="Permalink to this headline">¶</a></h2>
+<p>Because the Connect 4 search space is so large, there is a need to prune the search space. This is why we added a depth cut-off to the search space when
+the game was introduced above. But there is one other way to prune the search space called Alpha-Beta pruning. This is
+<a class="reference external" href="https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning">discussed on Wikipedia</a>.</p>
+</div>
 </div>
 <div class="section" id="machine-learning-opponents">
 <h1>Machine Learning Opponents<a class="headerlink" href="#machine-learning-opponents" title="Permalink to this headline">¶</a></h1>
@@ -5230,6 +5236,7 @@ too hard to do and I would be happy to get you started.</p>
 <li><a class="reference internal" href="#the-tic-tac-toe-search-space">The Tic Tac Toe Search Space</a></li>
 <li><a class="reference internal" href="#lesson-28">Lesson 28</a></li>
 <li><a class="reference internal" href="#connect-four">Connect Four</a></li>
+<li><a class="reference internal" href="#the-necessity-of-pruning">The Necessity of Pruning</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#machine-learning-opponents">Machine Learning Opponents</a><ul>
