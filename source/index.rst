@@ -1941,7 +1941,7 @@ Then you can do the same to get the *currentTime* in your *ticktock* function.
 Once you have the current time, you can update a label to display the current number of elapsed seconds in your game.
 
 You could display a final score for your application which might be some measure of how many bombs we uncovered with the time factored into
-it as well.
+it as well. Here is the `final solution to these exercises <_static/lesson18.py>`_.
 
 Have More Time?
 ===================
