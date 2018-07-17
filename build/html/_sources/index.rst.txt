@@ -2570,7 +2570,7 @@ Backgrounds and Render Ordering
 
 A background can be added to a PyGame very easily. Once you have a background, there are other challenges like moving a Sprite around in front of the
 background. It takes a bit more time to draw a background image because it fills the whole screen. So, there are often built into frameworks ways of dealing
-with that by only redrawing a part of the background. Take a look at this code, which is part of an Angry Birds video game.
+with that by only redrawing a part of the background. Take a look at this code, which is part of an Angry Birds video game. You can `get the example from here <_static/AngryBirdsExample.zip>`_.
 
 .. code-block:: python
     :linenos:
