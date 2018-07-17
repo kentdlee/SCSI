@@ -3918,6 +3918,7 @@ Quick Reference Links
   * `Operator Overloading in Python <https://docs.python.org/3.6/library/operator.html>`_
   * `Turtle Graphics <https://docs.python.org/3.6/library/turtle.html>`_
   * `Tkinter <https://docs.python.org/3.6/library/tkinter.html?highlight=tkinter>`_
+  * `Python Image Library (PIL) Documentation <http://pillow.readthedocs.io/en/3.0.x/reference/Image.html?highlight=resize#image-processing>`_
   * `Andy Harris' PyGame Development Examples <https://cs.iupui.edu/~aharris/pygame/>`_
   * `PPB GameEngine Documentation <http://aharrisbooks.net/pythonGame/>`_
   * `Jeff Bradberry's Introduction to Monte Carlo Tree Search <http://jeffbradberry.com/posts/2015/09/intro-to-monte-carlo-tree-search/>`_
