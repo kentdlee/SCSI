@@ -3532,7 +3532,7 @@ To use *memoization* you first create a *memo* dictionary at the module level, o
 dictionary we will map boards to their minimax values. To do this, the *Board* object will be a key in a dictionary while the value it maps to will be the
 dictionary value for that key.
 
-For reasons beyond this class, there are three requirements of a key in a dictionary. The key cannot be mutated once put in the dictionary. It also must
+There are three requirements of a key in a dictionary. The key cannot be mutated once put in the dictionary. It also must
 support a __hash__ function and an __eq__ function. The __hash__ function returns an integer that should be evenly spread distributed across all boards.
 In our case we can build a unique integer for any board by computing its trinary number. Computing a trinary number is not too hard once you have seen it.
 Here it is for the Board class.
