@@ -2922,6 +2922,8 @@ uses two pictures, which I am providing here.
 
   .. figure:: X.gif
 
+  .. figure:: tile.gif
+
 The frontend I am providing communicates through a pipe with the backend. What this means is that there is a well-defined architecture which the
 frontend and the backend use to communicate. It also means that the backend can simply print things that it wants to send to the frontend and read from
 standard input the things it needs to read from the frontend. Let's take a look at the frontend code first. You can `download the frontend code from here
