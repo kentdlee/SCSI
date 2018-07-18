@@ -223,7 +223,7 @@ def main():
         #The code on the next line requires you to define a __str__ method
         #for your Board class which returns a string representation of the
         #board.
-        #eprint(gameBoard)
+        eprint(gameBoard)
         eprint("Enter a message Id: ")
         msgId = int(input())
 

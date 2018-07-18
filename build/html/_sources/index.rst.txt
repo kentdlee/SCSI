@@ -3933,6 +3933,106 @@ Because the Connect 4 search space is so large, there is a need to prune the sea
 the game was introduced above. But there is one other way to prune the search space called Alpha-Beta pruning. This is
 `discussed on Wikipedia <https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning>`_.
 
+
+The Perceptron
+================
+
+Neural networks are collections of interconnected perceptrons. A perceptron is a mathematical model of a neuron. Perceptrons are useful for classification
+and most problems can be described as classification problems with a little work. Consider trying to decide between two different categories of points
+on a plane. One set belongs to one group, another belongs to a different group. We know which group they belong to. We want to be able to train
+a program to *remember* and *predict* which group a future or known value belongs to later.
+
+`Here is a good presentation on what these neural networks look like and how they can be trained <http://aass.oru.se/~lilien/ml/seminars/2007_02_01b-Janecek-Perceptron.pdf>`_.
+
+`Here is some code that does this <_static/perceptron.py>`_. It is written in Python and uses some of the numpy library to do this computation.
+Take a careful look at the code to see how it classifies the data by returning -1 or 1 depending on the value it is given.
+
+.. code-block:: python
+    :linenos:
+
+    import random
+    import numpy as np
+
+    # np.dot
+    # np.sign
+    # np.c_ adds a column of 1's for bias
+
+    # A Perceptron is a classifier. It can classify data into one of two groups, either
+    # the 1 group or the -1 group. You can think of it deciding between one of two groups.
+
+    class Perceptron:
+        def __init__(self, numInputs):
+            # we add one to numInputs for the bias. The bias is the
+            # value where the curve crosses the y-axis. In other words it
+            # can be adjusted to raise or lower the curve.
+            self.w = np.array([random.random()*2-1 for x in range(numInputs+1)])
+
+        def fit(self, xtrain, ytrain, falsePositivePct):
+
+            done = False
+            count = 0
+
+            # The next line takes the inputs and adds 1 to each training
+            # input for the bias. c_ is a vector concatenate.
+            xv = np.c_[[1 for i in range(len(xtrain))],np.array(xtrain)]
+            yv = np.array(ytrain)
+            size = len(xtrain)
+            falsePosRatio = falsePositivePct/100
+            incorrectAnswers = ytrain
+            print("before training", self.w)
+
+            # when we have a loop like this we want to know that it will terminate
+            # eventually. The count < 1000 will guarantee that, but in reality the
+            # algorithm will converge on weights much quicker than that if it is possible.
+            while len(incorrectAnswers) / size > falsePosRatio and not done and count < 1000:
+
+                count += 1
+                incorrectAnswers = []
+                for i in range(len(xtrain)):
+                    prediction = np.sign(np.dot(self.w,xv[i]))
+                    if prediction != ytrain[i]:
+                        incorrectAnswers.append(i)
+
+                if len(incorrectAnswers) != 0:
+                    chosenIndex = incorrectAnswers[random.randint(0,len(incorrectAnswers)-1)]
+                    self.w = self.w + xv[chosenIndex] * yv[chosenIndex]
+                else:
+                    done = True
+
+            print("Training completed in", count, "iterations.")
+            print("After training", self.w)
+
+        def decisionFunction(self,x):
+            # same as predict without calling sign so we can use it in the ROC curve score.
+            pass
+
+
+        def predict(self, x):
+            xv = np.array([1] + list(x))
+            value = np.dot(self.w,xv)
+            return np.sign(value)
+
+    def main():
+        pts = [(4,1),(4,10),(3,5),(4,4),(8,10),(6,9),(7,11),(5,7),(4,2),(2,3),(7,6)]
+        y = [-1,1,-1,-1,1,1,1,1,-1,-1,1]
+
+        percept = Perceptron(2)
+
+        percept.fit(pts,y,1)
+
+        for i in range(len(pts)):
+            val = percept.predict(pts[i])
+            if val == y[i]:
+                print("correct at", pts[i])
+            else:
+                print("incorrect at", pts[i])
+
+    if __name__ == "__main__":
+        main()
+
+This code illustrates *supervised learning* of a classification algorithm. These types of algorithms can be applied to
+maching learning for game opponents as well.
+
 Machine Learning Opponents
 ============================
 

@@ -5238,6 +5238,177 @@ the game was introduced above. But there is one other way to prune the search sp
 <a class="reference external" href="https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning">discussed on Wikipedia</a>.</p>
 </div>
 </div>
+<div class="section" id="the-perceptron">
+<h1>The Perceptron<a class="headerlink" href="#the-perceptron" title="Permalink to this headline">¶</a></h1>
+<p>Neural networks are collections of interconnected perceptrons. A perceptron is a mathematical model of a neuron. Perceptrons are useful for classification
+and most problems can be described as classification problems with a little work. Consider trying to decide between two different categories of points
+on a plane. One set belongs to one group, another belongs to a different group. We know which group they belong to. We want to be able to train
+a program to <em>remember</em> and <em>predict</em> which group a future or known value belongs to later.</p>
+<p><a class="reference external" href="http://aass.oru.se/~lilien/ml/seminars/2007_02_01b-Janecek-Perceptron.pdf">Here is a good presentation on what these neural networks look like and how they can be trained</a>.</p>
+<p><a class="reference external" href="_static/perceptron.py">Here is some code that does this</a>. It is written in Python and uses some of the numpy library to do this computation.
+Take a careful look at the code to see how it classifies the data by returning -1 or 1 depending on the value it is given.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="c1"># np.dot</span>
+<span class="c1"># np.sign</span>
+<span class="c1"># np.c_ adds a column of 1&#39;s for bias</span>
+
+<span class="c1"># A Perceptron is a classifier. It can classify data into one of two groups, either</span>
+<span class="c1"># the 1 group or the -1 group. You can think of it deciding between one of two groups.</span>
+
+<span class="k">class</span> <span class="nc">Perceptron</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">numInputs</span><span class="p">):</span>
+        <span class="c1"># we add one to numInputs for the bias. The bias is the</span>
+        <span class="c1"># value where the curve crosses the y-axis. In other words it</span>
+        <span class="c1"># can be adjusted to raise or lower the curve.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span><span class="o">*</span><span class="mi">2</span><span class="o">-</span><span class="mi">1</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numInputs</span><span class="o">+</span><span class="mi">1</span><span class="p">)])</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xtrain</span><span class="p">,</span> <span class="n">ytrain</span><span class="p">,</span> <span class="n">falsePositivePct</span><span class="p">):</span>
+
+        <span class="n">done</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># The next line takes the inputs and adds 1 to each training</span>
+        <span class="c1"># input for the bias. c_ is a vector concatenate.</span>
+        <span class="n">xv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[[</span><span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xtrain</span><span class="p">))],</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">xtrain</span><span class="p">)]</span>
+        <span class="n">yv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ytrain</span><span class="p">)</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">xtrain</span><span class="p">)</span>
+        <span class="n">falsePosRatio</span> <span class="o">=</span> <span class="n">falsePositivePct</span><span class="o">/</span><span class="mi">100</span>
+        <span class="n">incorrectAnswers</span> <span class="o">=</span> <span class="n">ytrain</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;before training&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">)</span>
+
+        <span class="c1"># when we have a loop like this we want to know that it will terminate</span>
+        <span class="c1"># eventually. The count &lt; 1000 will guarantee that, but in reality the</span>
+        <span class="c1"># algorithm will converge on weights much quicker than that if it is possible.</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">incorrectAnswers</span><span class="p">)</span> <span class="o">/</span> <span class="n">size</span> <span class="o">&gt;</span> <span class="n">falsePosRatio</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">done</span> <span class="ow">and</span> <span class="n">count</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">:</span>
+
+            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">incorrectAnswers</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xtrain</span><span class="p">)):</span>
+                <span class="n">prediction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">,</span><span class="n">xv</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+                <span class="k">if</span> <span class="n">prediction</span> <span class="o">!=</span> <span class="n">ytrain</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                    <span class="n">incorrectAnswers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">incorrectAnswers</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">chosenIndex</span> <span class="o">=</span> <span class="n">incorrectAnswers</span><span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">incorrectAnswers</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">+</span> <span class="n">xv</span><span class="p">[</span><span class="n">chosenIndex</span><span class="p">]</span> <span class="o">*</span> <span class="n">yv</span><span class="p">[</span><span class="n">chosenIndex</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">done</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Training completed in&quot;</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="s2">&quot;iterations.&quot;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;After training&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">decisionFunction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
+        <span class="c1"># same as predict without calling sign so we can use it in the ROC curve score.</span>
+        <span class="k">pass</span>
+
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">xv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">,</span><span class="n">xv</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">pts</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mi">4</span><span class="p">,</span><span class="mi">10</span><span class="p">),(</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">),(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">),(</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">),(</span><span class="mi">6</span><span class="p">,</span><span class="mi">9</span><span class="p">),(</span><span class="mi">7</span><span class="p">,</span><span class="mi">11</span><span class="p">),(</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">),(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),(</span><span class="mi">7</span><span class="p">,</span><span class="mi">6</span><span class="p">)]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">percept</span> <span class="o">=</span> <span class="n">Perceptron</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">percept</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pts</span><span class="p">)):</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="n">percept</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">pts</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">val</span> <span class="o">==</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;correct at&quot;</span><span class="p">,</span> <span class="n">pts</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;incorrect at&quot;</span><span class="p">,</span> <span class="n">pts</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+<p>This code illustrates <em>supervised learning</em> of a classification algorithm. These types of algorithms can be applied to
+maching learning for game opponents as well.</p>
+</div>
 <div class="section" id="machine-learning-opponents">
 <h1>Machine Learning Opponents<a class="headerlink" href="#machine-learning-opponents" title="Permalink to this headline">¶</a></h1>
 <p>Alpha Zero Go is an algorithm that solves the Go game. Solving a game means building an opponent that can beat the world’s best players. There is an <a class="reference external" href="https://medium.com/applied-data-science/how-to-build-your-own-alphazero-ai-using-python-and-keras-7f664945c188">excellent article
@@ -5459,6 +5630,7 @@ too hard to do and I would be happy to get you started.</p>
 <li><a class="reference internal" href="#the-necessity-of-pruning">The Necessity of Pruning</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#the-perceptron">The Perceptron</a></li>
 <li><a class="reference internal" href="#machine-learning-opponents">Machine Learning Opponents</a><ul>
 <li><a class="reference internal" href="#lesson-28">Lesson 28</a></li>
 </ul>
