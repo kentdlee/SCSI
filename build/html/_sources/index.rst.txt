@@ -4067,6 +4067,8 @@ Go to `https://github.com/kentdlee/alpha-zero-general <https://github.com/kentdl
 how it can be used to play tic tac toe. Clone this repository to download it or just download the zip file and unzip it.
 Then you can get into the alpha-zero-general directory and run the tictactoeaz.py program to use the pre-built tic tac toe model that is found there.
 
+There is a `tutorial on Alpha Zero that is available here <http://web.stanford.edu/~surag/posts/alphazero.html>`_.
+
 Lesson 28
 --------------
 
