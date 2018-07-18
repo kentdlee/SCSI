@@ -3449,7 +3449,7 @@ operating systems commands called redirection. In the next section we’ll use s
 make moves against the user. Consider the last move in the game. The computer could take a board, make a move in it, see if that was a win or not, and
 then make that move permanently. That is exactly how the computer opponent works in a game like tic tac toe. Except that there is a little more to it.</p>
 <p>Let’s code a tic tac toe game. I will provide you with a tic tac toe frontend and the start of a tic tac toe backend to code this project. The frontend
-uses two pictures, which I am providing here.</p>
+uses three pictures, which I am providing here.</p>
 <div class="figboxright docutils container">
 <div class="figure">
 <img alt="_images/O.gif" src="_images/O.gif" />
@@ -4086,7 +4086,123 @@ is 6,7,8.</p>
 145
 146
 147
-148</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">use this script as the backend to the tictactoe.py frontend.</span>
@@ -4115,6 +4231,122 @@ is 6,7,8.</p>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)]</span> <span class="o">=</span> <span class="n">board</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)]</span>
 
+
+    <span class="c1"># The getitem method is used to index into the board. It should</span>
+    <span class="c1"># return a row of the board. That row itself is indexable (it is just</span>
+    <span class="c1"># a list) so accessing a row and column in the board can be written</span>
+    <span class="c1"># board[row][column] because of this method.</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">key</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">key</span><span class="p">,</span><span class="n">val</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+
+    <span class="c1"># This hash method is necessary eventually to memoize the tic tac toe</span>
+    <span class="c1"># program. Memoization is a technique that can significantly speed up</span>
+    <span class="c1"># search when the same paths are encountered multiple times.</span>
+    <span class="c1"># It should return an integer that uniquely identifies</span>
+    <span class="c1"># the state of the board.</span>
+    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+                <span class="n">val</span> <span class="o">+=</span> <span class="n">val</span><span class="o">*</span><span class="mi">3</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)]</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span>
+
+        <span class="k">return</span> <span class="n">val</span>
+
+    <span class="c1"># This method should return true if the two boards, self and other,</span>
+    <span class="c1"># represent exactly the same state.</span>
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">other</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)]</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">data</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)]</span><span class="o">.</span><span class="n">eval</span><span class="p">():</span>
+                    <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="k">return</span> <span class="bp">True</span>
+
+    <span class="c1"># This method will mutate this board to contain all dummy</span>
+    <span class="c1"># entries. This way the board can be reset when a new game</span>
+    <span class="c1"># is selected. It should NOT be used except when starting</span>
+    <span class="c1"># a new game.</span>
+    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)]</span> <span class="o">=</span> <span class="n">Dummy</span><span class="p">()</span>
+
+    <span class="c1"># This method should return an integer representing the</span>
+    <span class="c1"># state of the board. If the computer has won, return 1.</span>
+    <span class="c1"># If the human has won, return -1. Otherwise, return 0.</span>
+    <span class="k">def</span> <span class="nf">eval</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="n">rowSum</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+                <span class="n">rowSum</span><span class="o">+=</span> <span class="bp">self</span><span class="p">[(</span><span class="n">row</span><span class="p">,</span><span class="n">col</span><span class="p">)]</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">rowSum</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">rowSum</span><span class="o">//</span><span class="mi">3</span>
+
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="n">colSum</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+                <span class="n">colSum</span> <span class="o">+=</span> <span class="bp">self</span><span class="p">[(</span><span class="n">row</span><span class="p">,</span><span class="n">col</span><span class="p">)]</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">colSum</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">colSum</span><span class="o">//</span><span class="mi">3</span>
+
+        <span class="n">diagSum</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="n">diagSum</span><span class="o">+=</span><span class="bp">self</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="p">)]</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">diagSum</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">diagSum</span><span class="o">//</span><span class="mi">3</span>
+
+        <span class="n">diagSum</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="mi">2</span><span class="o">-</span><span class="n">i</span>
+            <span class="n">diagSum</span><span class="o">+=</span><span class="bp">self</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)]</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">diagSum</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">diagSum</span><span class="o">//</span><span class="mi">3</span>
+
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="c1"># This method should return True if the board</span>
+    <span class="c1"># is completely filled up.</span>
+    <span class="k">def</span> <span class="nf">full</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="p">[(</span><span class="n">row</span><span class="p">,</span><span class="n">col</span><span class="p">)]</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="k">return</span> <span class="bp">True</span>
+
+    <span class="c1"># This method should return True if the board</span>
+    <span class="c1"># is completely empty.</span>
+    <span class="k">def</span> <span class="nf">empty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[(</span><span class="n">row</span><span class="p">,</span><span class="n">col</span><span class="p">)]</span><span class="o">.</span><span class="n">eval</span><span class="p">())</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="k">return</span> <span class="bp">True</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;Board(&quot;</span><span class="o">+</span><span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;,None)&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+                <span class="n">s</span><span class="o">+=</span><span class="s2">&quot;|&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[(</span><span class="n">row</span><span class="p">,</span><span class="n">col</span><span class="p">)])</span><span class="o">+</span><span class="s2">&quot;|&quot;</span>
+            <span class="n">s</span><span class="o">+=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+        <span class="k">return</span> <span class="n">s</span>
 
 <span class="c1"># The Dummy class is a placeholder for locations that have not</span>
 <span class="c1"># yet been played. It is here for convenience in printing and</span>
@@ -4240,10 +4472,9 @@ is 6,7,8.</p>
 and working
 you automatically get the GUI interface by running the frontend code. Just be sure to name your backend code <em>tictactoebackend.py</em>.</p>
 </div>
-<div class="section" id="lesson-26">
-<h2>Lesson 26<a class="headerlink" href="#lesson-26" title="Permalink to this headline">¶</a></h2>
-<p>To get started on getting Tic Tac Toe to work, let’s make sure that the HumanTurn code works with your board. You will likely have to
-write some code and do some debugging to get it to work, but it will work with the backend code above once you debug it. To interact with the
+<div class="section" id="running-and-debugging">
+<h2>Running and Debugging<a class="headerlink" href="#running-and-debugging" title="Permalink to this headline">¶</a></h2>
+<p>To get started on getting Tic Tac Toe to work, let’s make sure that the HumanTurn code works with your board. To interact with the
 program you can run it in Wing and it should interact like this.</p>
 <div class="highlight-text notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -4274,22 +4505,8 @@ In humanTurn
 Enter a message Id:
 </pre></div>
 </td></tr></table></div>
-<p>The input and output deserves a little explanation above. Lines 1-3 are <em>eprinted</em> by the main function when the board is printed. You need to
-complete a function called __str__ to get this working. The __str__ method of the Board class is called automatically from the humanTurn code on
-line 106 of the code above. You will need to know that “n” is a newline character and can be added to a string to create a new line. To get the
-__str__ method working you will need two nested for loops. Here is an outline of that code for you. Try to finish it to get the board printed
-correctly (HINT: The print method you worked on during the first day can be used as a template for this code. This time you are building a
-string of the result instead of printing.)</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-            <span class="o">...</span>
-
-    <span class="k">return</span> <span class="n">s</span>
-</pre></div>
-</div>
-<p>Once the board is printing, you will need your <em>eval</em> method working.  Get this to work first and see that you can fill the board with a bunch of O’s.</p>
+<p>Some of this is <em>eprinted</em> which means that it is available for you to see while debugging, but does not interfere when using the frontend code later.
+The 2 and 0 above are entered by the user according to the frontend/backend architecture. To complete the code we have to get minimax written.</p>
 </div>
 <div class="section" id="minimax">
 <h2>Minimax<a class="headerlink" href="#minimax" title="Permalink to this headline">¶</a></h2>
@@ -4314,8 +4531,8 @@ space of tic tac toe to see if we an find a good move.</p>
 computerTurn function which operates just like <em>minimax</em> when the computer is the next to make a move (i.e. the current player) except that it
 also keeps track of the best move associated with the maximum value that is returned.</p>
 </div>
-<div class="section" id="lesson-27">
-<h2>Lesson 27<a class="headerlink" href="#lesson-27" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="lesson-26">
+<h2>Lesson 26<a class="headerlink" href="#lesson-26" title="Permalink to this headline">¶</a></h2>
 <p>Code minimax and computerTurn according to the description given above. Once you have it done, try it out in Wing by using the interface to the
 backend directly. If it all seems to work, put it with the frontend code by running the tictactoe.py module. You should have a working Tic Tac Toe
 program at that point.</p>
@@ -4354,8 +4571,8 @@ Here it is for the Board class.</p>
 <p>You can see from this that we use the accumulator pattern and multiply the old result time 3 each time. The +1 at the end is because
 we want to compute with digits 0,1,2 and not -1,0,1 as the board holds since 0,1,2 are the numbers in the trinary base system.</p>
 </div>
-<div class="section" id="lesson-28">
-<h2>Lesson 28<a class="headerlink" href="#lesson-28" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="lesson-27">
+<h2>Lesson 27<a class="headerlink" href="#lesson-27" title="Permalink to this headline">¶</a></h2>
 <p>Write the __eq__ method for the Board class. Here is how it should be defined and one gotcha.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># This method should return true if the two boards, self and other,</span>
 <span class="c1"># represent exactly the same state.</span>
@@ -5046,8 +5263,8 @@ of whatever size is necessary and train it efficiently given our training data.<
 <p>Go to <a class="reference external" href="https://github.com/kentdlee/alpha-zero-general">https://github.com/kentdlee/alpha-zero-general</a> to get the alpha-zero-general framework and see
 how it can be used to play tic tac toe. Clone this repository to download it or just download the zip file and unzip it.
 Then you can get into the alpha-zero-general directory and run the tictactoeaz.py program to use the pre-built tic tac toe model that is found there.</p>
-<div class="section" id="lesson-29">
-<h2>Lesson 29<a class="headerlink" href="#lesson-29" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="lesson-28">
+<h2>Lesson 28<a class="headerlink" href="#lesson-28" title="Permalink to this headline">¶</a></h2>
 <p>Develop a Connect 4 backend that uses the alpha zero general prebuilt connect four neural network to play the game of connect four against a human
 opponent. Take a look at the tictactoebackendaz.py file and the tictactoeaz.py file to get the general form of these two programs and then apply it
 to the connect 4 alpha zero opponent.</p>
@@ -5233,17 +5450,17 @@ too hard to do and I would be happy to get you started.</p>
 <li><a class="reference internal" href="#recursion">Recursion</a></li>
 <li><a class="reference internal" href="#standard-input-output-and-error">Standard Input, Output, and Error</a></li>
 <li><a class="reference internal" href="#tic-tac-toe">Tic Tac Toe</a></li>
-<li><a class="reference internal" href="#lesson-26">Lesson 26</a></li>
+<li><a class="reference internal" href="#running-and-debugging">Running and Debugging</a></li>
 <li><a class="reference internal" href="#minimax">Minimax</a></li>
-<li><a class="reference internal" href="#lesson-27">Lesson 27</a></li>
+<li><a class="reference internal" href="#lesson-26">Lesson 26</a></li>
 <li><a class="reference internal" href="#the-tic-tac-toe-search-space">The Tic Tac Toe Search Space</a></li>
-<li><a class="reference internal" href="#lesson-28">Lesson 28</a></li>
+<li><a class="reference internal" href="#lesson-27">Lesson 27</a></li>
 <li><a class="reference internal" href="#connect-four">Connect Four</a></li>
 <li><a class="reference internal" href="#the-necessity-of-pruning">The Necessity of Pruning</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#machine-learning-opponents">Machine Learning Opponents</a><ul>
-<li><a class="reference internal" href="#lesson-29">Lesson 29</a></li>
+<li><a class="reference internal" href="#lesson-28">Lesson 28</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#research-projects">Research Projects</a></li>

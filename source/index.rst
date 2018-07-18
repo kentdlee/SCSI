@@ -2914,7 +2914,7 @@ make moves against the user. Consider the last move in the game. The computer co
 then make that move permanently. That is exactly how the computer opponent works in a game like tic tac toe. Except that there is a little more to it.
 
 Let's code a tic tac toe game. I will provide you with a tic tac toe frontend and the start of a tic tac toe backend to code this project. The frontend
-uses two pictures, which I am providing here.
+uses three pictures, which I am providing here.
 
 .. container:: figboxright
 
@@ -3209,6 +3209,122 @@ The code one line 211 starts the backend program which must be called *tictactoe
                         self.data[(i,j)] = board[(i,j)]
 
 
+        # The getitem method is used to index into the board. It should
+        # return a row of the board. That row itself is indexable (it is just
+        # a list) so accessing a row and column in the board can be written
+        # board[row][column] because of this method.
+        def __getitem__(self,key):
+            return self.data[key]
+
+        def __setitem__(self,key,val):
+            self.data[key] = val
+
+        # This hash method is necessary eventually to memoize the tic tac toe
+        # program. Memoization is a technique that can significantly speed up
+        # search when the same paths are encountered multiple times.
+        # It should return an integer that uniquely identifies
+        # the state of the board.
+        def __hash__(self):
+            val = 0
+            for i in range(3):
+                for j in range(3):
+                    val += val*3 + self.data[(i,j)].eval()+1
+
+            return val
+
+        # This method should return true if the two boards, self and other,
+        # represent exactly the same state.
+        def __eq__(self,other):
+            if other == None:
+                return False
+
+            for i in range(3):
+                for j in range(3):
+                    if self.data[(i,j)].eval() != other.data[(i,j)].eval():
+                        return False
+
+            return True
+
+        # This method will mutate this board to contain all dummy
+        # entries. This way the board can be reset when a new game
+        # is selected. It should NOT be used except when starting
+        # a new game.
+        def reset(self):
+            for i in range(3):
+                for j in range(3):
+                    self.data[(i,j)] = Dummy()
+
+        # This method should return an integer representing the
+        # state of the board. If the computer has won, return 1.
+        # If the human has won, return -1. Otherwise, return 0.
+        def eval(self):
+            for row in range(3):
+                rowSum = 0
+                for col in range(3):
+                    rowSum+= self[(row,col)].eval()
+
+                if abs(rowSum) == 3:
+                    return rowSum//3
+
+            for col in range(3):
+                colSum = 0
+                for row in range(3):
+                    colSum += self[(row,col)].eval()
+
+                if abs(colSum) == 3:
+                    return colSum//3
+
+            diagSum = 0
+
+            for i in range(3):
+                diagSum+=self[(i,i)].eval()
+
+            if abs(diagSum) == 3:
+                return diagSum//3
+
+            diagSum = 0
+
+            for i in range(3):
+                j = 2-i
+                diagSum+=self[(i,j)].eval()
+
+            if abs(diagSum) == 3:
+                return diagSum//3
+
+            return 0
+
+        # This method should return True if the board
+        # is completely filled up.
+        def full(self):
+            for row in range(3):
+                for col in range(3):
+                    if self[(row,col)].eval() == 0:
+                        return False
+
+            return True
+
+        # This method should return True if the board
+        # is completely empty.
+        def empty(self):
+            for row in range(3):
+                for col in range(3):
+                    if abs(self.data[(row,col)].eval()) == 1:
+                        return False
+
+            return True
+
+        def __repr__(self):
+            return "Board("+repr(self.data)+",None)"
+
+        def __str__(self):
+            s = ""
+            for row in range(3):
+                for col in range(3):
+                    s+="|"+str(self.data[(row,col)])+"|"
+                s+="\n"
+
+            return s
+
     # The Dummy class is a placeholder for locations that have not
     # yet been played. It is here for convenience in printing and
     # evaluating the board.
@@ -3333,11 +3449,10 @@ This frontend and backend architecture allows you to run the backend independent
 and working
 you automatically get the GUI interface by running the frontend code. Just be sure to name your backend code *tictactoebackend.py*.
 
-Lesson 26
------------
+Running and Debugging
+----------------------
 
-To get started on getting Tic Tac Toe to work, let's make sure that the HumanTurn code works with your board. You will likely have to
-write some code and do some debugging to get it to work, but it will work with the backend code above once you debug it. To interact with the
+To get started on getting Tic Tac Toe to work, let's make sure that the HumanTurn code works with your board. To interact with the
 program you can run it in Wing and it should interact like this.
 
 .. code-block:: text
@@ -3358,24 +3473,8 @@ program you can run it in Wing and it should interact like this.
 
     Enter a message Id:
 
-The input and output deserves a little explanation above. Lines 1-3 are *eprinted* by the main function when the board is printed. You need to
-complete a function called __str__ to get this working. The __str__ method of the Board class is called automatically from the humanTurn code on
-line 106 of the code above. You will need to know that "\n" is a newline character and can be added to a string to create a new line. To get the
-__str__ method working you will need two nested for loops. Here is an outline of that code for you. Try to finish it to get the board printed
-correctly (HINT: The print method you worked on during the first day can be used as a template for this code. This time you are building a
-string of the result instead of printing.)
-
-.. code-block:: python
-
-    def __str__(self):
-        s = ""
-        for row in range(3):
-            for col in range(3):
-                ...
-
-        return s
-
-Once the board is printing, you will need your *eval* method working.  Get this to work first and see that you can fill the board with a bunch of O's.
+Some of this is *eprinted* which means that it is available for you to see while debugging, but does not interfere when using the frontend code later.
+The 2 and 0 above are entered by the user according to the frontend/backend architecture. To complete the code we have to get minimax written.
 
 Minimax
 ---------
@@ -3407,7 +3506,7 @@ Minimax returns a 1, -1, or 0 but does not tell us which was the best move. To g
 computerTurn function which operates just like *minimax* when the computer is the next to make a move (i.e. the current player) except that it
 also keeps track of the best move associated with the maximum value that is returned.
 
-Lesson 27
+Lesson 26
 ----------
 
 Code minimax and computerTurn according to the description given above. Once you have it done, try it out in Wing by using the interface to the
@@ -3456,7 +3555,7 @@ Here it is for the Board class.
 You can see from this that we use the accumulator pattern and multiply the old result time 3 each time. The +1 at the end is because
 we want to compute with digits 0,1,2 and not -1,0,1 as the board holds since 0,1,2 are the numbers in the trinary base system.
 
-Lesson 28
+Lesson 27
 -----------
 
 Write the __eq__ method for the Board class. Here is how it should be defined and one gotcha.
@@ -3868,7 +3967,7 @@ Go to `https://github.com/kentdlee/alpha-zero-general <https://github.com/kentdl
 how it can be used to play tic tac toe. Clone this repository to download it or just download the zip file and unzip it.
 Then you can get into the alpha-zero-general directory and run the tictactoeaz.py program to use the pre-built tic tac toe model that is found there.
 
-Lesson 29
+Lesson 28
 --------------
 
 Develop a Connect 4 backend that uses the alpha zero general prebuilt connect four neural network to play the game of connect four against a human
