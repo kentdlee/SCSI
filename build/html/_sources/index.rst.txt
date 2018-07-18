@@ -3938,7 +3938,7 @@ The Perceptron
 ================
 
 Neural networks are collections of interconnected perceptrons. A perceptron is a mathematical model of a neuron. Perceptrons are useful for classification
-and most problems can be described as classification problems with a little work. Consider trying to decide between two different categories of points
+and many problems can be described as classification problems with a little work. Consider trying to decide between two different categories of points
 on a plane. One set belongs to one group, another belongs to a different group. We know which group they belong to. We want to be able to train
 a program to *remember* and *predict* which group a future or known value belongs to later.
 
