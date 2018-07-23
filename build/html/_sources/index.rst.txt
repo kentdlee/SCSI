@@ -2829,6 +2829,12 @@ It should be quite hard to win this game so make the required landing velocity q
 
 To make this fun you might also look for a space background image and a nice rocket image.
 
+Have Even More Time?
+=====================
+
+Physics in games are a very math/physics intensive area, but also immensely satisfying when you get something to work. Peter Collingridge
+has an excellent site for building games with real-world simulations of physics. You can read his `tutorials and documentation on
+programming Physics with PyGame by clicking here <http://www.petercollingridge.co.uk/tutorials/pygame-physics-simulation/>`_.
 
 .. End of Session 3.
 
@@ -4137,6 +4143,10 @@ Quick Reference Links
   * `Surag Nair's Tutorial on AlphaZero <http://web.stanford.edu/~surag/posts/alphazero.html>`_
   * `Kent Lee's fork of AlphaZero with GUI front-ends <https://github.com/kentdlee/alpha-zero-general>`_
 
+Thanks
+=======
+
+Thanks you to Kiran Tomlinson for his input and feedback on the development and content of this website.
 
 Indices and tables
 ==================
