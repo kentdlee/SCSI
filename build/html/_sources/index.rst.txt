@@ -430,7 +430,7 @@ We can start the program by setting up the loop as follows.
 
     ...
     found = False
-    while not Found:
+    while not found:
       # This is the body of the loop where we guess and then adjust low and high as
       # appropriate.
 
