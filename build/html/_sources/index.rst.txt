@@ -4150,7 +4150,7 @@ Quick Reference Links
 Thanks
 =======
 
-Thanks you to Kiran Tomlinson for his input and feedback on the development and content of this website.
+Thanks to Kiran Tomlinson for his input and feedback on the development and content of this website.
 
 Indices and tables
 ==================
