@@ -4147,8 +4147,8 @@ Quick Reference Links
   * `Surag Nair's Tutorial on AlphaZero <http://web.stanford.edu/~surag/posts/alphazero.html>`_
   * `Kent Lee's fork of AlphaZero with GUI front-ends <https://github.com/kentdlee/alpha-zero-general>`_
 
-Thanks
-=======
+Ackknowledgements
+===================
 
 Thanks to Kiran Tomlinson for his input and feedback on the development and content of this website.
 
