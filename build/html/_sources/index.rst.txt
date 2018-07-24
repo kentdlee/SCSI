@@ -2836,6 +2836,10 @@ Physics in games are a very math/physics intensive area, but also immensely sati
 has an excellent site for building games with real-world simulations of physics. You can read his `tutorials and documentation on
 programming Physics with PyGame by clicking here <http://www.petercollingridge.co.uk/tutorials/pygame-physics-simulation/>`_.
 
+While the physics applies, the tutorials on Peter Collingridge's page are for Python 2 and not Python 3.
+Kiran Tomlinson was kind enough to provide Python 3 solutions to a few of the tutorials presented on Peter's web page. You can
+get `Kiran's Python 3 version of the tutorial solutions here <https://github.com/tomlinsonk/pygame-physics>`_.
+
 .. End of Session 3.
 
 Games of Perfect Information
