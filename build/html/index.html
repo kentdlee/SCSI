@@ -35,7 +35,7 @@
 <h1>Welcome to Game Development with Python!<a class="headerlink" href="#welcome-to-game-development-with-python" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
-<p>The goal of this camp is to open new worlds and possibilities to you in the area of computer programming. In this week we’ll motivate learning to program
+<p>The goal of this site is to open new worlds and possibilities to you in the area of computer programming. In this week we’ll motivate learning to program
 by exploring gaming. Today’s video games are complex masterpieces and are programmed by teams of programmers, artists, and writers. Yet, video game
 programming remains a very elite area with a huge amount of competition. So, my goal is not to teach you to be a video game programmer, but to teach
 you to be a programmer by learning about video games and how they are constructed. More importantly, the skills and knowledge you learn by studying Computer Science
@@ -105,7 +105,7 @@ but is available as part of Python so we use the <em>pip</em> command instead wh
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>pip install pygame
 </pre></div>
 </div>
-<p>This concludes installing all the Python software we’ll need for this camp. Next we’ll configure a tool for writing software to play games.</p>
+<p>This concludes installing all the Python software we’ll need for working through the problems on this site. Next we’ll configure a tool for writing software to play games.</p>
 </div>
 <div class="section" id="configuring-the-ide">
 <h2>Configuring the IDE<a class="headerlink" href="#configuring-the-ide" title="Permalink to this headline">¶</a></h2>
@@ -1611,7 +1611,7 @@ that waits, without using any CPU time, for an event to become available. When a
 returns and the <em>dispatch</em> function looks for a handler to handle the event.</p>
 <p>So, as programmers of event-driven programs, we <em>register</em> event handlers with the <em>dispatch</em> function so our event handler
 gets called when the event occurs that we want to handle. We’ll see this in the next section when we learn a bit about turtle graphics.</p>
-<p>To start the Minesweeper application you can copy <a class="reference external" href="_static/minesweeper/minesweeper.py">this code</a> and these pictures to a folder on you computer.
+<p>To start the Minesweeper application you can copy <a class="reference external" href="_static/minesweeper.py">this code</a> and these pictures to a folder on you computer.
 The code and the pictures must all be in the same folder on your computer.</p>
 <div class="figbox docutils container">
 <div class="figure" id="minepics">
@@ -1632,29 +1632,30 @@ A Frame is a widget that is a container. It holds other widgets like Turtles or 
 <h2>Lesson 14<a class="headerlink" href="#lesson-14" title="Permalink to this headline">¶</a></h2>
 <p>If you run the starter code you might notice a very small window appear on the screen. Our goal is to fill in that window with a canvas area
 where we can create turtles (i.e. Tiles), create a menu and get ready to write the code for starting a game.</p>
-<p>The code we write will all go in the buildWindow method of the MineSweepApplication. This is where we are going to write our event handlers
+<p>The code we write in this lesson goes in the buildWindow method of the MineSweepApplication. This is where we are going to write our event handlers
 and register them so we can process events in our program.</p>
 <p>Our goal in these lessons is going to be to understand what the code we are working through does. To begin, let’s give our application a
-name and create an area where we can draw with turtles. To do this we write this code.</p>
+name and create an area where we can draw with turtles. To do this we add this code to the buildWindow method of the MineSweepApplication class.</p>
 <div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
 4
 5
 6
-7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">canvas</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Canvas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
-<span class="n">canvas</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tkinter</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
-
-<span class="n">theTurtle</span> <span class="o">=</span> <span class="n">turtle</span><span class="o">.</span><span class="n">RawTurtle</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span>
-<span class="n">theTurtle</span><span class="o">.</span><span class="n">ht</span><span class="p">()</span>
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Canvas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tkinter</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
 
 <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Minesweeper&quot;</span><span class="p">)</span>
+
+<span class="n">theTurtle</span> <span class="o">=</span> <span class="n">turtle</span><span class="o">.</span><span class="n">RawTurtle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="p">)</span>
+<span class="n">theTurtle</span><span class="o">.</span><span class="n">ht</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
 <p>This code tells the master window (i.e. the root window) to change its title to Minesweeper and creates a canvas where turtles can draw.
 The <em>tkinter</em> module is a framework for writing our own GUI programs and is cross-platform. You can <a class="reference external" href="https://docs.python.org/3.6/library/tkinter.html?highlight=tkinter">read all about the tkinter framework here</a>.</p>
 <p>To create a menu for our application we create a Menu widget called bar, add a File menu widget to
-the menu bar and then add a couple of menu commands to the file menu as follows.</p>
+the menu bar and then add a couple of menu commands to the file menu as follows. If you look at your existing code before
+pasting this in, you will see the <em>tickTock</em> and the <em>newGame</em> functions. Put your code in around this existing code.</p>
 <div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -1667,8 +1668,25 @@ the menu bar and then add a couple of menu commands to the file menu as follows.
 10
 11
 12
-13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">bar</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Menu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="p">)</span>
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">bar</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Menu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="p">)</span>
 <span class="n">fileMenu</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Menu</span><span class="p">(</span><span class="n">bar</span><span class="p">,</span><span class="n">tearoff</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">tickTock</span><span class="p">():</span>
+    <span class="n">currentTime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="n">elapsed</span> <span class="o">=</span> <span class="n">currentTime</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">startTime</span>
+    <span class="n">elapsedSeconds</span> <span class="o">=</span> <span class="n">elapsed</span><span class="o">.</span><span class="n">seconds</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">elapsedTime</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">elapsedSeconds</span><span class="p">))</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">after</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="n">tickTock</span><span class="p">)</span>
+
 <span class="k">def</span> <span class="nf">newGame</span><span class="p">():</span>
     <span class="k">print</span><span class="p">(</span><span class="s2">&quot;New Game Selected&quot;</span><span class="p">)</span>
 
@@ -1679,38 +1697,68 @@ the menu bar and then add a couple of menu commands to the file menu as follows.
 <span class="n">bar</span><span class="o">.</span><span class="n">add_cascade</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;File&quot;</span><span class="p">,</span><span class="n">menu</span><span class="o">=</span><span class="n">fileMenu</span><span class="p">)</span>
 
 <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">menu</span><span class="o">=</span><span class="n">bar</span><span class="p">)</span>
-<span class="n">newGame</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
 <p>Now you can tell the turtle called <em>theTurtle</em> to do some of the commands that you learned above
 to see that it will draw on the canvas that you have created.</p>
-<p>Finally, we create sidebar area to keep track of the number of bombs that are left. Our game will have 40 bombs in a 16x16 grid of tiles.</p>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6
-7
-8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">sideBar</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<p>Finally, we create sidebar area to keep track of the number of bombs that are left. Our game will have 40 bombs in a 16x16 grid of tiles. We’ll
+also keep track of elapsed time.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">sideBar</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 <span class="n">sideBar</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tkinter</span><span class="o">.</span><span class="n">RIGHT</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">tkinter</span><span class="o">.</span><span class="n">BOTH</span><span class="p">)</span>
 
-<span class="n">bombLabel</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">sideBar</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Bombs = 40&quot;</span><span class="p">)</span>
+<span class="n">timeLabel</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">sideBar</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Elapsed Seconds&quot;</span><span class="p">)</span>
+<span class="n">timeLabel</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+
+<span class="bp">self</span><span class="o">.</span><span class="n">elapsedTime</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">elapsedTime</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;0&quot;</span><span class="p">)</span>
+
+<span class="bp">self</span><span class="o">.</span><span class="n">timeElapsed</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">sideBar</span><span class="p">,</span><span class="n">textvariable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">elapsedTime</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">timeElapsed</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+
+<span class="n">bombCountLabel</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">sideBar</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Bomb Count&quot;</span><span class="p">)</span>
+<span class="n">bombCountLabel</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+
+<span class="n">bombEntry</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">sideBar</span><span class="p">,</span><span class="n">textvariable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bombVar</span><span class="p">)</span>
+<span class="n">bombEntry</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+
+<span class="n">bombLabel</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">sideBar</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Bombs Remaining = &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">bombVar</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
 <span class="n">bombLabel</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
 
-<span class="bp">self</span><span class="o">.</span><span class="n">tileLabel</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">sideBar</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Tiles = 256&quot;</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">tileLabel</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">sideBar</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Tiles Remaining = 256&quot;</span><span class="p">)</span>
 <span class="bp">self</span><span class="o">.</span><span class="n">tileLabel</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
-<p>When the program starts the newGame function is called. This function starts the
-game by creating the mines and tiles and then displaying them in a 16x16 grid. You write the following code in the newGame function definition.</p>
 <p>To keep track of a 16x16 grid in the program we construct a list of lists. Each
 list is a row of tiles in the minesweeper program. There are 16 of these rows.
 All 16 rows are put in another list called the matrix. The matrix is a variable in the MineSweepApplication.</p>
 <p>The screen is an object that we can use to change the coordinates of the canvas.
 We can also register shapes with it. When we register a shape we say that we want a turtle to take that shape somewhere in our program.</p>
 <p>We get the screen from the initial turtle we created. Then we can set the
-coordinates to be a 600x600 pixel canvas with (0,0) in the upper left corner. We can then clear the screen and set tracer to 0. The tracer command on the screen tells the screen not to update unless we tell it to update. This speeds up the program so that turtles appear to move very fast when we give them commands. Here is the code that does this. You can add this to the newGame function.</p>
+coordinates to be a 600x600 pixel canvas with (0,0) in the upper left corner. We can then clear the screen and set tracer to 0.
+The tracer command on the screen tells the screen not to update unless we tell it to update. This speeds up the program so that turtles appear to
+move very fast when we give them commands. Here is the code that does this. You can add this to the newGame function.</p>
 <div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
@@ -1726,12 +1774,19 @@ coordinates to be a 600x600 pixel canvas with (0,0) in the upper left corner. We
 use these shapes later in our program. Some turtles will look like bombs, others flags, and still others will look like tiles. Turtle graphics requires you to register these shapes before a turtle can change its shape.</p>
 <div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
-3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">screen</span><span class="o">.</span><span class="n">register_shape</span><span class="p">(</span><span class="s2">&quot;bomb36.gif&quot;</span><span class="p">)</span>
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">screen</span><span class="o">.</span><span class="n">register_shape</span><span class="p">(</span><span class="s2">&quot;bomb36.gif&quot;</span><span class="p">)</span>
 <span class="n">screen</span><span class="o">.</span><span class="n">register_shape</span><span class="p">(</span><span class="s2">&quot;tile36.gif&quot;</span><span class="p">)</span>
 <span class="n">screen</span><span class="o">.</span><span class="n">register_shape</span><span class="p">(</span><span class="s2">&quot;flag36.gif&quot;</span><span class="p">)</span>
+
+<span class="n">newGame</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
-<p>When new game is called there may be an old game that needs to be cleaned up.
+<p>Finally, when the program starts the newGame function is called. This function starts the
+game by creating the mines and tiles and then displaying them in a 16x16 grid.</p>
+<p>We still need to complete the <em>newGame</em> function. You write the following code in the <em>newGame</em> function definition.
+When new game is called there may be an old game that needs to be cleaned up.
 Since each tile is a Turtle, we can clean up the old game by moving the turtles off the screen.
 To do this we write a couple of for loops to go through all the rows of the matrix and for each row all the
 columns of the row. Here is what the code looks like:</p>
@@ -1747,16 +1802,26 @@ In Minesweeper we want the 40 bombs to appear at random locations within the gam
 We’ll create 40 random numbers to go along with the 40 random bombs that we’ll create.
 The random.randrange(256) function will generate a random number between 0 and 255.
 Because it might generate a same random number twice (or more) there is a little bit of code to
-make sure that random numbers in this range don’t repeat (so we get 40 random numbers).</p>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6
-7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">randomNumbers</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+make sure that random numbers in this range don’t repeat (so we get 40 random numbers). This number
+of bombs is configurable by the user. So we get the number of bombs from the entry box that
+is configured in the user interface.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">randomNumbers</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">):</span>
+<span class="n">numBombs</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bombVar</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+
+<span class="n">bombLabel</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Bombs Remaining = &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">bombVar</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numBombs</span><span class="p">):</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
     <span class="k">while</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">randomNumbers</span><span class="p">:</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
@@ -1784,7 +1849,8 @@ we’ll make a tile a bomb. Otherwise, a tile is just a tile. Here is code to do
 16
 17
 18
-19</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="p">[]</span>
+19
+20</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="bp">self</span><span class="o">.</span><span class="n">tileNum</span> <span class="o">=</span> <span class="mi">256</span>
 <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
 
@@ -1794,17 +1860,19 @@ we’ll make a tile a bomb. Otherwise, a tile is just a tile. Here is code to do
     <span class="k">for</span> <span class="n">colIndex</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
         <span class="n">bomb</span> <span class="o">=</span> <span class="p">(</span><span class="n">count</span> <span class="ow">in</span> <span class="n">randomNumbers</span><span class="p">)</span>
 
-        <span class="n">aTile</span> <span class="o">=</span> <span class="n">Tile</span><span class="p">(</span><span class="n">canvas</span><span class="p">,</span><span class="n">screen</span><span class="p">,</span><span class="n">rowIndex</span><span class="p">,</span><span class="n">colIndex</span><span class="p">,</span>\
-                    <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="p">,</span><span class="n">bomb</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="n">aTile</span> <span class="o">=</span> <span class="n">Tile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="p">,</span><span class="n">screen</span><span class="p">,</span><span class="n">rowIndex</span><span class="p">,</span><span class="n">colIndex</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="p">,</span><span class="n">bomb</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">aTile</span><span class="p">)</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
 
-
 <span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">startTime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">after</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="n">tickTock</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
+<p>The <em>newGame</em> function concludes with starting a timer to count the seconds since the game started.</p>
 </div>
 <div class="section" id="lesson-15">
 <h2>Lesson 15<a class="headerlink" href="#lesson-15" title="Permalink to this headline">¶</a></h2>
@@ -1835,7 +1903,8 @@ Tile with rowIndex and colIndex be located? Figure this out and then tell self t
 <p>In a GUI application we write event handlers. An event handler gets called when an event
 like a button press or mouse click happens in a program. We tell our program which event handler
 to call by registering the event handler. When we click the left mouse button, we want to run some
-code in our program. Here is how we register an event handler in our application.</p>
+code in our program. Here is how we register an event handler in our application. THIS CODE IS ALREADY PROVIDED, but is included here
+so you see how the event handler is registered. You don’t have to write anything more for this to be defined and registered.</p>
 <div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
@@ -1845,14 +1914,6 @@ code in our program. Here is how we register an event handler in our application
 <span class="bp">self</span><span class="o">.</span><span class="n">onclick</span><span class="p">(</span><span class="n">leftClickHandler</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
-<p>For this code to work, you must add another method to the <em>Tile</em> class. The <em>whenLeftClicked</em>
-method should be defined in the Tile class with one parameter, <em>self</em>. You can have it print “In whenLeftClicked” for now.</p>
-<p>You must also register an event handler for the right-click button.
-This is done by registering the event handler as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">onclick</span><span class="p">(</span><span class="n">rightClickHandler</span><span class="p">,</span><span class="n">btn</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Be sure to define rightClickHandler and whenRightClicked just as you did above for left clicks.</p>
 <p>That’s it for lesson 15!</p>
 </div>
 <div class="section" id="lesson-16">
@@ -1884,9 +1945,9 @@ code to get us started. Again, this goes in the <em>whenLeftClicked</em> method.
         <span class="bp">self</span><span class="o">.</span><span class="n">gameApp</span><span class="o">.</span><span class="n">gameOver</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
-<p>For this code to completely work you must define a new method in the <em>MineSweepApplication</em>
-class called <em>gameOver</em>. This method should go through each row in the matrix and for
-each tile in each row it should call a new method called <em>gameOver</em> on the <em>Tile</em>.
+<p>Notice that this code calls <em>gameOver</em> on the <em>MineSweepApplication</em>
+class. The <em>gameOver</em> method of the <em>MineSweepApplication</em> class should go through each row in the matrix and for
+each tile in each row it should call the <em>gameOver</em> method on each <em>Tile</em> object.
 After doing this, don’t forget to update the screen with this statement:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 </pre></div>
@@ -1897,7 +1958,9 @@ You may also want to disable all mouse clicks. You can do this in the <em>Tile g
 <span class="bp">self</span><span class="o">.</span><span class="n">onclick</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span><span class="n">btn</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>That’s enough for lesson 16.</p>
+<p>So, to recap, in this lesson you should have added code to both the <em>gameOver</em> methods of <em>Tile</em> and the <em>MineSweepApplication</em> classes and you should
+have added code to both the <em>whenRightClicked</em> and the <em>whenLeftClicked</em> methods of the <em>Tile</em> class.
+That’s enough for lesson 16.</p>
 </div>
 <div class="section" id="lesson-17">
 <h2>Lesson 17<a class="headerlink" href="#lesson-17" title="Permalink to this headline">¶</a></h2>
@@ -1907,11 +1970,15 @@ To do this we add an else statement to the <em>whenLeftClicked</em> method as ou
 2
 3
 4
-5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isvisible</span><span class="p">():</span>
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isvisible</span><span class="p">():</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bomb</span><span class="p">:</span>
         <span class="c1"># stuff we wrote in lesson 16</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># stuff we write in lesson 17</span>
+
+    <span class="n">screen</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
 <p>To complete this code we want to do the following. First we want to hide the tile and
@@ -1928,17 +1995,20 @@ decrement the number of tiles in the game. We can do this by writing a line of c
 5
 6
 7
-8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">decTileNum</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">decTileNum</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">tileNum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tileNum</span> <span class="o">-</span> <span class="mi">1</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">tileLabel</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Tiles = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tileNum</span><span class="p">))</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tileNum</span> <span class="o">==</span> <span class="mi">40</span><span class="p">:</span>
+    <span class="n">numBombs</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bombVar</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tileNum</span> <span class="o">==</span> <span class="n">numBombs</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gameOver</span><span class="p">()</span>
         <span class="n">tkinter</span><span class="o">.</span><span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span>\
-           <span class="n">message</span><span class="o">=</span><span class="s2">&quot;You didn&#39;t blow up! Congratulations!!&quot;</span><span class="p">,</span>\
-           <span class="n">title</span><span class="o">=</span><span class="s2">&quot;You Won!!!!&quot;</span><span class="p">)</span>
+          <span class="n">message</span><span class="o">=</span><span class="s2">&quot;You didn&#39;t blow up! Congratulations!!&quot;</span><span class="p">,</span>\
+          <span class="n">title</span><span class="o">=</span><span class="s2">&quot;You Won!!!!&quot;</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
-<p>Now we need to make all the neighbor tiles of this tile disappear if they are not bombs.
+<p>The next bit of code goes in the <em>whenLeftClicked</em> method in the new <em>else</em> part that we are defining.
+We need to make all the neighbor tiles of this tile disappear if they are not bombs.
 To do this we want to make a list of the neighbors that are not bombs and count them as well.
 This is a little complicated but picture counting all the neighbors of a tile and adding them to a list. Here is code that does this.</p>
 <div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
@@ -2015,16 +2085,15 @@ number of bombs that are adjacent to the tile. This code will do that.</p>
     <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="mi">18</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
-<p>That’s it! You now have a complete Minesweeper application! Congratulations on learning some GUI programming in Python.</p>
+<p>Don’t erase the <em>screen.update()</em> at the end of the method. That’s important that it is the last thing done in your <em>whenLeftClicked</em> method.
+That’s it! You now have a complete Minesweeper application! Congratulations on learning some GUI programming in Python.</p>
 </div>
 <div class="section" id="lesson-18">
 <h2>Lesson 18<a class="headerlink" href="#lesson-18" title="Permalink to this headline">¶</a></h2>
-<p>Before you begin this lesson you should save a copy of your minesweeper application using some other name like lesson18.py. You may or may not have
-time to complete it.</p>
-<p>There are two nice additions you could make to this code. For the first addition, you could make the number of bombs configurable. To do this
-will require you
-to get input from the user. A nice way to do this is with an entry box and what is called a <em>StringVar</em> in Tkinter. Here is how to code an entry box
-in Tkinter.</p>
+<p>There is no code to write for this lesson, just an explanation of some code you copied.</p>
+<p>You might have noticed that the number of bombs configurable. To do this requires input from the user. A nice way to do this is with an
+entry box and what is called a <em>StringVar</em> in Tkinter. Here is how to code an entry box
+in Tkinter. You can find this in the application if you look for it.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># This is a label widget. Packing it puts it at the top of the sidebar.</span>
 <span class="n">bombCountLabel</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">sideBar</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Bomb Count&quot;</span><span class="p">)</span>
 <span class="n">bombCountLabel</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
@@ -2039,30 +2108,30 @@ in Tkinter.</p>
 </pre></div>
 </div>
 <p>You can read the comments above to see how the <em>StringVar</em> can be used to set the number of bombs of the Minesweeper application. Then you can use the
-value by calling <em>get</em> as the comment above says. For instance, if we wanted the number of bombs of the minesweeper application, we could write this.</p>
+value by calling <em>get</em> as the comment above says. For instance, to get the number of bombs of the minesweeper application, we could write this.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bombCount</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bombVar</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
 </pre></div>
 </div>
-<p>The other nice addition is to keep track of elapsed time in seconds. This can be done by using the <em>after</em> method on the <em>Tkinter</em> root window and
+<p>The other nice feature of this application keeps track of elapsed time in seconds. This is done by using the <em>after</em> method on the <em>Tkinter</em> root window and
 using the <em>datetime</em> module. By writing this code in your <em>MineSweepApplication</em> class</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="n">ticktock</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>you can call the <em>ticktock</em> method after approximately one second. When new game is selected, you can record the <em>startTime</em> by using the
+<p>The <em>ticktock</em> method is called after approximately one second. When new game is selected, the <em>startTime</em> is recorded by using the
 <em>datetime</em> module’s <em>now</em> function as follows.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
 
 <span class="n">startTime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Then you can do the same to get the <em>currentTime</em> in your <em>ticktock</em> function.</p>
+<p>Then the code does the same to get the <em>currentTime</em> in the <em>ticktock</em> function.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">currentTime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
 <span class="n">elapsedTime</span> <span class="o">=</span> <span class="n">currentTime</span> <span class="o">-</span> <span class="n">startTime</span>
 <span class="c1"># now elapsedTime.seconds is the number of seconds the game has been playing</span>
 </pre></div>
 </div>
-<p>Once you have the current time, you can update a label to display the current number of elapsed seconds in your game.</p>
-<p>You could display a final score for your application which might be some measure of how many bombs we uncovered with the time factored into
+<p>Once you have the current time, a label is updated to display the current number of elapsed seconds in your game.</p>
+<p>You might also display a final score for your application which might be some measure of how many bombs you uncovered with the time factored into
 it as well. Here is the <a class="reference external" href="_static/lesson18.py">final solution to these exercises</a>.</p>
 </div>
 </div>
@@ -2777,9 +2846,9 @@ needed for animation. There is still double buffering. There are just some extra
 <div class="section" id="lesson-22">
 <h2>Lesson 22<a class="headerlink" href="#lesson-22" title="Permalink to this headline">¶</a></h2>
 <p>Detect if two balls collide in the application and have them cancel each other out (i.e. make them
-disappear from the screen). You can do this by <a class="reference external" href="https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.groupcollideany">examining the *pygame.sprite.spritecollideany* method</a>
+disappear from the screen). You can do this by <a class="reference external" href="https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.groupcollideany">examining the pygame.sprite.spritecollideany method</a>
 and coding your program to detect collisions. You must code the distance formula into your callback to detect collisions.</p>
-<p>You will have to research a few things to get this to work. One gotcha is the before sprites are rendered the first time, their locations are all
+<p>You will have to research a few things to get this to work. One gotcha is that before sprites are rendered the first time, their locations are all
 0,0. So you need to wait until they have been rendered at least once before you start detecting collisions.  You could do this with a boolean variable
 in the <em>App</em> class. After you switch the boolean value to true, then you can
 start checking for collisions.</p>
@@ -5451,41 +5520,6 @@ opponent. Take a look at the tictactoebackendaz.py file and the tictactoeaz.py f
 to the connect 4 alpha zero opponent.</p>
 </div>
 </div>
-<div class="section" id="research-projects">
-<h1>Research Projects<a class="headerlink" href="#research-projects" title="Permalink to this headline">¶</a></h1>
-<p>You should form teams of two for your research projects. You are in charge of your research. It will be your opportunity to build something unique and/or
-gain more in depth knowledge about a specific area. You can suggest your own research topic if you like, but because of my knowledge of the area and
-experience with the size of a project I will offer advice on how to manage the scope of the project so you will have a reasonable chance to produce something
-cool by the end of your three weeks.</p>
-<p>Since this is all new to you and because of the short timeframe that we have I have some suggestions of projects you can work on. With
-any of these projects you may want to spend some time considering what makes a game fun. Do some research into the enjoyment of
-playing games and what makes a game fun to play since at least some of these would not be fun to play since the computer opponent
-could win all the time or at least play well enough you might never win.</p>
-<blockquote>
-<div><ul class="simple">
-<li>Develop a Frogger video game with several levels that keeps score and has you attain some goal. I’ll leave details to you. This
-could be implemented with either Turtle graphics or with PyGame.</li>
-<li>Develop a Metasquare game that is built on Turtle graphics with a grid (see online examples or examples on your phone). The goal of the game is to capture tokens next to another token.
-This could be done with a computer opponent or you might work on fun animations that make it fun to play with others.</li>
-<li>Take the Connect 4 app and build a better Connect 4 using Monte Carlo Tree Search or some other search techniques. Research other optimization and heuristics for game search and implement one or more of them for the
-game of Connect 4 or some other game of perfect information.</li>
-<li>Build a machine learning opponent and game for a different game like the Metasquares game.</li>
-<li>Build an Asteroids video game with PyGame.</li>
-<li>Build a Ms Pacman game.</li>
-<li>Build a Snake game with levels and sounds.</li>
-<li>Build a Galaga video game. You can <a class="reference external" href="https://github.com/shaunc44/galaga">start with this code</a> but you’ll have to learn to use
-the ppb library as well which is built on top of pygame. You can get <a class="reference external" href="http://aharrisbooks.net/pythonGame/">documentation for ppb here</a>. You might
-want to look at appendix B.</li>
-<li>Develop the game of Othello with a computer opponent. You might use the AlphaZero framework but develop a new front-end for it that
-makes the graphics part of it fun to play.</li>
-</ul>
-</div></blockquote>
-<p>Again, these are only initial suggestions. In each of these projects you would need to research the rules of the game. You would also decide on a minimum
-viable product and see if you were able to finish that much while at the camp.</p>
-<p>Research projects may produce a working program, but even more important are the things you discovered along the way. A paper most often accompanies a
-research project. You may want to build a web page with your results on it. You can publish you research web page on Github if you like. Doing so is not
-too hard to do and I would be happy to get you started.</p>
-</div>
 <div class="section" id="quick-reference-links">
 <h1>Quick Reference Links<a class="headerlink" href="#quick-reference-links" title="Permalink to this headline">¶</a></h1>
 <blockquote>
@@ -5650,7 +5684,6 @@ too hard to do and I would be happy to get you started.</p>
 <li><a class="reference internal" href="#lesson-28">Lesson 28</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#research-projects">Research Projects</a></li>
 <li><a class="reference internal" href="#quick-reference-links">Quick Reference Links</a></li>
 <li><a class="reference internal" href="#ackknowledgements">Ackknowledgements</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>

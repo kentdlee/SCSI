@@ -11,7 +11,7 @@ Welcome to Game Development with Python!
 .. toctree::
    :maxdepth: 2
 
-The goal of this camp is to open new worlds and possibilities to you in the area of computer programming. In this week we'll motivate learning to program
+The goal of this site is to open new worlds and possibilities to you in the area of computer programming. In this week we'll motivate learning to program
 by exploring gaming. Today's video games are complex masterpieces and are programmed by teams of programmers, artists, and writers. Yet, video game
 programming remains a very elite area with a huge amount of competition. So, my goal is not to teach you to be a video game programmer, but to teach
 you to be a programmer by learning about video games and how they are constructed. More importantly, the skills and knowledge you learn by studying Computer Science
@@ -105,7 +105,7 @@ but is available as part of Python so we use the *pip* command instead which is 
 
     pip install pygame
 
-This concludes installing all the Python software we'll need for this camp. Next we'll configure a tool for writing software to play games.
+This concludes installing all the Python software we'll need for working through the problems on this site. Next we'll configure a tool for writing software to play games.
 
 Configuring the IDE
 --------------------
@@ -1513,16 +1513,16 @@ So, as programmers of event-driven programs, we *register* event handlers with t
 gets called when the event occurs that we want to handle. We'll see this in the next section when we learn a bit about turtle graphics.
 
 
-To start the Minesweeper application you can copy `this code <_static/minesweeper/minesweeper.py>`_ and these pictures to a folder on you computer.
+To start the Minesweeper application you can copy `this code <_static/minesweeper.py>`_ and these pictures to a folder on you computer.
 The code and the pictures must all be in the same folder on your computer.
 
 .. container:: figbox
 
   .. _minepics:
 
-  .. figure:: _static/minesweeper/bomb36.gif
-  .. figure:: _static/minesweeper/tile36.gif
-  .. figure:: _static/minesweeper/flag36.gif
+  .. figure:: _static/bomb36.gif
+  .. figure:: _static/tile36.gif
+  .. figure:: _static/flag36.gif
 
 You might take a couple of minutes to look over the Python code. The Tile class inherits from the Turtle class.
 This means a Tile is a Turtle with some extra things attached.
@@ -1536,35 +1536,45 @@ Lesson 14
 If you run the starter code you might notice a very small window appear on the screen. Our goal is to fill in that window with a canvas area
 where we can create turtles (i.e. Tiles), create a menu and get ready to write the code for starting a game.
 
-The code we write will all go in the buildWindow method of the MineSweepApplication. This is where we are going to write our event handlers
+The code we write in this lesson goes in the buildWindow method of the MineSweepApplication. This is where we are going to write our event handlers
 and register them so we can process events in our program.
 
 Our goal in these lessons is going to be to understand what the code we are working through does. To begin, let's give our application a
-name and create an area where we can draw with turtles. To do this we write this code.
+name and create an area where we can draw with turtles. To do this we add this code to the buildWindow method of the MineSweepApplication class.
 
 .. code-block:: python
     :linenos:
 
-    canvas = tkinter.Canvas(self,width=600,height=600)
-    canvas.pack(side=tkinter.LEFT)
-
-    theTurtle = turtle.RawTurtle(canvas)
-    theTurtle.ht()
+    self.canvas = tkinter.Canvas(self,width=600,height=600)
+    self.canvas.pack(side=tkinter.LEFT)
 
     self.master.title("Minesweeper")
+
+    theTurtle = turtle.RawTurtle(self.canvas)
+    theTurtle.ht()
 
 This code tells the master window (i.e. the root window) to change its title to Minesweeper and creates a canvas where turtles can draw.
 The *tkinter* module is a framework for writing our own GUI programs and is cross-platform. You can `read all about the tkinter framework here
 <https://docs.python.org/3.6/library/tkinter.html?highlight=tkinter>`_.
 
 To create a menu for our application we create a Menu widget called bar, add a File menu widget to
-the menu bar and then add a couple of menu commands to the file menu as follows.
+the menu bar and then add a couple of menu commands to the file menu as follows. If you look at your existing code before
+pasting this in, you will see the *tickTock* and the *newGame* functions. Put your code in around this existing code.
 
 .. code-block:: python
     :linenos:
 
     bar = tkinter.Menu(self.master)
     fileMenu = tkinter.Menu(bar,tearoff=0)
+
+    def tickTock():
+        currentTime = datetime.datetime.now()
+        elapsed = currentTime - self.startTime
+        elapsedSeconds = elapsed.seconds
+        self.elapsedTime.set(str(elapsedSeconds))
+        if self.running:
+            self.master.after(1000,tickTock)
+
     def newGame():
         print("New Game Selected")
 
@@ -1575,12 +1585,12 @@ the menu bar and then add a couple of menu commands to the file menu as follows.
     bar.add_cascade(label="File",menu=fileMenu)
 
     self.master.config(menu=bar)
-    newGame()
 
 Now you can tell the turtle called *theTurtle* to do some of the commands that you learned above
 to see that it will draw on the canvas that you have created.
 
-Finally, we create sidebar area to keep track of the number of bombs that are left. Our game will have 40 bombs in a 16x16 grid of tiles.
+Finally, we create sidebar area to keep track of the number of bombs that are left. Our game will have 40 bombs in a 16x16 grid of tiles. We'll
+also keep track of elapsed time.
 
 .. code-block:: python
     :linenos:
@@ -1588,14 +1598,27 @@ Finally, we create sidebar area to keep track of the number of bombs that are le
     sideBar = tkinter.Frame(self,padx=5,pady=5)
     sideBar.pack(side=tkinter.RIGHT, fill=tkinter.BOTH)
 
-    bombLabel = tkinter.Label(sideBar,text="Bombs = 40")
+    timeLabel = tkinter.Label(sideBar,text="Elapsed Seconds")
+    timeLabel.pack()
+
+    self.elapsedTime = tkinter.StringVar()
+    self.elapsedTime.set("0")
+
+    self.timeElapsed = tkinter.Label(sideBar,textvariable=self.elapsedTime)
+    self.timeElapsed.pack()
+
+    bombCountLabel = tkinter.Label(sideBar,text="Bomb Count")
+    bombCountLabel.pack()
+
+    bombEntry = tkinter.Entry(sideBar,textvariable=self.bombVar)
+    bombEntry.pack()
+
+    bombLabel = tkinter.Label(sideBar,text="Bombs Remaining = " + self.bombVar.get())
     bombLabel.pack()
 
-    self.tileLabel = tkinter.Label(sideBar,text="Tiles = 256")
+    self.tileLabel = tkinter.Label(sideBar,text="Tiles Remaining = 256")
     self.tileLabel.pack()
 
-When the program starts the newGame function is called. This function starts the
-game by creating the mines and tiles and then displaying them in a 16x16 grid. You write the following code in the newGame function definition.
 
 To keep track of a 16x16 grid in the program we construct a list of lists. Each
 list is a row of tiles in the minesweeper program. There are 16 of these rows.
@@ -1605,7 +1628,9 @@ The screen is an object that we can use to change the coordinates of the canvas.
 We can also register shapes with it. When we register a shape we say that we want a turtle to take that shape somewhere in our program.
 
 We get the screen from the initial turtle we created. Then we can set the
-coordinates to be a 600x600 pixel canvas with (0,0) in the upper left corner. We can then clear the screen and set tracer to 0. The tracer command on the screen tells the screen not to update unless we tell it to update. This speeds up the program so that turtles appear to move very fast when we give them commands. Here is the code that does this. You can add this to the newGame function.
+coordinates to be a 600x600 pixel canvas with (0,0) in the upper left corner. We can then clear the screen and set tracer to 0.
+The tracer command on the screen tells the screen not to update unless we tell it to update. This speeds up the program so that turtles appear to
+move very fast when we give them commands. Here is the code that does this. You can add this to the newGame function.
 
 .. code-block:: python
     :linenos:
@@ -1626,6 +1651,12 @@ use these shapes later in our program. Some turtles will look like bombs, others
     screen.register_shape("tile36.gif")
     screen.register_shape("flag36.gif")
 
+    newGame()
+
+Finally, when the program starts the newGame function is called. This function starts the
+game by creating the mines and tiles and then displaying them in a 16x16 grid.
+
+We still need to complete the *newGame* function. You write the following code in the *newGame* function definition.
 When new game is called there may be an old game that needs to be cleaned up.
 Since each tile is a Turtle, we can clean up the old game by moving the turtles off the screen.
 To do this we write a couple of for loops to go through all the rows of the matrix and for each row all the
@@ -1643,14 +1674,20 @@ In Minesweeper we want the 40 bombs to appear at random locations within the gam
 We'll create 40 random numbers to go along with the 40 random bombs that we'll create.
 The random.randrange(256) function will generate a random number between 0 and 255.
 Because it might generate a same random number twice (or more) there is a little bit of code to
-make sure that random numbers in this range don't repeat (so we get 40 random numbers).
+make sure that random numbers in this range don't repeat (so we get 40 random numbers). This number
+of bombs is configurable by the user. So we get the number of bombs from the entry box that
+is configured in the user interface.
 
 .. code-block:: python
     :linenos:
 
     randomNumbers = set()
 
-    for i in range(40):
+    numBombs = int(self.bombVar.get())
+
+    bombLabel.configure(text="Bombs Remaining = " + self.bombVar.get())
+
+    for i in range(numBombs):
         r = random.randrange(256)
         while r in randomNumbers:
             r = random.randrange(256)
@@ -1673,16 +1710,18 @@ we'll make a tile a bomb. Otherwise, a tile is just a tile. Here is code to do t
         for colIndex in range(16):
             bomb = (count in randomNumbers)
 
-            aTile = Tile(canvas,screen,rowIndex,colIndex,\
-                        self.matrix,bomb,self)
+
+            aTile = Tile(self.canvas,screen,rowIndex,colIndex,self.matrix,bomb,self)
             count = count + 1
             row.append(aTile)
 
         self.matrix.append(row)
 
-
     self.screen.update()
+    self.startTime = datetime.datetime.now()
+    self.master.after(1000,tickTock)
 
+The *newGame* function concludes with starting a timer to count the seconds since the game started.
 
 Lesson 15
 ------------
@@ -1720,7 +1759,8 @@ Tile with rowIndex and colIndex be located? Figure this out and then tell self t
 In a GUI application we write event handlers. An event handler gets called when an event
 like a button press or mouse click happens in a program. We tell our program which event handler
 to call by registering the event handler. When we click the left mouse button, we want to run some
-code in our program. Here is how we register an event handler in our application.
+code in our program. Here is how we register an event handler in our application. THIS CODE IS ALREADY PROVIDED, but is included here
+so you see how the event handler is registered. You don't have to write anything more for this to be defined and registered.
 
 .. code-block:: python
     :linenos:
@@ -1729,18 +1769,6 @@ code in our program. Here is how we register an event handler in our application
         self.whenLeftClicked()
 
     self.onclick(leftClickHandler)
-
-For this code to work, you must add another method to the *Tile* class. The *whenLeftClicked*
-method should be defined in the Tile class with one parameter, *self*. You can have it print "In whenLeftClicked" for now.
-
-You must also register an event handler for the right-click button.
-This is done by registering the event handler as follows:
-
-.. code-block:: python
-
-    self.onclick(rightClickHandler,btn=3)
-
-Be sure to define rightClickHandler and whenRightClicked just as you did above for left clicks.
 
 That's it for lesson 15!
 
@@ -1772,9 +1800,9 @@ code to get us started. Again, this goes in the *whenLeftClicked* method.
                 title="Game Over!!!")
             self.gameApp.gameOver()
 
-For this code to completely work you must define a new method in the *MineSweepApplication*
-class called *gameOver*. This method should go through each row in the matrix and for
-each tile in each row it should call a new method called *gameOver* on the *Tile*.
+Notice that this code calls *gameOver* on the *MineSweepApplication*
+class. The *gameOver* method of the *MineSweepApplication* class should go through each row in the matrix and for
+each tile in each row it should call the *gameOver* method on each *Tile* object.
 After doing this, don't forget to update the screen with this statement:
 
 .. code-block:: python
@@ -1789,6 +1817,8 @@ You may also want to disable all mouse clicks. You can do this in the *Tile game
     self.onclick(None)
     self.onclick(None,btn=3)
 
+So, to recap, in this lesson you should have added code to both the *gameOver* methods of *Tile* and the *MineSweepApplication* classes and you should
+have added code to both the *whenRightClicked* and the *whenLeftClicked* methods of the *Tile* class.
 That's enough for lesson 16.
 
 Lesson 17
@@ -1806,6 +1836,8 @@ To do this we add an else statement to the *whenLeftClicked* method as outlined 
         else:
             # stuff we write in lesson 17
 
+        screen.update()
+
 To complete this code we want to do the following. First we want to hide the tile and
 decrement the number of tiles in the game. We can do this by writing a line of code like this:
 
@@ -1822,13 +1854,15 @@ But, for this to work we'll need to define a *decTileNum* method on our *Mineswe
     def decTileNum(self):
         self.tileNum = self.tileNum - 1
         self.tileLabel.config(text="Tiles = " + str(self.tileNum))
-        if self.tileNum == 40:
+        numBombs = int(self.bombVar.get())
+        if self.tileNum == numBombs:
             self.gameOver()
             tkinter.messagebox.showinfo(\
-               message="You didn't blow up! Congratulations!!",\
-               title="You Won!!!!")
+              message="You didn't blow up! Congratulations!!",\
+              title="You Won!!!!")
 
-Now we need to make all the neighbor tiles of this tile disappear if they are not bombs.
+The next bit of code goes in the *whenLeftClicked* method in the new *else* part that we are defining.
+We need to make all the neighbor tiles of this tile disappear if they are not bombs.
 To do this we want to make a list of the neighbors that are not bombs and count them as well.
 This is a little complicated but picture counting all the neighbors of a tile and adding them to a list. Here is code that does this.
 
@@ -1880,18 +1914,17 @@ number of bombs that are adjacent to the tile. This code will do that.
         self.right(90)
         self.forward(18)
 
+Don't erase the *screen.update()* at the end of the method. That's important that it is the last thing done in your *whenLeftClicked* method.
 That's it! You now have a complete Minesweeper application! Congratulations on learning some GUI programming in Python.
 
 Lesson 18
 ------------
 
-Before you begin this lesson you should save a copy of your minesweeper application using some other name like lesson18.py. You may or may not have
-time to complete it.
+There is no code to write for this lesson, just an explanation of some code you copied.
 
-There are two nice additions you could make to this code. For the first addition, you could make the number of bombs configurable. To do this
-will require you
-to get input from the user. A nice way to do this is with an entry box and what is called a *StringVar* in Tkinter. Here is how to code an entry box
-in Tkinter.
+You might have noticed that the number of bombs configurable. To do this requires input from the user. A nice way to do this is with an
+entry box and what is called a *StringVar* in Tkinter. Here is how to code an entry box
+in Tkinter. You can find this in the application if you look for it.
 
 .. code-block:: python
 
@@ -1908,20 +1941,20 @@ in Tkinter.
     bombEntry.pack()
 
 You can read the comments above to see how the *StringVar* can be used to set the number of bombs of the Minesweeper application. Then you can use the
-value by calling *get* as the comment above says. For instance, if we wanted the number of bombs of the minesweeper application, we could write this.
+value by calling *get* as the comment above says. For instance, to get the number of bombs of the minesweeper application, we could write this.
 
 .. code-block:: python
 
     bombCount = int(self.bombVar.get())
 
-The other nice addition is to keep track of elapsed time in seconds. This can be done by using the *after* method on the *Tkinter* root window and
+The other nice feature of this application keeps track of elapsed time in seconds. This is done by using the *after* method on the *Tkinter* root window and
 using the *datetime* module. By writing this code in your *MineSweepApplication* class
 
 .. code-block:: python
 
     self.master.update(1000,ticktock)
 
-you can call the *ticktock* method after approximately one second. When new game is selected, you can record the *startTime* by using the
+The *ticktock* method is called after approximately one second. When new game is selected, the *startTime* is recorded by using the
 *datetime* module's *now* function as follows.
 
 .. code-block:: python
@@ -1930,7 +1963,7 @@ you can call the *ticktock* method after approximately one second. When new game
 
     startTime = datetime.datetime.now()
 
-Then you can do the same to get the *currentTime* in your *ticktock* function.
+Then the code does the same to get the *currentTime* in the *ticktock* function.
 
 .. code-block:: python
 
@@ -1938,9 +1971,9 @@ Then you can do the same to get the *currentTime* in your *ticktock* function.
     elapsedTime = currentTime - startTime
     # now elapsedTime.seconds is the number of seconds the game has been playing
 
-Once you have the current time, you can update a label to display the current number of elapsed seconds in your game.
+Once you have the current time, a label is updated to display the current number of elapsed seconds in your game.
 
-You could display a final score for your application which might be some measure of how many bombs we uncovered with the time factored into
+You might also display a final score for your application which might be some measure of how many bombs you uncovered with the time factored into
 it as well. Here is the `final solution to these exercises <_static/lesson18.py>`_.
 
 Have More Time?
@@ -2378,10 +2411,10 @@ Consider the bouncing ball code for pygame as shown here. Look this over careful
 Lesson 22
 -----------
 Detect if two balls collide in the application and have them cancel each other out (i.e. make them
-disappear from the screen). You can do this by `examining the *pygame.sprite.spritecollideany* method <https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.groupcollideany>`_
+disappear from the screen). You can do this by `examining the pygame.sprite.spritecollideany method <https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.groupcollideany>`_
 and coding your program to detect collisions. You must code the distance formula into your callback to detect collisions.
 
-You will have to research a few things to get this to work. One gotcha is the before sprites are rendered the first time, their locations are all
+You will have to research a few things to get this to work. One gotcha is that before sprites are rendered the first time, their locations are all
 0,0. So you need to wait until they have been rendered at least once before you start detecting collisions.  You could do this with a boolean variable
 in the *App* class. After you switch the boolean value to true, then you can
 start checking for collisions.
@@ -4086,41 +4119,41 @@ Develop a Connect 4 backend that uses the alpha zero general prebuilt connect fo
 opponent. Take a look at the tictactoebackendaz.py file and the tictactoeaz.py file to get the general form of these two programs and then apply it
 to the connect 4 alpha zero opponent.
 
-Research Projects
-==================
+.. Research Projects
+.. ==================
 
-You should form teams of two for your research projects. You are in charge of your research. It will be your opportunity to build something unique and/or
-gain more in depth knowledge about a specific area. You can suggest your own research topic if you like, but because of my knowledge of the area and
-experience with the size of a project I will offer advice on how to manage the scope of the project so you will have a reasonable chance to produce something
-cool by the end of your three weeks.
+.. You should form teams of two for your research projects. You are in charge of your research. It will be your opportunity to build something unique and/or
+.. gain more in depth knowledge about a specific area. You can suggest your own research topic if you like, but because of my knowledge of the area and
+.. experience with the size of a project I will offer advice on how to manage the scope of the project so you will have a reasonable chance to produce something
+.. cool by the end of your three weeks.
 
-Since this is all new to you and because of the short timeframe that we have I have some suggestions of projects you can work on. With
-any of these projects you may want to spend some time considering what makes a game fun. Do some research into the enjoyment of
-playing games and what makes a game fun to play since at least some of these would not be fun to play since the computer opponent
-could win all the time or at least play well enough you might never win.
+.. Since this is all new to you and because of the short timeframe that we have I have some suggestions of projects you can work on. With
+.. any of these projects you may want to spend some time considering what makes a game fun. Do some research into the enjoyment of
+.. playing games and what makes a game fun to play since at least some of these would not be fun to play since the computer opponent
+.. could win all the time or at least play well enough you might never win.
 
-  * Develop a Frogger video game with several levels that keeps score and has you attain some goal. I'll leave details to you. This
-    could be implemented with either Turtle graphics or with PyGame.
-  * Develop a Metasquare game that is built on Turtle graphics with a grid (see online examples or examples on your phone). The goal of the game is to capture tokens next to another token.
-    This could be done with a computer opponent or you might work on fun animations that make it fun to play with others.
-  * Take the Connect 4 app and build a better Connect 4 using Monte Carlo Tree Search or some other search techniques. Research other optimization and heuristics for game search and implement one or more of them for the
-    game of Connect 4 or some other game of perfect information.
-  * Build a machine learning opponent and game for a different game like the Metasquares game.
-  * Build an Asteroids video game with PyGame.
-  * Build a Ms Pacman game.
-  * Build a Snake game with levels and sounds.
-  * Build a Galaga video game. You can `start with this code <https://github.com/shaunc44/galaga>`_ but you'll have to learn to use
-    the ppb library as well which is built on top of pygame. You can get `documentation for ppb here <http://aharrisbooks.net/pythonGame/>`_. You might
-    want to look at appendix B.
-  * Develop the game of Othello with a computer opponent. You might use the AlphaZero framework but develop a new front-end for it that
-    makes the graphics part of it fun to play.
+..  * Develop a Frogger video game with several levels that keeps score and has you attain some goal. I'll leave details to you. This
+..    could be implemented with either Turtle graphics or with PyGame.
+..  * Develop a Metasquare game that is built on Turtle graphics with a grid (see online examples or examples on your phone). The goal of the game is to capture tokens next to another token.
+..    This could be done with a computer opponent or you might work on fun animations that make it fun to play with others.
+..  * Take the Connect 4 app and build a better Connect 4 using Monte Carlo Tree Search or some other search techniques. Research other optimization and heuristics for game search and implement one or more of them for the
+..    game of Connect 4 or some other game of perfect information.
+..  * Build a machine learning opponent and game for a different game like the Metasquares game.
+..  * Build an Asteroids video game with PyGame.
+..  * Build a Ms Pacman game.
+..  * Build a Snake game with levels and sounds.
+..  * Build a Galaga video game. You can `start with this code <https://github.com/shaunc44/galaga>`_ but you'll have to learn to use
+..    the ppb library as well which is built on top of pygame. You can get `documentation for ppb here <http://aharrisbooks.net/pythonGame/>`_. You might
+..    want to look at appendix B.
+..  * Develop the game of Othello with a computer opponent. You might use the AlphaZero framework but develop a new front-end for it that
+..    makes the graphics part of it fun to play.
 
-Again, these are only initial suggestions. In each of these projects you would need to research the rules of the game. You would also decide on a minimum
-viable product and see if you were able to finish that much while at the camp.
+.. Again, these are only initial suggestions. In each of these projects you need to research the rules of the game. You would also decide on a minimum
+.. viable product and see if you were able to finish that before deciding to take on more.
 
-Research projects may produce a working program, but even more important are the things you discovered along the way. A paper most often accompanies a
-research project. You may want to build a web page with your results on it. You can publish you research web page on Github if you like. Doing so is not
-too hard to do and I would be happy to get you started.
+.. Research projects may produce a working program, but even more important are the things you discovered along the way. A paper most often accompanies a
+.. research project. You may want to build a web page with your results on it. You can publish you research web page on Github if you like. Doing so is not
+.. too hard to do and I would be happy to get you started.
 
 Quick Reference Links
 ==============================
