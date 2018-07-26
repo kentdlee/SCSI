@@ -4073,8 +4073,13 @@ Take a careful look at the code to see how it classifies the data by returning -
     if __name__ == "__main__":
         main()
 
-This code illustrates *supervised learning* of a classification algorithm. These types of algorithms can be applied to
-maching learning for game opponents as well.
+This code illustrates *supervised learning* of a classification algorithm. Most classification neural networks are composed of many perceptrons
+usually arranged into an input layer, a hidden layer, and an output layer. `This website <https://playground.tensorflow.org>`_ has an excellent
+visualization of how these neural networks work to help classify information. You can visualize how the neural network works on this website
+to classify some complex information.
+
+These types of algorithms can be applied to
+machine learning for game opponents as well.
 
 Machine Learning Opponents
 ============================
