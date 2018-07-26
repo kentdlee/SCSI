@@ -2835,7 +2835,7 @@ a sound into the application. And you can play a sound using the code on line 13
 Lesson 25
 ------------
 
-You can get many sounds from the internet. The site `freesound.org <http://freesound.org>`_ has many free sounds. Googling a sound also helps.
+You can get many sounds from the internet. The site `soundbible.com <http://soundbible.com>`_ has many free sounds. Googling a sound also helps.
 Add a sound when two balls collide in any of the earlier labs of colliding balls. Pick any sound you like that is appropriate of course.
 
 
@@ -4177,6 +4177,8 @@ Quick Reference Links
   * `Turtle Graphics <https://docs.python.org/3.6/library/turtle.html>`_
   * `Tkinter <https://docs.python.org/3.6/library/tkinter.html?highlight=tkinter>`_
   * `Python Image Library (PIL) Documentation <http://pillow.readthedocs.io/en/3.0.x/reference/Image.html?highlight=resize#image-processing>`_
+  * `Sounds available at soundbible.com <http://soundbible.com>`_
+  * `PyGame Documentation <http://pygame.org>`_
   * `Andy Harris' PyGame Development Examples <https://cs.iupui.edu/~aharris/pygame/>`_
   * `PPB GameEngine Documentation <http://aharrisbooks.net/pythonGame/>`_
   * `Jeff Bradberry's Introduction to Monte Carlo Tree Search <http://jeffbradberry.com/posts/2015/09/intro-to-monte-carlo-tree-search/>`_
