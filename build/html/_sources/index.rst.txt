@@ -2250,7 +2250,7 @@ Detecting Collisions
 ----------------------
 
 Detecting a collision in the bouncing ball application is relatively easy. You can detect if two balls collide
-by computing their distance from each other and if that distance is less than the sum of the diameters of both
+by computing their distance from each other and if that distance is less than the sum of the radii of both
 objects then they have collided. The distance formula can be used to compute the distance between two balls.
 
 Lesson 21
@@ -4124,41 +4124,35 @@ Develop a Connect 4 backend that uses the alpha zero general prebuilt connect fo
 opponent. Take a look at the tictactoebackendaz.py file and the tictactoeaz.py file to get the general form of these two programs and then apply it
 to the connect 4 alpha zero opponent.
 
-.. Research Projects
-.. ==================
+Project Suggestions
+=====================
 
-.. You should form teams of two for your research projects. You are in charge of your research. It will be your opportunity to build something unique and/or
-.. gain more in depth knowledge about a specific area. You can suggest your own research topic if you like, but because of my knowledge of the area and
-.. experience with the size of a project I will offer advice on how to manage the scope of the project so you will have a reasonable chance to produce something
-.. cool by the end of your three weeks.
+Here are some possible projects you might work on given the information you have learned from the examples given on this site. With
+any of these projects you may want to spend some time considering what makes a game fun. Do some research into the enjoyment of
+playing games and what makes a game fun to play since at least some of these would not be fun to play since the computer opponent
+could win all the time or at least play well enough you might never win.
 
-.. Since this is all new to you and because of the short timeframe that we have I have some suggestions of projects you can work on. With
-.. any of these projects you may want to spend some time considering what makes a game fun. Do some research into the enjoyment of
-.. playing games and what makes a game fun to play since at least some of these would not be fun to play since the computer opponent
-.. could win all the time or at least play well enough you might never win.
+  * Develop a Frogger video game with several levels that keeps score and has you attain some goal. I'll leave details to you. This
+    could be implemented with either Turtle graphics or with PyGame.
+  * Develop a Metasquare game that is built on Turtle graphics with a grid (see online examples or examples on your phone). The goal of the game is to capture tokens next to another token.
+    This could be done with a computer opponent or you might work on fun animations that make it fun to play with others.
+  * Take the Connect 4 app and build a better Connect 4 using Monte Carlo Tree Search or some other search techniques. Research other optimization and heuristics for game search and implement one or more of them for the
+    game of Connect 4 or some other game of perfect information.
+  * Build a machine learning opponent and game for a different game like the Metasquares game.
+  * Build an Asteroids video game with PyGame.
+  * Build a Ms Pacman game.
+  * Build a Snake game with levels and sounds.
+  * Build a Galaga video game. You can `start with this code <https://github.com/shaunc44/galaga>`_ but you'll have to learn to use
+    the ppb library as well which is built on top of pygame. You can get `documentation for ppb here <http://aharrisbooks.net/pythonGame/>`_. You might
+    want to look at appendix B.
+  * Develop the game of Othello with a computer opponent. You might use the AlphaZero framework but develop a new front-end for it that
+    makes the graphics part of it fun to play.
 
-..  * Develop a Frogger video game with several levels that keeps score and has you attain some goal. I'll leave details to you. This
-..    could be implemented with either Turtle graphics or with PyGame.
-..  * Develop a Metasquare game that is built on Turtle graphics with a grid (see online examples or examples on your phone). The goal of the game is to capture tokens next to another token.
-..    This could be done with a computer opponent or you might work on fun animations that make it fun to play with others.
-..  * Take the Connect 4 app and build a better Connect 4 using Monte Carlo Tree Search or some other search techniques. Research other optimization and heuristics for game search and implement one or more of them for the
-..    game of Connect 4 or some other game of perfect information.
-..  * Build a machine learning opponent and game for a different game like the Metasquares game.
-..  * Build an Asteroids video game with PyGame.
-..  * Build a Ms Pacman game.
-..  * Build a Snake game with levels and sounds.
-..  * Build a Galaga video game. You can `start with this code <https://github.com/shaunc44/galaga>`_ but you'll have to learn to use
-..    the ppb library as well which is built on top of pygame. You can get `documentation for ppb here <http://aharrisbooks.net/pythonGame/>`_. You might
-..    want to look at appendix B.
-..  * Develop the game of Othello with a computer opponent. You might use the AlphaZero framework but develop a new front-end for it that
-..    makes the graphics part of it fun to play.
+Again, these are only initial suggestions. In each of these projects you need to research the rules of the game. You would also decide on a minimum
+viable product and see if you were able to finish that before deciding to take on more.
 
-.. Again, these are only initial suggestions. In each of these projects you need to research the rules of the game. You would also decide on a minimum
-.. viable product and see if you were able to finish that before deciding to take on more.
-
-.. Research projects may produce a working program, but even more important are the things you discovered along the way. A paper most often accompanies a
-.. research project. You may want to build a web page with your results on it. You can publish you research web page on Github if you like. Doing so is not
-.. too hard to do and I would be happy to get you started.
+Your work may produce a working program, but even more important are the things you discover along the way. You can publish your experience building
+a game on the web to share your experience.
 
 Quick Reference Links
 ==============================
