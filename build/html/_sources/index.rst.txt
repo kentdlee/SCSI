@@ -1884,6 +1884,10 @@ This is a little complicated but picture counting all the neighbors of a tile an
                     else:
                         bombNeighbors = bombNeighbors+1
 
+    if bombNeighbors == 0:
+        for neighbor in neighbors:
+            neighbor.whenLeftClicked()
+
 Then, once we have the list of neighbors, if none of the neighbors are bombs,
 we can uncover the neighbors by going through the list of neighbors and calling whenLeftClicked on them.
 
