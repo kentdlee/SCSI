@@ -2277,7 +2277,9 @@ Use what you learned in this section to build a Frogger application. Frogger is 
 over by a car. Then it must jump across the river by landing on logs as it goes. If it makes it to the other side then you might have the game go
 again with the cars and the logs moving slightly faster. You can watch this video to see what the game should look like when it is completed.
 
-<iframe width="600" height="400" src="https://youtu.be/7i_xEpraZH4" frameborder="0" allowfullscreen></iframe>
+.. raw:: html
+
+    <iframe width="600" height="400" src="https://youtu.be/7i_xEpraZH4" frameborder="0" allowfullscreen></iframe>
 
 You can get the image files here. Copy these images to a folder on your computer to use with the Frogger application.
 
