@@ -1641,7 +1641,8 @@ move very fast when we give them commands. Here is the code that does this. You 
     screen.tracer(0)
     self.screen = screen
 
-We now want to register some shapes. This is necessary because we will have turtles
+We now want to register some shapes. You add this code in *buildWindow* but NOT in the *newGame* function. You don't need to execute this code each
+time a new game is started. It only has to execute once when the application is started. The code below is necessary because we will have turtles
 use these shapes later in our program. Some turtles will look like bombs, others flags, and still others will look like tiles. Turtle graphics requires you to register these shapes before a turtle can change its shape.
 
 .. code-block:: python
