@@ -2289,7 +2289,7 @@ You can get the image files here. Copy these images to a folder on your computer
 
 .. figure:: _static/croc.gif
 
-You can go to the `github website for this project <https://github.com/kentdlee/Frogger>`_ for additional help if you need it, but try to do it yourself first. 
+You can go to the `github website for this project <https://github.com/kentdlee/Frogger>`_ for additional help if you need it, but try to do it yourself first.
 
 Introducing PyGame
 =========================
