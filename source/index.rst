@@ -2279,7 +2279,7 @@ again with the cars and the logs moving slightly faster. You can watch this vide
 
 .. raw:: html
 
-    <iframe width="966" height="543" src="https://www.youtube.com/embed/7i_xEpraZH4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <iframe width="600" height="400" src="https://www.youtube.com/embed/7i_xEpraZH4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 You can get the image files here. Copy these images to a folder on your computer to use with the Frogger application.
 
