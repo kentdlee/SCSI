@@ -1642,13 +1642,17 @@ name and create an area where we can draw with turtles. To do this we add this c
 4
 5
 6
-7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Canvas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Canvas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
 <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tkinter</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
 
 <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Minesweeper&quot;</span><span class="p">)</span>
 
 <span class="n">theTurtle</span> <span class="o">=</span> <span class="n">turtle</span><span class="o">.</span><span class="n">RawTurtle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="p">)</span>
 <span class="n">theTurtle</span><span class="o">.</span><span class="n">ht</span><span class="p">()</span>
+<span class="n">screen</span> <span class="o">=</span> <span class="n">theTurtle</span><span class="o">.</span><span class="n">getscreen</span><span class="p">()</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">screen</span> <span class="o">=</span> <span class="n">screen</span>
 </pre></div>
 </td></tr></table></div>
 <p>This code tells the master window (i.e. the root window) to change its title to Minesweeper and creates a canvas where turtles can draw.
@@ -1761,13 +1765,9 @@ The tracer command on the screen tells the screen not to update unless we tell i
 move very fast when we give them commands. Here is the code that does this. You can add this to the newGame function.</p>
 <div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
-3
-4
-5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">screen</span> <span class="o">=</span> <span class="n">theTurtle</span><span class="o">.</span><span class="n">getscreen</span><span class="p">()</span>
-<span class="n">screen</span><span class="o">.</span><span class="n">setworldcoordinates</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">600</span><span class="p">,</span><span class="mi">600</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">screen</span><span class="o">.</span><span class="n">setworldcoordinates</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">600</span><span class="p">,</span><span class="mi">600</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">screen</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 <span class="n">screen</span><span class="o">.</span><span class="n">tracer</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="bp">self</span><span class="o">.</span><span class="n">screen</span> <span class="o">=</span> <span class="n">screen</span>
 </pre></div>
 </td></tr></table></div>
 <p>We now want to register some shapes. You add this code in <em>buildWindow</em> but NOT in the <em>newGame</em> function. You don’t need to execute this code each
@@ -1805,7 +1805,8 @@ The random.randrange(256) function will generate a random number between 0 and 2
 Because it might generate a same random number twice (or more) there is a little bit of code to
 make sure that random numbers in this range don’t repeat (so we get 40 random numbers). This number
 of bombs is configurable by the user. So we get the number of bombs from the entry box that
-is configured in the user interface.</p>
+is configured in the user interface. <strong>WHEN YOU PASTE THIS CODE IN THE INDENTATION WILL NOT BE CORRECT. You can
+highlight the code and press shift-tab to back it up so it lines up with the</strong> <em>for row in self.matrix</em> <strong>line of code.</strong></p>
 <div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -1831,7 +1832,8 @@ is configured in the user interface.</p>
 </td></tr></table></div>
 <p>Next, we create 256 tiles by creating the 16x16 matrix. As we create tiles we’ll
 count from 0 to 255. If we come to a number that is in our list of random numbers,
-we’ll make a tile a bomb. Otherwise, a tile is just a tile. Here is code to do this:</p>
+we’ll make a tile a bomb. Otherwise, a tile is just a tile. Here is code to do this. Again,
+be careful to line this code up with the <em>for loop</em> in the previous code.</p>
 <div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -1956,7 +1958,7 @@ After doing this, don’t forget to update the screen with this statement:</p>
 <p>The tile’s <em>gameOver</em> method should display itself as a bomb (if it is a bomb).
 You may also want to disable all mouse clicks. You can do this in the <em>Tile gameOver</em> method by writing this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">onclick</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
-<span class="bp">self</span><span class="o">.</span><span class="n">onclick</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span><span class="n">btn</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">onclick</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span><span class="n">btn</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>So, to recap, in this lesson you should have added code to both the <em>gameOver</em> methods of <em>Tile</em> and the <em>MineSweepApplication</em> classes and you should
@@ -1979,7 +1981,7 @@ To do this we add an else statement to the <em>whenLeftClicked</em> method as ou
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># stuff we write in lesson 17</span>
 
-    <span class="n">screen</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
 <p>To complete this code we want to do the following. First we want to hide the tile and
@@ -2052,7 +2054,9 @@ This is a little complicated but picture counting all the neighbors of a tile an
 <p>Then, once we have the list of neighbors, if none of the neighbors are bombs,
 we can uncover the neighbors by going through the list of neighbors and calling whenLeftClicked on them.</p>
 <p>The last little bit is to display a number in place of a tile to indicate the
-number of bombs that are adjacent to the tile. This code will do that.</p>
+number of bombs that are adjacent to the tile. This code will do that. <strong>AGAIN, make sure
+that this code get’s indented correctly. It should line up with the</strong> <em>if bombNeighbors == 0</em> <strong>if statement
+above it.</strong></p>
 <div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3

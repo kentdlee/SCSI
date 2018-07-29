@@ -1552,6 +1552,8 @@ name and create an area where we can draw with turtles. To do this we add this c
 
     theTurtle = turtle.RawTurtle(self.canvas)
     theTurtle.ht()
+    screen = theTurtle.getscreen()
+    self.screen = screen
 
 This code tells the master window (i.e. the root window) to change its title to Minesweeper and creates a canvas where turtles can draw.
 The *tkinter* module is a framework for writing our own GUI programs and is cross-platform. You can `read all about the tkinter framework here
@@ -1635,11 +1637,10 @@ move very fast when we give them commands. Here is the code that does this. You 
 .. code-block:: python
     :linenos:
 
-    screen = theTurtle.getscreen()
     screen.setworldcoordinates(0,600,600,0)
     screen.clear()
     screen.tracer(0)
-    self.screen = screen
+
 
 We now want to register some shapes. You add this code in *buildWindow* but NOT in the *newGame* function. You don't need to execute this code each
 time a new game is started. It only has to execute once when the application is started. The code below is necessary because we will have turtles
@@ -1677,7 +1678,8 @@ The random.randrange(256) function will generate a random number between 0 and 2
 Because it might generate a same random number twice (or more) there is a little bit of code to
 make sure that random numbers in this range don't repeat (so we get 40 random numbers). This number
 of bombs is configurable by the user. So we get the number of bombs from the entry box that
-is configured in the user interface.
+is configured in the user interface. **WHEN YOU PASTE THIS CODE IN THE INDENTATION WILL NOT BE CORRECT. You can
+highlight the code and press shift-tab to back it up so it lines up with the** *for row in self.matrix* **line of code.**
 
 .. code-block:: python
     :linenos:
@@ -1696,7 +1698,8 @@ is configured in the user interface.
 
 Next, we create 256 tiles by creating the 16x16 matrix. As we create tiles we'll
 count from 0 to 255. If we come to a number that is in our list of random numbers,
-we'll make a tile a bomb. Otherwise, a tile is just a tile. Here is code to do this:
+we'll make a tile a bomb. Otherwise, a tile is just a tile. Here is code to do this. Again,
+be careful to line this code up with the *for loop* in the previous code.
 
 .. code-block:: python
     :linenos:
@@ -1816,7 +1819,7 @@ You may also want to disable all mouse clicks. You can do this in the *Tile game
 .. code-block:: python
 
     self.onclick(None)
-    self.onclick(None,btn=3)
+    self.onclick(None,btn=2)
 
 So, to recap, in this lesson you should have added code to both the *gameOver* methods of *Tile* and the *MineSweepApplication* classes and you should
 have added code to both the *whenRightClicked* and the *whenLeftClicked* methods of the *Tile* class.
@@ -1837,7 +1840,7 @@ To do this we add an else statement to the *whenLeftClicked* method as outlined 
         else:
             # stuff we write in lesson 17
 
-        screen.update()
+        self.screen.update()
 
 To complete this code we want to do the following. First we want to hide the tile and
 decrement the number of tiles in the game. We can do this by writing a line of code like this:
@@ -1893,7 +1896,9 @@ Then, once we have the list of neighbors, if none of the neighbors are bombs,
 we can uncover the neighbors by going through the list of neighbors and calling whenLeftClicked on them.
 
 The last little bit is to display a number in place of a tile to indicate the
-number of bombs that are adjacent to the tile. This code will do that.
+number of bombs that are adjacent to the tile. This code will do that. **AGAIN, make sure
+that this code get's indented correctly. It should line up with the** *if bombNeighbors == 0* **if statement
+above it.**
 
 .. code-block:: python
     :linenos:
