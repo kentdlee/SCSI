@@ -1958,7 +1958,7 @@ value by calling *get* as the comment above says. For instance, to get the numbe
     bombCount = int(self.bombVar.get())
 
 The other nice feature of this application keeps track of elapsed time in seconds. This is done by using the *after* method on the *Tkinter* root window and
-using the *datetime* module. By writing this code in your *MineSweepApplication* class
+using the *datetime* module. By writing this code in your *MineSweepApplication* class.
 
 .. code-block:: python
 
