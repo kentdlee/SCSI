@@ -2270,6 +2270,26 @@ and the other element from the *ballList* if a ball has collided with the curren
 There is one gotcha in this project. If you are iterating over a list, then you cannot alter this list while iterating over it. So, you'll
 first need to build up a list or set of the items to remove from the list. Then you can remove all the items.
 
+Have More Time?
+=================
+
+Use what you learned in this section to build a Frogger application. Frogger is a game where a frog tries to jump across a road and avoid getting run
+over by a car. Then it must jump across the river by landing on logs as it goes. If it makes it to the other side then you might have the game go
+again with the cars and the logs moving slightly faster. You can watch this video to see what the game should look like when it is completed.
+
+<iframe width="600" height="400" src="https://youtu.be/7i_xEpraZH4" frameborder="0" allowfullscreen></iframe>
+
+You can get the image files here. Copy these images to a folder on your computer to use with the Frogger application.
+
+.. figure:: _static/frogger.gif
+
+.. figure:: _static/racecar.gif
+
+.. figure:: _static/log.gif
+
+.. figure:: _static/croc.gif
+
+You can go to the `github website for this project <https://github.com/kentdlee/Frogger>`_ for additional help if you need it, but try to do it yourself first. 
 
 Introducing PyGame
 =========================
