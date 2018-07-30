@@ -90,10 +90,10 @@ class Tile(turtle.RawTurtle):
                     self.color(color)
 
                     self.left(90)
-                    self.forward(18)
+                    self.forward(10)
                     self.write(str(bombNeighbors),align="center",font=("Arial",18,"bold"))
                     self.right(90)
-                    self.forward(18)
+                    self.forward(10)
 
             self.screen.update()
 

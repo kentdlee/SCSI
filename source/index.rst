@@ -1918,11 +1918,11 @@ above it.**
         self.color(color)
 
         self.left(90)
-        self.forward(18)
+        self.forward(10)
         self.write(str(bombNeighbors),align="center",\
                    font=("Arial",18,"bold"))
         self.right(90)
-        self.forward(18)
+        self.forward(10)
 
 Don't erase the *screen.update()* at the end of the method. That's important that it is the last thing done in your *whenLeftClicked* method.
 That's it! You now have a complete Minesweeper application! Congratulations on learning some GUI programming in Python.
