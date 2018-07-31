@@ -2001,7 +2001,7 @@ be added.
 
 
 Or, for more of a challenge you might try programming the game of concentration. You can base much of the game of concentration on the Minesweeper code
-that we wrote on this section.
+that we wrote in this section.
 
 The game of concentration is played by placing, face down, 52 cards. Then you turn over two cards and check to see if they are two red jacks for instance.
 If they are not matching in this way, then you turn them both back over and select two other cards (perhaps one of the same) to see if you have a match.
