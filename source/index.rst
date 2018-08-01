@@ -4221,7 +4221,7 @@ Quick Reference Links
   * `PyGame Documentation <http://pygame.org>`_
   * `Andy Harris' PyGame Development Examples <https://cs.iupui.edu/~aharris/pygame/>`_
   * `PPB GameEngine Documentation <http://aharrisbooks.net/pythonGame/>`_
-  * `Kiran's Python 3 version of Pygame Physics Examples <https://github.com/tomlinsonk/pygame-physics>`_
+  * `Kiran's Python 3 version of PyGame Physics Examples <https://github.com/tomlinsonk/pygame-physics>`_
   * `Jeff Bradberry's Introduction to Monte Carlo Tree Search <http://jeffbradberry.com/posts/2015/09/intro-to-monte-carlo-tree-search/>`_
   * `David Foster's Article on How to build your own AlphaZero AI with Python and Keras <https://medium.com/applied-data-science/how-to-build-your-own-alphazero-ai-using-python-and-keras-7f664945c188>`_
   * `Surag Nair's Github repository on a Generalized AlphaZero Framework <https://github.com/suragnair/alpha-zero-general>`_
