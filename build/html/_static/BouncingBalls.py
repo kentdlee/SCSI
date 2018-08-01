@@ -71,23 +71,7 @@ class BouncingBallsApplication(tkinter.Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.pack(side = tkinter.RIGHT,fill=tkinter.BOTH)
-        self.matrix = []
         self.buildWindow()
-
-    def decTileNum(self):
-        self.tileNum = self.tileNum - 1
-        self.tileLabel.config(text="Tiles = " + str(self.tileNum))
-        if self.tileNum == 40:
-            self.gameOver()
-            tkinter.messagebox.showinfo(message= \
-            "You didn't blow up! Congratulations!!",title="You Won!!!!")
-
-    def gameOver(self):
-        self.running = False
-        for row in self.matrix:
-            for tile in row:
-                tile.gameOver()
-        self.screen.update()
 
     def buildWindow(self):
 
